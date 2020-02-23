@@ -93,8 +93,6 @@ public class UserBaseInfoServiceImpl implements UserBaseInfoService {
     		boolean result =  userBaseInfoDao.addUserLevel(userId);
     		if (result) {
         		accountCacheUtil.deleteUserBaeInfo(userId);
-        		UserBaseInfoDTO user = accountCacheUtil.getUserBaseInfo(userId);
-        		
     		}	
     		return result;
     }

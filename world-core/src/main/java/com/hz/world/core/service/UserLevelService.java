@@ -1,8 +1,5 @@
 package com.hz.world.core.service;
 
-import com.hz.world.common.dto.ResultDTO;
-import com.hz.world.core.domain.dto.UserCoinDTO;
-
 public interface UserLevelService {
 
 

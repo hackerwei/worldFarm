@@ -7,10 +7,7 @@ import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
-import com.alibaba.dubbo.spring.boot.annotation.EnableDubboConfiguration;
 
-import springfox.documentation.swagger2.annotations.EnableSwagger2;
-@EnableDubboConfiguration
 @SpringBootApplication
 @EnableAutoConfiguration(exclude = {DataSourceAutoConfiguration.class})
 @ComponentScan(basePackages = {"com.hz.world"})

@@ -1,14 +1,10 @@
 package com.hz.world.core.dao.impl;
 
-import java.util.List;
-
-import org.apache.commons.lang3.RandomUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.hz.world.core.dao.mapper.UserCoinMapper;
 import com.hz.world.core.dao.model.UserCoin;
-import com.hz.world.core.dao.model.UserCoinExample;
 
 
 /**  

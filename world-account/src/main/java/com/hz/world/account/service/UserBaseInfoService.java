@@ -4,9 +4,7 @@ package com.hz.world.account.service;
 import java.util.List;
 
 import com.hz.world.account.dao.model.UserBaseInfo;
-
 import com.hz.world.account.domain.dto.UserBaseInfoDTO;
-import com.hz.world.account.domain.dto.UserImageDTO;
 
 public interface UserBaseInfoService {
 

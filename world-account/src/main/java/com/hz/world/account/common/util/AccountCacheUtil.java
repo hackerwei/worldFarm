@@ -11,7 +11,6 @@ import com.hz.world.account.domain.dto.UserBaseInfoDTO;
 import com.hz.world.common.cache.redis.RedisService;
 import com.hz.world.common.config.AuthConfig;
 import com.hz.world.common.constant.RedisConstants;
-import com.hz.world.common.util.BeanUtil;
 
 import lombok.extern.slf4j.Slf4j;
 
