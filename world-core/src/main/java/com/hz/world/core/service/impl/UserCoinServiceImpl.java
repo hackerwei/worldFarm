@@ -18,6 +18,7 @@ import com.hz.world.core.dao.model.UserCoin;
 import com.hz.world.core.dao.model.UserCoinChangeLog;
 import com.hz.world.core.domain.dto.UserCoinDTO;
 import com.hz.world.core.service.UserCoinService;
+import com.hz.world.core.service.UserLevelService;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -37,6 +38,8 @@ public class UserCoinServiceImpl implements UserCoinService {
 	private UserCoinDaoImpl userCoinDao;
 	@Autowired
 	private UserCoinChangeLogDaoImpl userCoinChangeLog;
+	@Autowired
+	private UserLevelService userLevelService;
 
 	/**
 	 * 微信登录接口,用户不存在进行注册，否则登录
@@ -63,17 +66,24 @@ public class UserCoinServiceImpl implements UserCoinService {
 	@Override
 	public void updateUserCoin(Long userId) {
 		try {
-			UserCoinDTO coin = getUserCoin(userId);;
+			UserCoinDTO coin = getUserCoin(userId);
+			String income = coreCacheUtil.getUserIncome(userId);
 			long now = new Date().getTime()/1000;
 			if (StringUtils.isNoneEmpty(coin.getIcomeRate()) &&  coin.getIcomeRate() != "0") {
 				BigDecimal b1 = new BigDecimal(coin.getCoin()) ;
 				BigDecimal b2 = new BigDecimal(coin.getIcomeRate()) ;
 				BigDecimal b3 = new BigDecimal(now-coin.getUpdateTime()) ;
 				BigDecimal b4 = b2.multiply(b3);
+				BigDecimal b5 =new BigDecimal(income) ;
 				b1 = b1.add(b4);
+				b5 = b5.add(b4);
 				coin.setCoin(b1.toString()); 
 				coin.setUpdateTime(now);
 				coreCacheUtil.updateCoin(coin);
+				//增加总收益
+				coreCacheUtil.updateUserIncome(userId, b5.toString());
+				//是否升级
+				boolean upgrade = userLevelService.updateLevelByIncome(userId, b5.toString());
 				UserCoinChangeLog record = new UserCoinChangeLog();
 				record.setId(IDGenerator.getUniqueId());
 				record.setUserId(userId);
@@ -81,6 +91,7 @@ public class UserCoinServiceImpl implements UserCoinService {
 				record.setNum(b4.toString());
 				record.setAfterNum(b1.toString());
 				userCoinChangeLog.insert(record);
+				
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -72,6 +72,13 @@ public class AccountCacheUtil {
     	String key = String.format(RedisConstants.RICHER_USER_LOGIN_TOKEN, userId);
     	return redisService.get(key);
     }
-    
+    public Long getUserNo() {
+		String key = RedisConstants.RICHER_USER_NO;
+		if(!redisService.exists(key)) {
+			redisService.set(key, "10000010");
+		}
+		Long userNo = redisService.incr(key);
+		return userNo;
+	}
     
 }

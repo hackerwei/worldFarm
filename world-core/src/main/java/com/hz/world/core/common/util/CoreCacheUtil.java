@@ -1,8 +1,11 @@
 package com.hz.world.core.common.util;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -11,8 +14,10 @@ import com.alibaba.fastjson.JSON;
 import com.hz.world.common.cache.redis.RedisService;
 import com.hz.world.common.constant.RedisConstants;
 import com.hz.world.core.dao.impl.ElementConfigDaoImpl;
+import com.hz.world.core.dao.impl.TitleConfigDaoImpl;
 import com.hz.world.core.dao.impl.UserCoinDaoImpl;
 import com.hz.world.core.dao.model.ElementConfig;
+import com.hz.world.core.dao.model.TitleConfig;
 import com.hz.world.core.dao.model.UserCoin;
 import com.hz.world.core.domain.dto.UserCoinDTO;
 import com.hz.world.core.service.UserElementService;
@@ -31,6 +36,8 @@ public class CoreCacheUtil {
 	UserCoinDaoImpl userCoinDao;
 	@Autowired
 	ElementConfigDaoImpl elementConfigDao;
+	@Autowired
+	TitleConfigDaoImpl titleConfigDao;
 
 	public UserCoinDTO getUserCoin(Long userId) {
 		UserCoinDTO userCoinDTO = new UserCoinDTO();
@@ -39,9 +46,17 @@ public class CoreCacheUtil {
 			UserCoin coin = userCoinDao.findByUserId(userId);
 			if (coin != null) {
 				BeanUtils.copyProperties(coin, userCoinDTO);
-				redisService.set(key, JSON.toJSONString(userCoinDTO));
+				userCoinDTO.setIcomeRate(userElementService.getUserOutput(userId));
+			}else {
+				coin = new UserCoin();
+				coin.setUserId(userId);
+				coin.setIncomeRate("0");
+				coin.setCoin("100");
+				coin.setUpdateTime(new Date().getTime()/1000);
+				userCoinDTO.setIcomeRate("0");
 			}
-			userCoinDTO.setIcomeRate(userElementService.getUserOutput(userId));
+			redisService.set(key, JSON.toJSONString(userCoinDTO));
+			
 		}else {
 			String json = redisService.get(key);
 			userCoinDTO =  JSON.parseObject(json, UserCoinDTO.class);
@@ -89,5 +104,49 @@ public class CoreCacheUtil {
 		String key = String.format(RedisConstants.RICHER_USER_ELEMENT, userId,element);
 		return redisService.hget(key, field);
 	}
+	
+	public void updateUserIncome(Long userId, String income) {
+		String key = String.format(RedisConstants.RICHER_USER_INCOME_COIN, userId);
+		redisService.set(key, income);
+	}
+	public String getUserIncome(Long userId) {
+		String key = String.format(RedisConstants.RICHER_USER_INCOME_COIN, userId);
+		String result =  redisService.get(key);
+		if (StringUtils.isEmpty(result)) {
+			result =  "0";
+		}
+		return result;
+	}
+	
 
-}
+	/**
+	 * 获取用户已达当前等级
+	 * @param income
+	 * @return
+	 */
+	public int getIncomeLevel(String income) {
+		String key = RedisConstants.RICHER_CONFIG_TITLE;
+		List<TitleConfig> list = new ArrayList<TitleConfig>();
+		if (!redisService.exists(key)) {
+			list = titleConfigDao.findAll();
+			redisService.set(key, JSON.toJSONString(list));
+		}else {
+			String json = redisService.get(key);
+			list = JSON.parseArray(json, TitleConfig.class);
+
+		}
+		BigDecimal a = new BigDecimal (income);
+	
+		int level = 1;
+		if (list != null && list.size() > 0) {
+			for (TitleConfig titleConfig : list) {
+				BigDecimal b = new BigDecimal (titleConfig.getIncome());
+				if (a.compareTo(b) >= 0) {
+					level = titleConfig.getId();
+				}
+			}
+		}
+		return level;
+	}
+
+} 

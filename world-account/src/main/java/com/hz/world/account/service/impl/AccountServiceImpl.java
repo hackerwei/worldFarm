@@ -11,9 +11,7 @@ import com.hz.world.account.domain.dto.UserBaseInfoDTO;
 import com.hz.world.account.domain.dto.UserLoginDTO;
 import com.hz.world.account.domain.dto.UserLoginResultDTO;
 import com.hz.world.account.service.AccountService;
-import com.hz.world.common.ids.IDGenerator;
 import com.hz.world.common.util.AccessToken;
-import com.hz.world.core.service.UserCoinService;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -35,8 +33,6 @@ public class AccountServiceImpl implements AccountService {
 	@Autowired
 	private UserBaseInfoDaoImpl userBaseInfoDao;
 	
-	@Autowired
-	private UserCoinService userCoinService;
 	@Autowired
 	private AccountCacheUtil accountCacheUtil;
 
@@ -115,12 +111,10 @@ public class AccountServiceImpl implements AccountService {
 			userBaseInfo.setNickname(nickname); // nickName
 			userBaseInfo.setHeadImg(headImg); // headImg
 			userBaseInfo.setGender(gender);
-			
+			Long userNo = accountCacheUtil.getUserNo();
+			userBaseInfo.setInviteCode(userNo+"");
 			result = userBaseInfoDao.insert(userBaseInfo);
-			if (result) {
-				 userCoinService.createUserCoin(userBaseInfo.getUserId());
-			}
-
+			
 			log.info("thirdRegister,userBaseInfo,userId:{},userBaseInfo:{},r3:{}", userId, userBaseInfo, result);
 		} catch (Exception e) {
 			log.error("thirdRegister,userId:{}", userId, e);

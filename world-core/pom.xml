@@ -16,7 +16,10 @@
             <groupId>com.hz.world</groupId>
             <artifactId>world-common</artifactId>
         </dependency>
- 
+ 		<dependency>
+            <groupId>com.hz.world</groupId>
+            <artifactId>world-account</artifactId>
+        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-activemq</artifactId>
