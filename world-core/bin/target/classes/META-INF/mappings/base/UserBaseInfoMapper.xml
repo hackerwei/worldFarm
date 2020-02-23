@@ -1,0 +1,1115 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.wifi.live.account.dao.UserBaseInfoDao">
+
+	<resultMap id="UserBaseInfoResult" type="com.wifi.live.account.domain.vo.UserBaseInfo">
+		<result column="user_id" property="userId" jdbcType="LONGVARCHAR" />
+		<result column="nickname" property="nickname" jdbcType="VARCHAR" />
+		<result column="real_name" property="realName" jdbcType="VARCHAR" />
+		<result column="mobile" property="mobile" jdbcType="VARCHAR" />
+		<result column="mobile_aes" property="mobileAes" jdbcType="VARCHAR" />
+		<result column="mobile_status" property="mobileStatus" jdbcType="VARCHAR" />
+		<result column="qq" property="qq" jdbcType="VARCHAR" />
+		<result column="wechat" property="wechat" jdbcType="VARCHAR" />
+		<result column="email" property="email" jdbcType="VARCHAR" />
+		<result column="email_status" property="emailStatus" jdbcType="VARCHAR" />
+		<result column="reg_type" property="regType" jdbcType="VARCHAR" />
+		<result column="reg_time" property="regTime" jdbcType="TIMESTAMP" />
+		<result column="reg_ip" property="regIp" jdbcType="VARCHAR" />
+		<result column="country_mcc" property="countryMcc" jdbcType="VARCHAR" />
+		<result column="province_id" property="provinceId" jdbcType="INTEGER" />
+		<result column="birthday" property="birthday" jdbcType="DATE" />
+		<result column="blood_type" property="bloodType" jdbcType="VARCHAR" />
+		<result column="constellation_id" property="constellationId" jdbcType="INTEGER" />
+		<result column="signature" property="signature" jdbcType="VARCHAR" />
+		<result column="avatar" property="avatar" jdbcType="VARCHAR" />
+		<result column="gender" property="gender" jdbcType="VARCHAR" />
+		<result column="hometown_province_id" property="hometownProvinceId" jdbcType="INTEGER" />
+		<result column="location_province_id" property="locationProvinceId" jdbcType="INTEGER" />
+		<result column="height" property="height" jdbcType="INTEGER" />
+		<result column="three_dimensional" property="threeDimensional" jdbcType="VARCHAR" />
+		<result column="hair_color" property="hairColor" jdbcType="VARCHAR" />
+		<result column="school" property="school" jdbcType="VARCHAR" />
+		<result column="address" property="address" jdbcType="VARCHAR" />
+		<result column="profession_code" property="professionCode" jdbcType="INTEGER" />
+		<result column="creator" property="creator" jdbcType="VARCHAR" />
+		<result column="add_time" property="addTime" jdbcType="TIMESTAMP" />
+		<result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+		<result column="is_deleted" property="isDeleted" jdbcType="CHAR" />
+	</resultMap>
+
+	<sql id="UserBaseInfoColumns">
+		<![CDATA[
+			user_id,
+			nickname,
+			real_name,
+			mobile,
+			mobile_aes,
+			mobile_status,
+			qq,
+			wechat,
+			email,
+			email_status,
+			reg_type,
+			reg_time,
+			reg_ip,
+			country_mcc,
+			province_id,
+			birthday,
+			blood_type,
+			constellation_id,
+			signature,
+			avatar,
+			gender,
+			hometown_province_id,
+			location_province_id,
+			height,
+			three_dimensional,
+			hair_color,
+			school,
+			address,
+			profession_code,
+			creator,
+			add_time,
+			update_time,
+			is_deleted
+		]]>
+	</sql>
+
+	<sql id="UserBaseInfoWithOutPkColumns">
+		<![CDATA[
+			nickname,
+			real_name,
+			mobile,
+			mobile_aes,
+			mobile_status,
+			qq,
+			wechat,
+			email,
+			email_status,
+			reg_type,
+			reg_time,
+			reg_ip,
+			country_mcc,
+			province_id,
+			birthday,
+			blood_type,
+			constellation_id,
+			signature,
+			avatar,
+			gender,
+			hometown_province_id,
+			location_province_id,
+			height,
+			three_dimensional,
+			hair_color,
+			school,
+			address,
+			profession_code,
+			creator,
+			add_time,
+			update_time,
+			is_deleted
+		]]>
+	</sql>
+
+
+	<insert id="save" parameterType="com.wifi.live.account.domain.vo.UserBaseInfo" useGeneratedKeys="false" keyProperty="userId" flushCache="true">
+		<![CDATA[
+			INSERT INTO
+			u_user_base_info (
+				user_id ,
+				nickname ,
+				real_name ,
+				mobile ,
+				mobile_aes ,
+				mobile_status ,
+				qq ,
+				wechat ,
+				email ,
+				email_status ,
+				reg_type ,
+				reg_time ,
+				reg_ip ,
+				country_mcc ,
+				province_id ,
+				birthday ,
+				blood_type ,
+				constellation_id ,
+				signature ,
+				avatar ,
+				gender ,
+				hometown_province_id ,
+				location_province_id ,
+				height ,
+				three_dimensional ,
+				hair_color ,
+				school ,
+				address ,
+				profession_code ,
+				creator ,
+				add_time ,
+				update_time ,
+				is_deleted 
+			) values (
+				#{userId,javaType=java.lang.Long,jdbcType=LONGVARCHAR} ,
+				#{nickname,javaType=java.lang.String,jdbcType=VARCHAR} ,
+				#{realName,javaType=java.lang.String,jdbcType=VARCHAR} ,
+				#{mobile,javaType=java.lang.String,jdbcType=VARCHAR} ,
+				#{mobileAes,javaType=java.lang.String,jdbcType=VARCHAR} ,
+				#{mobileStatus,javaType=java.lang.String,jdbcType=VARCHAR} ,
+				#{qq,javaType=java.lang.String,jdbcType=VARCHAR} ,
+				#{wechat,javaType=java.lang.String,jdbcType=VARCHAR} ,
+				#{email,javaType=java.lang.String,jdbcType=VARCHAR} ,
+				#{emailStatus,javaType=java.lang.String,jdbcType=VARCHAR} ,
+				#{regType,javaType=java.lang.String,jdbcType=VARCHAR} ,
+				#{regTime,javaType=java.util.Date,jdbcType=TIMESTAMP} ,
+				#{regIp,javaType=java.lang.String,jdbcType=VARCHAR} ,
+				#{countryMcc,javaType=java.lang.String,jdbcType=VARCHAR} ,
+				#{provinceId,javaType=java.lang.Integer,jdbcType=INTEGER} ,
+				#{birthday,javaType=java.util.Date,jdbcType=DATE} ,
+				#{bloodType,javaType=java.lang.String,jdbcType=VARCHAR} ,
+				#{constellationId,javaType=java.lang.Integer,jdbcType=INTEGER} ,
+				#{signature,javaType=java.lang.String,jdbcType=VARCHAR} ,
+				#{avatar,javaType=java.lang.String,jdbcType=VARCHAR} ,
+				#{gender,javaType=java.lang.String,jdbcType=VARCHAR} ,
+				#{hometownProvinceId,javaType=java.lang.Integer,jdbcType=INTEGER} ,
+				#{locationProvinceId,javaType=java.lang.Integer,jdbcType=INTEGER} ,
+				#{height,javaType=java.lang.Integer,jdbcType=INTEGER} ,
+				#{threeDimensional,javaType=java.lang.String,jdbcType=VARCHAR} ,
+				#{hairColor,javaType=java.lang.String,jdbcType=VARCHAR} ,
+				#{school,javaType=java.lang.String,jdbcType=VARCHAR} ,
+				#{address,javaType=java.lang.String,jdbcType=VARCHAR} ,
+				#{professionCode,javaType=java.lang.Integer,jdbcType=INTEGER} ,
+				#{creator,javaType=java.lang.String,jdbcType=VARCHAR} ,
+				#{addTime,javaType=java.util.Date,jdbcType=TIMESTAMP} ,
+				#{updateTime,javaType=java.util.Date,jdbcType=TIMESTAMP} ,
+				#{isDeleted,javaType=java.lang.String,jdbcType=CHAR} 
+			)
+		]]>
+		<!--
+		<selectKey resultType="java.lang.Long" order="AFTER" keyProperty="id">
+			select LAST_INSERT_ID() as value  
+		</selectKey>
+		 -->
+	</insert>
+	
+	<update id="update" parameterType="com.wifi.live.account.domain.vo.UserBaseInfo">
+		update u_user_base_info
+		<set>
+			<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(nickname)">
+			nickname = #{nickname,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			</if>
+			<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(realName)">
+			real_name = #{realName,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			</if>
+			<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(mobile)">
+			mobile = #{mobile,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			</if>
+			<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(mobileAes)">
+			mobile_aes = #{mobileAes,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			</if>
+			<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(mobileStatus)">
+			mobile_status = #{mobileStatus,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			</if>
+			<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(qq)">
+			qq = #{qq,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			</if>
+			<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(wechat)">
+			wechat = #{wechat,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			</if>
+			<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(email)">
+			email = #{email,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			</if>
+			<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(emailStatus)">
+			email_status = #{emailStatus,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			</if>
+			<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(regType)">
+			reg_type = #{regType,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			</if>
+			<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(regTime)">
+			reg_time = #{regTime,javaType=java.util.Date,jdbcType=TIMESTAMP} ,
+			</if>
+			<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(regIp)">
+			reg_ip = #{regIp,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			</if>
+			<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(countryMcc)">
+			country_mcc = #{countryMcc,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			</if>
+			<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(provinceId)">
+			province_id = #{provinceId,javaType=java.lang.Integer,jdbcType=INTEGER} ,
+			</if>
+			<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(birthday)">
+			birthday = #{birthday,javaType=java.util.Date,jdbcType=DATE} ,
+			</if>
+			<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(bloodType)">
+			blood_type = #{bloodType,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			</if>
+			<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(constellationId)">
+			constellation_id = #{constellationId,javaType=java.lang.Integer,jdbcType=INTEGER} ,
+			</if>
+			<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(signature)">
+			signature = #{signature,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			</if>
+			<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(avatar)">
+			avatar = #{avatar,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			</if>
+			<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(gender)">
+			gender = #{gender,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			</if>
+			<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(hometownProvinceId)">
+			hometown_province_id = #{hometownProvinceId,javaType=java.lang.Integer,jdbcType=INTEGER} ,
+			</if>
+			<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(locationProvinceId)">
+			location_province_id = #{locationProvinceId,javaType=java.lang.Integer,jdbcType=INTEGER} ,
+			</if>
+			<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(height)">
+			height = #{height,javaType=java.lang.Integer,jdbcType=INTEGER} ,
+			</if>
+			<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(threeDimensional)">
+			three_dimensional = #{threeDimensional,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			</if>
+			<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(hairColor)">
+			hair_color = #{hairColor,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			</if>
+			<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(school)">
+			school = #{school,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			</if>
+			<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(address)">
+			address = #{address,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			</if>
+			<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(professionCode)">
+			profession_code = #{professionCode,javaType=java.lang.Integer,jdbcType=INTEGER} ,
+			</if>
+			<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(addTime)">
+			add_time = #{addTime,javaType=java.util.Date,jdbcType=TIMESTAMP} ,
+			</if>
+			<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(updateTime)">
+			update_time = #{updateTime,javaType=java.util.Date,jdbcType=TIMESTAMP} ,
+			</if>
+			<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(isDeleted)">
+			is_deleted = #{isDeleted,javaType=java.lang.String,jdbcType=CHAR} 
+			</if>
+		</set>
+		where 
+			user_id = #{userId} 
+	</update>
+	
+	<update id="updateByCondition">
+		update u_user_base_info
+		<set>
+			<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(entity.nickname)">
+			nickname = #{entity.nickname,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			</if>
+			<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(entity.realName)">
+			real_name = #{entity.realName,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			</if>
+			<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(entity.mobile)">
+			mobile = #{entity.mobile,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			</if>
+			<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(entity.mobileAes)">
+			mobile_aes = #{entity.mobileAes,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			</if>
+			<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(entity.mobileStatus)">
+			mobile_status = #{entity.mobileStatus,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			</if>
+			<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(entity.qq)">
+			qq = #{entity.qq,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			</if>
+			<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(entity.wechat)">
+			wechat = #{entity.wechat,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			</if>
+			<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(entity.email)">
+			email = #{entity.email,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			</if>
+			<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(entity.emailStatus)">
+			email_status = #{entity.emailStatus,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			</if>
+			<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(entity.regType)">
+			reg_type = #{entity.regType,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			</if>
+			<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(entity.regTime)">
+			reg_time = #{entity.regTime,javaType=java.util.Date,jdbcType=TIMESTAMP} ,
+			</if>
+			<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(entity.regIp)">
+			reg_ip = #{entity.regIp,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			</if>
+			<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(entity.countryMcc)">
+			country_mcc = #{entity.countryMcc,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			</if>
+			<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(entity.provinceId)">
+			province_id = #{entity.provinceId,javaType=java.lang.Integer,jdbcType=INTEGER} ,
+			</if>
+			<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(entity.birthday)">
+			birthday = #{entity.birthday,javaType=java.util.Date,jdbcType=DATE} ,
+			</if>
+			<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(entity.bloodType)">
+			blood_type = #{entity.bloodType,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			</if>
+			<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(entity.constellationId)">
+			constellation_id = #{entity.constellationId,javaType=java.lang.Integer,jdbcType=INTEGER} ,
+			</if>
+			<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(entity.signature)">
+			signature = #{entity.signature,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			</if>
+			<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(entity.avatar)">
+			avatar = #{entity.avatar,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			</if>
+			<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(entity.gender)">
+			gender = #{entity.gender,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			</if>
+			<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(entity.hometownProvinceId)">
+			hometown_province_id = #{entity.hometownProvinceId,javaType=java.lang.Integer,jdbcType=INTEGER} ,
+			</if>
+			<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(entity.locationProvinceId)">
+			location_province_id = #{entity.locationProvinceId,javaType=java.lang.Integer,jdbcType=INTEGER} ,
+			</if>
+			<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(entity.height)">
+			height = #{entity.height,javaType=java.lang.Integer,jdbcType=INTEGER} ,
+			</if>
+			<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(entity.threeDimensional)">
+			three_dimensional = #{entity.threeDimensional,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			</if>
+			<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(entity.hairColor)">
+			hair_color = #{entity.hairColor,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			</if>
+			<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(entity.school)">
+			school = #{entity.school,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			</if>
+			<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(entity.address)">
+			address = #{entity.address,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			</if>
+			<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(entity.professionCode)">
+			profession_code = #{entity.professionCode,javaType=java.lang.Integer,jdbcType=INTEGER} ,
+			</if>
+			<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(entity.addTime)">
+			add_time = #{entity.addTime,javaType=java.util.Date,jdbcType=TIMESTAMP} ,
+			</if>
+			<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(entity.updateTime)">
+			update_time = #{entity.updateTime,javaType=java.util.Date,jdbcType=TIMESTAMP} ,
+			</if>
+			<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(entity.isDeleted)">
+			is_deleted = #{entity.isDeleted,javaType=java.lang.String,jdbcType=CHAR} 
+			</if>
+		</set>
+		<where>
+		 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(condition.userId)">
+			and user_id = #{condition.userId}
+		 </if>			
+		 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(condition.nickname)">
+			and nickname = #{condition.nickname}
+		 </if>			
+		 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(condition.realName)">
+			and real_name = #{condition.realName}
+		 </if>			
+		 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(condition.mobile)">
+			and mobile = #{condition.mobile}
+		 </if>			
+		 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(condition.mobileAes)">
+			and mobile_aes = #{condition.mobileAes}
+		 </if>			
+		 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(condition.mobileStatus)">
+			and mobile_status = #{condition.mobileStatus}
+		 </if>			
+		 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(condition.qq)">
+			and qq = #{condition.qq}
+		 </if>			
+		 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(condition.wechat)">
+			and wechat = #{condition.wechat}
+		 </if>			
+		 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(condition.email)">
+			and email = #{condition.email}
+		 </if>			
+		 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(condition.emailStatus)">
+			and email_status = #{condition.emailStatus}
+		 </if>			
+		 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(condition.regType)">
+			and reg_type = #{condition.regType}
+		 </if>			
+		 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(condition.regTime)">
+			and reg_time = #{condition.regTime}
+		 </if>			
+		 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(condition.regIp)">
+			and reg_ip = #{condition.regIp}
+		 </if>			
+		 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(condition.countryMcc)">
+			and country_mcc = #{condition.countryMcc}
+		 </if>			
+		 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(condition.provinceId)">
+			and province_id = #{condition.provinceId}
+		 </if>			
+		 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(condition.birthday)">
+			and birthday = #{condition.birthday}
+		 </if>			
+		 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(condition.bloodType)">
+			and blood_type = #{condition.bloodType}
+		 </if>			
+		 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(condition.constellationId)">
+			and constellation_id = #{condition.constellationId}
+		 </if>			
+		 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(condition.signature)">
+			and signature = #{condition.signature}
+		 </if>			
+		 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(condition.avatar)">
+			and avatar = #{condition.avatar}
+		 </if>			
+		 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(condition.gender)">
+			and gender = #{condition.gender}
+		 </if>			
+		 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(condition.hometownProvinceId)">
+			and hometown_province_id = #{condition.hometownProvinceId}
+		 </if>			
+		 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(condition.locationProvinceId)">
+			and location_province_id = #{condition.locationProvinceId}
+		 </if>			
+		 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(condition.height)">
+			and height = #{condition.height}
+		 </if>			
+		 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(condition.threeDimensional)">
+			and three_dimensional = #{condition.threeDimensional}
+		 </if>			
+		 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(condition.hairColor)">
+			and hair_color = #{condition.hairColor}
+		 </if>			
+		 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(condition.school)">
+			and school = #{condition.school}
+		 </if>			
+		 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(condition.address)">
+			and address = #{condition.address}
+		 </if>			
+		 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(condition.professionCode)">
+			and profession_code = #{condition.professionCode}
+		 </if>			
+		 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(condition.creator)">
+			and creator = #{condition.creator}
+		 </if>			
+		 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(condition.addTime)">
+			and add_time = #{condition.addTime}
+		 </if>			
+		 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(condition.updateTime)">
+			and update_time = #{condition.updateTime}
+		 </if>			
+		 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(condition.isDeleted)">
+			and is_deleted = #{condition.isDeleted}
+		 </if>			
+		</where>   
+	</update>
+	
+   <delete id="delete" parameterType="com.wifi.live.account.domain.vo.UserBaseInfo">
+		delete from u_user_base_info where
+			user_id = #{userId} 
+	</delete> 
+	
+   <delete id="deleteByPK" parameterType="java.lang.Long">
+		delete from u_user_base_info where
+			user_id = #{userId} 
+	</delete>  
+    
+	<select id="findByPK" parameterType="java.lang.Long" resultMap="UserBaseInfoResult" flushCache="false">
+		select <include refid="UserBaseInfoColumns" />
+		from u_user_base_info 
+		where 
+		user_id = #{userId} 
+	</select>	
+	
+	<select id="findByPKs" parameterType="list"  resultMap="UserBaseInfoResult" flushCache="false">
+		select <include refid="UserBaseInfoColumns" />
+			from u_user_base_info 
+			where 
+			user_id in
+			<foreach item="item" index="index" collection="list" open="(" separator="," close=")">#{item}</foreach>					
+	</select>
+	
+	<select id="findAll" resultMap="UserBaseInfoResult"  flushCache="false">
+		select <include refid="UserBaseInfoColumns" />
+			from u_user_base_info 
+	</select>
+
+	<select id="findByEntity" parameterType="com.wifi.live.account.domain.vo.UserBaseInfo" resultMap="UserBaseInfoResult" flushCache="false">
+		select <include refid="UserBaseInfoColumns" />
+			from u_user_base_info 
+			<where>
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(userId)">
+				and user_id = #{userId}
+			 </if>
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(nickname)">
+				and nickname = #{nickname}
+			 </if>
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(realName)">
+				and real_name = #{realName}
+			 </if>
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(mobile)">
+				and mobile = #{mobile}
+			 </if>
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(mobileAes)">
+				and mobile_aes = #{mobileAes}
+			 </if>
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(mobileStatus)">
+				and mobile_status = #{mobileStatus}
+			 </if>
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(qq)">
+				and qq = #{qq}
+			 </if>
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(wechat)">
+				and wechat = #{wechat}
+			 </if>
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(email)">
+				and email = #{email}
+			 </if>
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(emailStatus)">
+				and email_status = #{emailStatus}
+			 </if>
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(regType)">
+				and reg_type = #{regType}
+			 </if>
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(regTime)">
+				and reg_time = #{regTime}
+			 </if>
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(regIp)">
+				and reg_ip = #{regIp}
+			 </if>
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(countryMcc)">
+				and country_mcc = #{countryMcc}
+			 </if>
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(provinceId)">
+				and province_id = #{provinceId}
+			 </if>
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(birthday)">
+				and birthday = #{birthday}
+			 </if>
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(bloodType)">
+				and blood_type = #{bloodType}
+			 </if>
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(constellationId)">
+				and constellation_id = #{constellationId}
+			 </if>
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(signature)">
+				and signature = #{signature}
+			 </if>
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(avatar)">
+				and avatar = #{avatar}
+			 </if>
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(gender)">
+				and gender = #{gender}
+			 </if>
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(hometownProvinceId)">
+				and hometown_province_id = #{hometownProvinceId}
+			 </if>
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(locationProvinceId)">
+				and location_province_id = #{locationProvinceId}
+			 </if>
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(height)">
+				and height = #{height}
+			 </if>
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(threeDimensional)">
+				and three_dimensional = #{threeDimensional}
+			 </if>
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(hairColor)">
+				and hair_color = #{hairColor}
+			 </if>
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(school)">
+				and school = #{school}
+			 </if>
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(address)">
+				and address = #{address}
+			 </if>
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(professionCode)">
+				and profession_code = #{professionCode}
+			 </if>
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(creator)">
+				and creator = #{creator}
+			 </if>
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(addTime)">
+				and add_time = #{addTime}
+			 </if>
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(updateTime)">
+				and update_time = #{updateTime}
+			 </if>
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(isDeleted)">
+				and is_deleted = #{isDeleted}
+			 </if>
+			</where>
+	</select>
+	
+	<select id="findByParams" parameterType="java.util.Map" resultMap="UserBaseInfoResult" flushCache="false">
+		select <include refid="UserBaseInfoColumns" />
+			from u_user_base_info 
+			<where>
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(userId)">
+				and user_id = #{userId}
+			 </if>			
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(nickname)">
+				and nickname = #{nickname}
+			 </if>			
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(realName)">
+				and real_name = #{realName}
+			 </if>			
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(mobile)">
+				and mobile = #{mobile}
+			 </if>			
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(mobileAes)">
+				and mobile_aes = #{mobileAes}
+			 </if>			
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(mobileStatus)">
+				and mobile_status = #{mobileStatus}
+			 </if>			
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(qq)">
+				and qq = #{qq}
+			 </if>			
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(wechat)">
+				and wechat = #{wechat}
+			 </if>			
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(email)">
+				and email = #{email}
+			 </if>			
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(emailStatus)">
+				and email_status = #{emailStatus}
+			 </if>			
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(regType)">
+				and reg_type = #{regType}
+			 </if>			
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(regTime)">
+				and reg_time = #{regTime}
+			 </if>			
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(regIp)">
+				and reg_ip = #{regIp}
+			 </if>			
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(countryMcc)">
+				and country_mcc = #{countryMcc}
+			 </if>			
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(provinceId)">
+				and province_id = #{provinceId}
+			 </if>			
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(birthday)">
+				and birthday = #{birthday}
+			 </if>			
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(bloodType)">
+				and blood_type = #{bloodType}
+			 </if>			
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(constellationId)">
+				and constellation_id = #{constellationId}
+			 </if>			
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(signature)">
+				and signature = #{signature}
+			 </if>			
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(avatar)">
+				and avatar = #{avatar}
+			 </if>			
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(gender)">
+				and gender = #{gender}
+			 </if>			
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(hometownProvinceId)">
+				and hometown_province_id = #{hometownProvinceId}
+			 </if>			
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(locationProvinceId)">
+				and location_province_id = #{locationProvinceId}
+			 </if>			
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(height)">
+				and height = #{height}
+			 </if>			
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(threeDimensional)">
+				and three_dimensional = #{threeDimensional}
+			 </if>			
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(hairColor)">
+				and hair_color = #{hairColor}
+			 </if>			
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(school)">
+				and school = #{school}
+			 </if>			
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(address)">
+				and address = #{address}
+			 </if>			
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(professionCode)">
+				and profession_code = #{professionCode}
+			 </if>			
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(creator)">
+				and creator = #{creator}
+			 </if>			
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(addTime)">
+				and add_time = #{addTime}
+			 </if>			
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(updateTime)">
+				and update_time = #{updateTime}
+			 </if>			
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(isDeleted)">
+				and is_deleted = #{isDeleted}
+			 </if>			
+			</where>			
+	</select>
+	
+	<select id="coutByParams" parameterType="java.util.Map" resultType="Integer">
+		select count(*) from u_user_base_info 
+			<where>
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(userId)">
+				and user_id = #{userId}
+			 </if>			
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(nickname)">
+				and nickname = #{nickname}
+			 </if>			
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(realName)">
+				and real_name = #{realName}
+			 </if>			
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(mobile)">
+				and mobile = #{mobile}
+			 </if>			
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(mobileAes)">
+				and mobile_aes = #{mobileAes}
+			 </if>			
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(mobileStatus)">
+				and mobile_status = #{mobileStatus}
+			 </if>			
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(qq)">
+				and qq = #{qq}
+			 </if>			
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(wechat)">
+				and wechat = #{wechat}
+			 </if>			
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(email)">
+				and email = #{email}
+			 </if>			
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(emailStatus)">
+				and email_status = #{emailStatus}
+			 </if>			
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(regType)">
+				and reg_type = #{regType}
+			 </if>			
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(regTime)">
+				and reg_time = #{regTime}
+			 </if>			
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(regIp)">
+				and reg_ip = #{regIp}
+			 </if>			
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(countryMcc)">
+				and country_mcc = #{countryMcc}
+			 </if>			
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(provinceId)">
+				and province_id = #{provinceId}
+			 </if>			
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(birthday)">
+				and birthday = #{birthday}
+			 </if>			
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(bloodType)">
+				and blood_type = #{bloodType}
+			 </if>			
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(constellationId)">
+				and constellation_id = #{constellationId}
+			 </if>			
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(signature)">
+				and signature = #{signature}
+			 </if>			
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(avatar)">
+				and avatar = #{avatar}
+			 </if>			
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(gender)">
+				and gender = #{gender}
+			 </if>			
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(hometownProvinceId)">
+				and hometown_province_id = #{hometownProvinceId}
+			 </if>			
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(locationProvinceId)">
+				and location_province_id = #{locationProvinceId}
+			 </if>			
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(height)">
+				and height = #{height}
+			 </if>			
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(threeDimensional)">
+				and three_dimensional = #{threeDimensional}
+			 </if>			
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(hairColor)">
+				and hair_color = #{hairColor}
+			 </if>			
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(school)">
+				and school = #{school}
+			 </if>			
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(address)">
+				and address = #{address}
+			 </if>			
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(professionCode)">
+				and profession_code = #{professionCode}
+			 </if>			
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(creator)">
+				and creator = #{creator}
+			 </if>			
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(addTime)">
+				and add_time = #{addTime}
+			 </if>			
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(updateTime)">
+				and update_time = #{updateTime}
+			 </if>			
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(isDeleted)">
+				and is_deleted = #{isDeleted}
+			 </if>			
+			</where>			
+	</select>	
+	
+	<select id="count" resultType="Integer">
+		select count(*) from u_user_base_info 
+	</select>
+
+  	<insert id="saveOrUpdate" parameterType="com.wifi.live.account.domain.vo.UserBaseInfo" >
+		insert into
+		u_user_base_info (
+			user_id ,
+			nickname ,
+			real_name ,
+			mobile ,
+			mobile_aes ,
+			mobile_status ,
+			qq ,
+			wechat ,
+			email ,
+			email_status ,
+			reg_type ,
+			reg_time ,
+			reg_ip ,
+			country_mcc ,
+			province_id ,
+			birthday ,
+			blood_type ,
+			constellation_id ,
+			signature ,
+			avatar ,
+			gender ,
+			hometown_province_id ,
+			location_province_id ,
+			height ,
+			three_dimensional ,
+			hair_color ,
+			school ,
+			address ,
+			profession_code ,
+			creator ,
+			add_time ,
+			update_time ,
+			is_deleted 
+		) values (
+			#{userId,javaType=java.lang.Long,jdbcType=LONGVARCHAR} ,
+			#{nickname,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			#{realName,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			#{mobile,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			#{mobileAes,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			#{mobileStatus,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			#{qq,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			#{wechat,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			#{email,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			#{emailStatus,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			#{regType,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			#{regTime,javaType=java.util.Date,jdbcType=TIMESTAMP} ,
+			#{regIp,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			#{countryMcc,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			#{provinceId,javaType=java.lang.Integer,jdbcType=INTEGER} ,
+			#{birthday,javaType=java.util.Date,jdbcType=DATE} ,
+			#{bloodType,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			#{constellationId,javaType=java.lang.Integer,jdbcType=INTEGER} ,
+			#{signature,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			#{avatar,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			#{gender,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			#{hometownProvinceId,javaType=java.lang.Integer,jdbcType=INTEGER} ,
+			#{locationProvinceId,javaType=java.lang.Integer,jdbcType=INTEGER} ,
+			#{height,javaType=java.lang.Integer,jdbcType=INTEGER} ,
+			#{threeDimensional,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			#{hairColor,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			#{school,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			#{address,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			#{professionCode,javaType=java.lang.Integer,jdbcType=INTEGER} ,
+			#{creator,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			#{addTime,javaType=java.util.Date,jdbcType=TIMESTAMP} ,
+			#{updateTime,javaType=java.util.Date,jdbcType=TIMESTAMP} ,
+			#{isDeleted,javaType=java.lang.String,jdbcType=CHAR} 
+		)
+		on duplicate key update
+			user_id = #{userId,javaType=java.lang.Long,jdbcType=LONGVARCHAR} ,
+			nickname = #{nickname,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			real_name = #{realName,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			mobile = #{mobile,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			mobile_aes = #{mobileAes,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			mobile_status = #{mobileStatus,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			qq = #{qq,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			wechat = #{wechat,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			email = #{email,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			email_status = #{emailStatus,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			reg_type = #{regType,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			reg_time = #{regTime,javaType=java.util.Date,jdbcType=TIMESTAMP} ,
+			reg_ip = #{regIp,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			country_mcc = #{countryMcc,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			province_id = #{provinceId,javaType=java.lang.Integer,jdbcType=INTEGER} ,
+			birthday = #{birthday,javaType=java.util.Date,jdbcType=DATE} ,
+			blood_type = #{bloodType,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			constellation_id = #{constellationId,javaType=java.lang.Integer,jdbcType=INTEGER} ,
+			signature = #{signature,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			avatar = #{avatar,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			gender = #{gender,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			hometown_province_id = #{hometownProvinceId,javaType=java.lang.Integer,jdbcType=INTEGER} ,
+			location_province_id = #{locationProvinceId,javaType=java.lang.Integer,jdbcType=INTEGER} ,
+			height = #{height,javaType=java.lang.Integer,jdbcType=INTEGER} ,
+			three_dimensional = #{threeDimensional,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			hair_color = #{hairColor,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			school = #{school,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			address = #{address,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			profession_code = #{professionCode,javaType=java.lang.Integer,jdbcType=INTEGER} ,
+			creator = #{creator,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			add_time = #{addTime,javaType=java.util.Date,jdbcType=TIMESTAMP} ,
+			update_time = #{updateTime,javaType=java.util.Date,jdbcType=TIMESTAMP} ,
+			is_deleted = #{isDeleted,javaType=java.lang.String,jdbcType=CHAR} 
+	</insert>
+	
+	<insert id="batchSave" parameterType="java.util.List">
+		insert into
+		u_user_base_info (
+			user_id ,
+			nickname ,
+			real_name ,
+			mobile ,
+			mobile_aes ,
+			mobile_status ,
+			qq ,
+			wechat ,
+			email ,
+			email_status ,
+			reg_type ,
+			reg_time ,
+			reg_ip ,
+			country_mcc ,
+			province_id ,
+			birthday ,
+			blood_type ,
+			constellation_id ,
+			signature ,
+			avatar ,
+			gender ,
+			hometown_province_id ,
+			location_province_id ,
+			height ,
+			three_dimensional ,
+			hair_color ,
+			school ,
+			address ,
+			profession_code ,
+			creator ,
+			add_time ,
+			update_time ,
+			is_deleted 
+		) values (
+		   <foreach collection="list" item="item" index="index" separator=",">
+			(#{item.userId} ,#{item.nickname} ,#{item.realName} ,#{item.mobile} ,#{item.mobileAes} ,#{item.mobileStatus} ,#{item.qq} ,#{item.wechat} ,#{item.email} ,#{item.emailStatus} ,#{item.regType} ,#{item.regTime} ,#{item.regIp} ,#{item.countryMcc} ,#{item.provinceId} ,#{item.birthday} ,#{item.bloodType} ,#{item.constellationId} ,#{item.signature} ,#{item.avatar} ,#{item.gender} ,#{item.hometownProvinceId} ,#{item.locationProvinceId} ,#{item.height} ,#{item.threeDimensional} ,#{item.hairColor} ,#{item.school} ,#{item.address} ,#{item.professionCode} ,#{item.creator} ,#{item.addTime} ,#{item.updateTime} ,#{item.isDeleted} )
+		   </foreach>
+		)
+	</insert>
+		
+	<update id="batchUpdate"  parameterType="java.util.List">
+	  <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+			update u_user_base_info
+			<set>
+				<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(item.userId)">
+				user_id = #{item.userId} ,
+				</if>
+				<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(item.nickname)">
+				nickname = #{item.nickname} ,
+				</if>
+				<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(item.realName)">
+				real_name = #{item.realName} ,
+				</if>
+				<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(item.mobile)">
+				mobile = #{item.mobile} ,
+				</if>
+				<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(item.mobileAes)">
+				mobile_aes = #{item.mobileAes} ,
+				</if>
+				<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(item.mobileStatus)">
+				mobile_status = #{item.mobileStatus} ,
+				</if>
+				<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(item.qq)">
+				qq = #{item.qq} ,
+				</if>
+				<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(item.wechat)">
+				wechat = #{item.wechat} ,
+				</if>
+				<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(item.email)">
+				email = #{item.email} ,
+				</if>
+				<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(item.emailStatus)">
+				email_status = #{item.emailStatus} ,
+				</if>
+				<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(item.regType)">
+				reg_type = #{item.regType} ,
+				</if>
+				<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(item.regTime)">
+				reg_time = #{item.regTime} ,
+				</if>
+				<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(item.regIp)">
+				reg_ip = #{item.regIp} ,
+				</if>
+				<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(item.countryMcc)">
+				country_mcc = #{item.countryMcc} ,
+				</if>
+				<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(item.provinceId)">
+				province_id = #{item.provinceId} ,
+				</if>
+				<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(item.birthday)">
+				birthday = #{item.birthday} ,
+				</if>
+				<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(item.bloodType)">
+				blood_type = #{item.bloodType} ,
+				</if>
+				<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(item.constellationId)">
+				constellation_id = #{item.constellationId} ,
+				</if>
+				<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(item.signature)">
+				signature = #{item.signature} ,
+				</if>
+				<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(item.avatar)">
+				avatar = #{item.avatar} ,
+				</if>
+				<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(item.gender)">
+				gender = #{item.gender} ,
+				</if>
+				<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(item.hometownProvinceId)">
+				hometown_province_id = #{item.hometownProvinceId} ,
+				</if>
+				<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(item.locationProvinceId)">
+				location_province_id = #{item.locationProvinceId} ,
+				</if>
+				<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(item.height)">
+				height = #{item.height} ,
+				</if>
+				<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(item.threeDimensional)">
+				three_dimensional = #{item.threeDimensional} ,
+				</if>
+				<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(item.hairColor)">
+				hair_color = #{item.hairColor} ,
+				</if>
+				<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(item.school)">
+				school = #{item.school} ,
+				</if>
+				<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(item.address)">
+				address = #{item.address} ,
+				</if>
+				<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(item.professionCode)">
+				profession_code = #{item.professionCode} ,
+				</if>
+				<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(item.creator)">
+				creator = #{item.creator} ,
+				</if>
+				<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(item.addTime)">
+				add_time = #{item.addTime} ,
+				</if>
+				<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(item.updateTime)">
+				update_time = #{item.updateTime} ,
+				</if>
+				<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(item.isDeleted)">
+				is_deleted = #{item.isDeleted} 
+				</if>
+			</set>
+			where
+				user_id = #{item.userId} 
+	 </foreach>
+    </update>
+	
+  	<delete id="batchDeleteByPKs" parameterType="java.util.List">
+        delete from u_user_base_info 
+		where 
+		user_id in
+		<foreach item="item" index="index" collection="list" open="(" separator="," close=")">#{item}</foreach>					
+    </delete>	
+</mapper>

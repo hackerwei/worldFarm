@@ -1,0 +1,9 @@
+spring:
+  cloud:
+    config:
+      name: live-account
+      profile: ${DEPLOY_ENV}
+      uri: http://config.wifi.com:8888/
+health:  
+  config: 
+    enabled: false

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:amq="http://activemq.apache.org/schema/core"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd
+		http://activemq.apache.org/schema/core http://activemq.apache.org/schema/core/activemq-core-5.9.0.xsd">
+
+	<description>ActiveMq 发送消息配置</description>
+
+	<!-- ConnectionFactory Definition -->
+	<bean id="connectionfactory" class="org.apache.activemq.pool.PooledConnectionFactory" destroy-method="stop">
+		<property name="connectionFactory">
+			<bean class="org.apache.activemq.ActiveMQConnectionFactory">
+				<property name="brokerURL" value="${activemq.broker.url}" />
+				<property name="dispatchAsync" value="true" />
+				<property name="producerWindowSize" value="10240000" />
+				<property name="useAsyncSend" value="true" />
+				<property name="alwaysSessionAsync" value="true" />
+				<property name="sendTimeout" value="3000" />
+			</bean>
+		</property>
+	</bean>
+	<!-- queue JmsTemplate Definition -->
+	<bean id="jmsTemplate" class="org.springframework.jms.core.JmsTemplate">
+		<property name="connectionFactory" ref="connectionfactory" />
+		<property name="receiveTimeout" value="20000" />
+	</bean>
+
+	<!-- Message Sender Definition -->
+	<bean id="registeQueueProducer" class="com.wifi.live.common.activemq.QueueMessageProducer">
+		<property name="jmsTemplate" ref="jmsTemplate"></property>
+		<property name="queueName" value="${activemq.queue.name.registe}"></property>
+	</bean>
+</beans>

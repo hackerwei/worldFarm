@@ -1,0 +1,360 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.wifi.live.account.dao.UserPassportDao">
+
+	<resultMap id="UserPassportResult" type="com.wifi.live.account.domain.vo.UserPassport">
+		<result column="user_id" property="userId" jdbcType="LONGVARCHAR" />
+		<result column="user_name" property="userName" jdbcType="VARCHAR" />
+		<result column="password" property="password" jdbcType="VARCHAR" />
+		<result column="status" property="status" jdbcType="TINYINT" />
+		<result column="creator" property="creator" jdbcType="VARCHAR" />
+		<result column="add_time" property="addTime" jdbcType="TIMESTAMP" />
+		<result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+		<result column="is_deleted" property="isDeleted" jdbcType="CHAR" />
+	</resultMap>
+
+	<sql id="UserPassportColumns">
+		<![CDATA[
+			user_id,
+			user_name,
+			password,
+			status,
+			creator,
+			add_time,
+			update_time,
+			is_deleted
+		]]>
+	</sql>
+
+	<sql id="UserPassportWithOutPkColumns">
+		<![CDATA[
+			user_name,
+			password,
+			status,
+			creator,
+			add_time,
+			update_time,
+			is_deleted
+		]]>
+	</sql>
+
+
+	<insert id="save" parameterType="com.wifi.live.account.domain.vo.UserPassport" useGeneratedKeys="false" keyProperty="userId" flushCache="true">
+		<![CDATA[
+			INSERT INTO
+			u_user_passport (
+				user_id ,
+				user_name ,
+				password ,
+				status ,
+				creator ,
+				add_time ,
+				update_time ,
+				is_deleted 
+			) values (
+				#{userId,javaType=java.lang.Long,jdbcType=LONGVARCHAR} ,
+				#{userName,javaType=java.lang.String,jdbcType=VARCHAR} ,
+				#{password,javaType=java.lang.String,jdbcType=VARCHAR} ,
+				#{status,javaType=Integer,jdbcType=TINYINT} ,
+				#{creator,javaType=java.lang.String,jdbcType=VARCHAR} ,
+				#{addTime,javaType=java.util.Date,jdbcType=TIMESTAMP} ,
+				#{updateTime,javaType=java.util.Date,jdbcType=TIMESTAMP} ,
+				#{isDeleted,javaType=java.lang.String,jdbcType=CHAR} 
+			)
+		]]>
+	</insert>
+	
+	<update id="update" parameterType="com.wifi.live.account.domain.vo.UserPassport">
+		update u_user_passport
+		<set>
+			<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(userName)">
+			user_name = #{userName,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			</if>
+			<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(password)">
+			password = #{password,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			</if>
+			<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(status)">
+			status = #{status,javaType=Integer,jdbcType=TINYINT} ,
+			</if>
+			<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(addTime)">
+			add_time = #{addTime,javaType=java.util.Date,jdbcType=TIMESTAMP} ,
+			</if>
+			<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(updateTime)">
+			update_time = #{updateTime,javaType=java.util.Date,jdbcType=TIMESTAMP} ,
+			</if>
+			<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(isDeleted)">
+			is_deleted = #{isDeleted,javaType=java.lang.String,jdbcType=CHAR} 
+			</if>
+		</set>
+		where 
+			user_id = #{userId} 
+	</update>
+	
+	<update id="updateByCondition">
+		update u_user_passport
+		<set>
+			<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(entity.userName)">
+			user_name = #{entity.userName,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			</if>
+			<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(entity.password)">
+			password = #{entity.password,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			</if>
+			<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(entity.status)">
+			status = #{entity.status,javaType=Integer,jdbcType=TINYINT} ,
+			</if>
+			<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(entity.addTime)">
+			add_time = #{entity.addTime,javaType=java.util.Date,jdbcType=TIMESTAMP} ,
+			</if>
+			<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(entity.updateTime)">
+			update_time = #{entity.updateTime,javaType=java.util.Date,jdbcType=TIMESTAMP} ,
+			</if>
+			<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(entity.isDeleted)">
+			is_deleted = #{entity.isDeleted,javaType=java.lang.String,jdbcType=CHAR} 
+			</if>
+		</set>
+		<where>
+		 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(condition.userId)">
+			and user_id = #{condition.userId}
+		 </if>			
+		 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(condition.userName)">
+			and user_name = #{condition.userName}
+		 </if>			
+		 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(condition.password)">
+			and password = #{condition.password}
+		 </if>			
+		 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(condition.status)">
+			and status = #{condition.status}
+		 </if>			
+		 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(condition.creator)">
+			and creator = #{condition.creator}
+		 </if>			
+		 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(condition.addTime)">
+			and add_time = #{condition.addTime}
+		 </if>			
+		 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(condition.updateTime)">
+			and update_time = #{condition.updateTime}
+		 </if>			
+		 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(condition.isDeleted)">
+			and is_deleted = #{condition.isDeleted}
+		 </if>			
+		</where>   
+	</update>
+	
+   <delete id="delete" parameterType="com.wifi.live.account.domain.vo.UserPassport">
+		delete from u_user_passport where
+			user_id = #{userId} 
+	</delete> 
+	
+   <delete id="deleteByPK" parameterType="java.lang.Long">
+		delete from u_user_passport where
+			user_id = #{userId} 
+	</delete>  
+    
+	<select id="findByPK" parameterType="java.lang.Long" resultMap="UserPassportResult" flushCache="false">
+		select <include refid="UserPassportColumns" />
+		from u_user_passport 
+		where 
+		user_id = #{userId} 
+	</select>	
+	
+	<select id="findByPKs" parameterType="list"  resultMap="UserPassportResult" flushCache="false">
+		select <include refid="UserPassportColumns" />
+			from u_user_passport 
+			where 
+			user_id in
+			<foreach item="item" index="index" collection="list" open="(" separator="," close=")">#{item}</foreach>					
+	</select>
+	
+	<select id="findAll" resultMap="UserPassportResult"  flushCache="false">
+		select <include refid="UserPassportColumns" />
+			from u_user_passport 
+	</select>
+
+	<select id="findByEntity" parameterType="com.wifi.live.account.domain.vo.UserPassport" resultMap="UserPassportResult" flushCache="false">
+		select <include refid="UserPassportColumns" />
+			from u_user_passport 
+			<where>
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(userId)">
+				and user_id = #{userId}
+			 </if>
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(userName)">
+				and user_name = #{userName}
+			 </if>
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(password)">
+				and password = #{password}
+			 </if>
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(status)">
+				and status = #{status}
+			 </if>
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(creator)">
+				and creator = #{creator}
+			 </if>
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(addTime)">
+				and add_time = #{addTime}
+			 </if>
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(updateTime)">
+				and update_time = #{updateTime}
+			 </if>
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(isDeleted)">
+				and is_deleted = #{isDeleted}
+			 </if>
+			</where>
+	</select>
+	
+	<select id="findByParams" parameterType="java.util.Map" resultMap="UserPassportResult" flushCache="false">
+		select <include refid="UserPassportColumns" />
+			from u_user_passport 
+			<where>
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(userId)">
+				and user_id = #{userId}
+			 </if>			
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(userName)">
+				and user_name = #{userName}
+			 </if>			
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(password)">
+				and password = #{password}
+			 </if>			
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(status)">
+				and status = #{status}
+			 </if>			
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(creator)">
+				and creator = #{creator}
+			 </if>			
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(addTime)">
+				and add_time = #{addTime}
+			 </if>			
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(updateTime)">
+				and update_time = #{updateTime}
+			 </if>			
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(isDeleted)">
+				and is_deleted = #{isDeleted}
+			 </if>			
+			</where>			
+	</select>
+	
+	<select id="coutByParams" parameterType="java.util.Map" resultType="Integer">
+		select count(*) from u_user_passport 
+			<where>
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(userId)">
+				and user_id = #{userId}
+			 </if>			
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(userName)">
+				and user_name = #{userName}
+			 </if>			
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(password)">
+				and password = #{password}
+			 </if>			
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(status)">
+				and status = #{status}
+			 </if>			
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(creator)">
+				and creator = #{creator}
+			 </if>			
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(addTime)">
+				and add_time = #{addTime}
+			 </if>			
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(updateTime)">
+				and update_time = #{updateTime}
+			 </if>			
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(isDeleted)">
+				and is_deleted = #{isDeleted}
+			 </if>			
+			</where>			
+	</select>	
+	
+	<select id="count" resultType="Integer">
+		select count(*) from u_user_passport 
+	</select>
+
+  	<insert id="saveOrUpdate" parameterType="com.wifi.live.account.domain.vo.UserPassport" >
+		insert into
+		u_user_passport (
+			user_id ,
+			user_name ,
+			password ,
+			status ,
+			creator ,
+			add_time ,
+			update_time ,
+			is_deleted 
+		) values (
+			#{userId,javaType=java.lang.Long,jdbcType=LONGVARCHAR} ,
+			#{userName,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			#{password,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			#{status,javaType=Integer,jdbcType=TINYINT} ,
+			#{creator,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			#{addTime,javaType=java.util.Date,jdbcType=TIMESTAMP} ,
+			#{updateTime,javaType=java.util.Date,jdbcType=TIMESTAMP} ,
+			#{isDeleted,javaType=java.lang.String,jdbcType=CHAR} 
+		)
+		on duplicate key update
+			user_id = #{userId,javaType=java.lang.Long,jdbcType=LONGVARCHAR} ,
+			user_name = #{userName,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			password = #{password,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			status = #{status,javaType=Integer,jdbcType=TINYINT} ,
+			creator = #{creator,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			add_time = #{addTime,javaType=java.util.Date,jdbcType=TIMESTAMP} ,
+			update_time = #{updateTime,javaType=java.util.Date,jdbcType=TIMESTAMP} ,
+			is_deleted = #{isDeleted,javaType=java.lang.String,jdbcType=CHAR} 
+	</insert>
+	
+	<insert id="batchSave" parameterType="java.util.List">
+		insert into
+		u_user_passport (
+			user_id ,
+			user_name ,
+			password ,
+			status ,
+			creator ,
+			add_time ,
+			update_time ,
+			is_deleted 
+		) values (
+		   <foreach collection="list" item="item" index="index" separator=",">
+			(#{item.userId} ,#{item.userName} ,#{item.password} ,#{item.status} ,#{item.creator} ,#{item.addTime} ,#{item.updateTime} ,#{item.isDeleted} )
+		   </foreach>
+		)
+	</insert>
+		
+	<update id="batchUpdate"  parameterType="java.util.List">
+	  <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+			update u_user_passport
+			<set>
+				<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(userId)">
+				user_id = #{item.userId} ,
+				</if>
+				<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(userName)">
+				user_name = #{item.userName} ,
+				</if>
+				<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(password)">
+				password = #{item.password} ,
+				</if>
+				<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(status)">
+				status = #{item.status} ,
+				</if>
+				<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(creator)">
+				creator = #{item.creator} ,
+				</if>
+				<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(addTime)">
+				add_time = #{item.addTime} ,
+				</if>
+				<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(updateTime)">
+				update_time = #{item.updateTime} ,
+				</if>
+				<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(isDeleted)">
+				is_deleted = #{item.isDeleted} 
+				</if>
+			</set>
+			where
+				user_id = #{item.userId} 
+	 </foreach>
+    </update>
+	
+  	<delete id="batchDeleteByPKs" parameterType="java.util.List">
+        delete from u_user_passport 
+		where 
+		user_id in
+		<foreach item="item" index="index" collection="list" open="(" separator="," close=")">#{item}</foreach>					
+    </delete>	
+</mapper>

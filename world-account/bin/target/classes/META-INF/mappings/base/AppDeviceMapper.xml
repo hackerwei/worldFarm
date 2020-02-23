@@ -1,0 +1,845 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.wifi.live.account.dao.AppDeviceDao">
+
+	<resultMap id="AppDeviceResult" type="com.wifi.live.account.domain.vo.AppDevice">
+		<result column="id" property="id" jdbcType="LONGVARCHAR" />
+		<result column="dhid" property="dhid" jdbcType="VARCHAR" />
+		<result column="ci" property="ci" jdbcType="VARCHAR" />
+		<result column="pid" property="pid" jdbcType="VARCHAR" />
+		<result column="imei" property="imei" jdbcType="VARCHAR" />
+		<result column="imsi" property="imsi" jdbcType="VARCHAR" />
+		<result column="mac" property="mac" jdbcType="VARCHAR" />
+		<result column="android_id" property="androidId" jdbcType="VARCHAR" />
+		<result column="ios_ad_id" property="iosAdId" jdbcType="VARCHAR" />
+		<result column="ua" property="ua" jdbcType="VARCHAR" />
+		<result column="os" property="os" jdbcType="VARCHAR" />
+		<result column="osv" property="osv" jdbcType="VARCHAR" />
+		<result column="screenwh" property="screenwh" jdbcType="VARCHAR" />
+		<result column="op" property="op" jdbcType="VARCHAR" />
+		<result column="nettype" property="nettype" jdbcType="VARCHAR" />
+		<result column="version_code" property="versionCode" jdbcType="VARCHAR" />
+		<result column="channel_id" property="channelId" jdbcType="VARCHAR" />
+		<result column="from_id" property="fromId" jdbcType="VARCHAR" />
+		<result column="ip" property="ip" jdbcType="VARCHAR" />
+		<result column="md5" property="md5" jdbcType="VARCHAR" />
+		<result column="version_num" property="versionNum" jdbcType="INTEGER" />
+		<result column="add_time" property="addTime" jdbcType="TIMESTAMP" />
+		<result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+		<result column="is_deleted" property="isDeleted" jdbcType="CHAR" />
+	</resultMap>
+
+	<sql id="AppDeviceColumns">
+		<![CDATA[
+			id,
+			dhid,
+			ci,
+			pid,
+			imei,
+			imsi,
+			mac,
+			android_id,
+			ios_ad_id,
+			ua,
+			os,
+			osv,
+			screenwh,
+			op,
+			nettype,
+			version_code,
+			channel_id,
+			from_id,
+			ip,
+			md5,
+			version_num,
+			add_time,
+			update_time,
+			is_deleted
+		]]>
+	</sql>
+
+	<sql id="AppDeviceWithOutPkColumns">
+		<![CDATA[
+			dhid,
+			ci,
+			pid,
+			imei,
+			imsi,
+			mac,
+			android_id,
+			ios_ad_id,
+			ua,
+			os,
+			osv,
+			screenwh,
+			op,
+			nettype,
+			version_code,
+			channel_id,
+			from_id,
+			ip,
+			md5,
+			version_num,
+			add_time,
+			update_time,
+			is_deleted
+		]]>
+	</sql>
+
+
+	<insert id="save" parameterType="com.wifi.live.account.domain.vo.AppDevice" useGeneratedKeys="false" keyProperty="id" flushCache="true">
+		<![CDATA[
+			INSERT INTO
+			u_app_device (
+				dhid ,
+				ci ,
+				pid ,
+				imei ,
+				imsi ,
+				mac ,
+				android_id ,
+				ios_ad_id ,
+				ua ,
+				os ,
+				osv ,
+				screenwh ,
+				op ,
+				nettype ,
+				version_code ,
+				channel_id ,
+				from_id ,
+				ip ,
+				md5 ,
+				version_num ,
+				add_time ,
+				update_time ,
+				is_deleted 
+			) values (
+				#{dhid,javaType=java.lang.String,jdbcType=VARCHAR} ,
+				#{ci,javaType=java.lang.String,jdbcType=VARCHAR} ,
+				#{pid,javaType=java.lang.String,jdbcType=VARCHAR} ,
+				#{imei,javaType=java.lang.String,jdbcType=VARCHAR} ,
+				#{imsi,javaType=java.lang.String,jdbcType=VARCHAR} ,
+				#{mac,javaType=java.lang.String,jdbcType=VARCHAR} ,
+				#{androidId,javaType=java.lang.String,jdbcType=VARCHAR} ,
+				#{iosAdId,javaType=java.lang.String,jdbcType=VARCHAR} ,
+				#{ua,javaType=java.lang.String,jdbcType=VARCHAR} ,
+				#{os,javaType=java.lang.String,jdbcType=VARCHAR} ,
+				#{osv,javaType=java.lang.String,jdbcType=VARCHAR} ,
+				#{screenwh,javaType=java.lang.String,jdbcType=VARCHAR} ,
+				#{op,javaType=java.lang.String,jdbcType=VARCHAR} ,
+				#{nettype,javaType=java.lang.String,jdbcType=VARCHAR} ,
+				#{versionCode,javaType=java.lang.String,jdbcType=VARCHAR} ,
+				#{channelId,javaType=java.lang.String,jdbcType=VARCHAR} ,
+				#{fromId,javaType=java.lang.String,jdbcType=VARCHAR} ,
+				#{ip,javaType=java.lang.String,jdbcType=VARCHAR} ,
+				#{md5,javaType=java.lang.String,jdbcType=VARCHAR} ,
+				#{versionNum,javaType=java.lang.Integer,jdbcType=INTEGER} ,
+				#{addTime,javaType=java.util.Date,jdbcType=TIMESTAMP} ,
+				#{updateTime,javaType=java.util.Date,jdbcType=TIMESTAMP} ,
+				#{isDeleted,javaType=java.lang.String,jdbcType=CHAR} 
+			)
+		]]>
+		<!--
+		<selectKey resultType="java.lang.Long" order="AFTER" keyProperty="id">
+			select LAST_INSERT_ID() as value  
+		</selectKey>
+		 -->
+	</insert>
+	
+	<update id="update" parameterType="com.wifi.live.account.domain.vo.AppDevice">
+		update u_app_device
+		<set>
+			<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(dhid)">
+			dhid = #{dhid,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			</if>
+			<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(ci)">
+			ci = #{ci,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			</if>
+			<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(pid)">
+			pid = #{pid,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			</if>
+			<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(imei)">
+			imei = #{imei,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			</if>
+			<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(imsi)">
+			imsi = #{imsi,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			</if>
+			<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(mac)">
+			mac = #{mac,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			</if>
+			<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(androidId)">
+			android_id = #{androidId,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			</if>
+			<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(iosAdId)">
+			ios_ad_id = #{iosAdId,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			</if>
+			<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(ua)">
+			ua = #{ua,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			</if>
+			<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(os)">
+			os = #{os,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			</if>
+			<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(osv)">
+			osv = #{osv,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			</if>
+			<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(screenwh)">
+			screenwh = #{screenwh,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			</if>
+			<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(op)">
+			op = #{op,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			</if>
+			<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(nettype)">
+			nettype = #{nettype,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			</if>
+			<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(versionCode)">
+			version_code = #{versionCode,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			</if>
+			<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(channelId)">
+			channel_id = #{channelId,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			</if>
+			<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(fromId)">
+			from_id = #{fromId,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			</if>
+			<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(ip)">
+			ip = #{ip,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			</if>
+			<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(md5)">
+			md5 = #{md5,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			</if>
+			<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(versionNum)">
+			version_num = #{versionNum,javaType=java.lang.Integer,jdbcType=INTEGER} ,
+			</if>
+			<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(addTime)">
+			add_time = #{addTime,javaType=java.util.Date,jdbcType=TIMESTAMP} ,
+			</if>
+			<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(updateTime)">
+			update_time = #{updateTime,javaType=java.util.Date,jdbcType=TIMESTAMP} ,
+			</if>
+			<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(isDeleted)">
+			is_deleted = #{isDeleted,javaType=java.lang.String,jdbcType=CHAR} 
+			</if>
+		</set>
+		where 
+			id = #{id} 
+	</update>
+	
+	<update id="updateByCondition">
+		update u_app_device
+		<set>
+			<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(entity.dhid)">
+			dhid = #{entity.dhid,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			</if>
+			<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(entity.ci)">
+			ci = #{entity.ci,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			</if>
+			<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(entity.pid)">
+			pid = #{entity.pid,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			</if>
+			<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(entity.imei)">
+			imei = #{entity.imei,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			</if>
+			<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(entity.imsi)">
+			imsi = #{entity.imsi,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			</if>
+			<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(entity.mac)">
+			mac = #{entity.mac,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			</if>
+			<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(entity.androidId)">
+			android_id = #{entity.androidId,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			</if>
+			<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(entity.iosAdId)">
+			ios_ad_id = #{entity.iosAdId,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			</if>
+			<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(entity.ua)">
+			ua = #{entity.ua,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			</if>
+			<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(entity.os)">
+			os = #{entity.os,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			</if>
+			<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(entity.osv)">
+			osv = #{entity.osv,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			</if>
+			<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(entity.screenwh)">
+			screenwh = #{entity.screenwh,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			</if>
+			<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(entity.op)">
+			op = #{entity.op,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			</if>
+			<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(entity.nettype)">
+			nettype = #{entity.nettype,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			</if>
+			<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(entity.versionCode)">
+			version_code = #{entity.versionCode,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			</if>
+			<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(entity.channelId)">
+			channel_id = #{entity.channelId,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			</if>
+			<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(entity.fromId)">
+			from_id = #{entity.fromId,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			</if>
+			<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(entity.ip)">
+			ip = #{entity.ip,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			</if>
+			<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(entity.md5)">
+			md5 = #{entity.md5,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			</if>
+			<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(entity.versionNum)">
+			version_num = #{entity.versionNum,javaType=java.lang.Integer,jdbcType=INTEGER} ,
+			</if>
+			<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(entity.addTime)">
+			add_time = #{entity.addTime,javaType=java.util.Date,jdbcType=TIMESTAMP} ,
+			</if>
+			<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(entity.updateTime)">
+			update_time = #{entity.updateTime,javaType=java.util.Date,jdbcType=TIMESTAMP} ,
+			</if>
+			<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(entity.isDeleted)">
+			is_deleted = #{entity.isDeleted,javaType=java.lang.String,jdbcType=CHAR} 
+			</if>
+		</set>
+		<where>
+		 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(condition.id)">
+			and id = #{condition.id}
+		 </if>			
+		 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(condition.dhid)">
+			and dhid = #{condition.dhid}
+		 </if>			
+		 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(condition.ci)">
+			and ci = #{condition.ci}
+		 </if>			
+		 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(condition.pid)">
+			and pid = #{condition.pid}
+		 </if>			
+		 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(condition.imei)">
+			and imei = #{condition.imei}
+		 </if>			
+		 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(condition.imsi)">
+			and imsi = #{condition.imsi}
+		 </if>			
+		 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(condition.mac)">
+			and mac = #{condition.mac}
+		 </if>			
+		 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(condition.androidId)">
+			and android_id = #{condition.androidId}
+		 </if>			
+		 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(condition.iosAdId)">
+			and ios_ad_id = #{condition.iosAdId}
+		 </if>			
+		 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(condition.ua)">
+			and ua = #{condition.ua}
+		 </if>			
+		 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(condition.os)">
+			and os = #{condition.os}
+		 </if>			
+		 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(condition.osv)">
+			and osv = #{condition.osv}
+		 </if>			
+		 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(condition.screenwh)">
+			and screenwh = #{condition.screenwh}
+		 </if>			
+		 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(condition.op)">
+			and op = #{condition.op}
+		 </if>			
+		 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(condition.nettype)">
+			and nettype = #{condition.nettype}
+		 </if>			
+		 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(condition.versionCode)">
+			and version_code = #{condition.versionCode}
+		 </if>			
+		 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(condition.channelId)">
+			and channel_id = #{condition.channelId}
+		 </if>			
+		 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(condition.fromId)">
+			and from_id = #{condition.fromId}
+		 </if>			
+		 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(condition.ip)">
+			and ip = #{condition.ip}
+		 </if>			
+		 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(condition.md5)">
+			and md5 = #{condition.md5}
+		 </if>			
+		 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(condition.versionNum)">
+			and version_num = #{condition.versionNum}
+		 </if>			
+		 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(condition.addTime)">
+			and add_time = #{condition.addTime}
+		 </if>			
+		 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(condition.updateTime)">
+			and update_time = #{condition.updateTime}
+		 </if>			
+		 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(condition.isDeleted)">
+			and is_deleted = #{condition.isDeleted}
+		 </if>			
+		</where>   
+	</update>
+	
+   <delete id="delete" parameterType="com.wifi.live.account.domain.vo.AppDevice">
+		delete from u_app_device where
+			id = #{id} 
+	</delete> 
+	
+   <delete id="deleteByPK" parameterType="java.lang.Long">
+		delete from u_app_device where
+			id = #{id} 
+	</delete>  
+    
+	<select id="findByPK" parameterType="java.lang.Long" resultMap="AppDeviceResult" flushCache="false">
+		select <include refid="AppDeviceColumns" />
+		from u_app_device 
+		where 
+		id = #{id} 
+	</select>	
+	
+	<select id="findByPKs" parameterType="list"  resultMap="AppDeviceResult" flushCache="false">
+		select <include refid="AppDeviceColumns" />
+			from u_app_device 
+			where 
+			id in
+			<foreach item="item" index="index" collection="list" open="(" separator="," close=")">#{item}</foreach>					
+	</select>
+	
+	<select id="findAll" resultMap="AppDeviceResult"  flushCache="false">
+		select <include refid="AppDeviceColumns" />
+			from u_app_device 
+	</select>
+
+	<select id="findByEntity" parameterType="com.wifi.live.account.domain.vo.AppDevice" resultMap="AppDeviceResult" flushCache="false">
+		select <include refid="AppDeviceColumns" />
+			from u_app_device 
+			<where>
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(id)">
+				and id = #{id}
+			 </if>
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(dhid)">
+				and dhid = #{dhid}
+			 </if>
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(ci)">
+				and ci = #{ci}
+			 </if>
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(pid)">
+				and pid = #{pid}
+			 </if>
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(imei)">
+				and imei = #{imei}
+			 </if>
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(imsi)">
+				and imsi = #{imsi}
+			 </if>
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(mac)">
+				and mac = #{mac}
+			 </if>
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(androidId)">
+				and android_id = #{androidId}
+			 </if>
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(iosAdId)">
+				and ios_ad_id = #{iosAdId}
+			 </if>
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(ua)">
+				and ua = #{ua}
+			 </if>
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(os)">
+				and os = #{os}
+			 </if>
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(osv)">
+				and osv = #{osv}
+			 </if>
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(screenwh)">
+				and screenwh = #{screenwh}
+			 </if>
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(op)">
+				and op = #{op}
+			 </if>
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(nettype)">
+				and nettype = #{nettype}
+			 </if>
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(versionCode)">
+				and version_code = #{versionCode}
+			 </if>
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(channelId)">
+				and channel_id = #{channelId}
+			 </if>
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(fromId)">
+				and from_id = #{fromId}
+			 </if>
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(ip)">
+				and ip = #{ip}
+			 </if>
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(md5)">
+				and md5 = #{md5}
+			 </if>
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(versionNum)">
+				and version_num = #{versionNum}
+			 </if>
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(addTime)">
+				and add_time = #{addTime}
+			 </if>
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(updateTime)">
+				and update_time = #{updateTime}
+			 </if>
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(isDeleted)">
+				and is_deleted = #{isDeleted}
+			 </if>
+			</where>
+	</select>
+	
+	<select id="findByParams" parameterType="java.util.Map" resultMap="AppDeviceResult" flushCache="false">
+		select <include refid="AppDeviceColumns" />
+			from u_app_device 
+			<where>
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(id)">
+				and id = #{id}
+			 </if>			
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(dhid)">
+				and dhid = #{dhid}
+			 </if>			
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(ci)">
+				and ci = #{ci}
+			 </if>			
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(pid)">
+				and pid = #{pid}
+			 </if>			
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(imei)">
+				and imei = #{imei}
+			 </if>			
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(imsi)">
+				and imsi = #{imsi}
+			 </if>			
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(mac)">
+				and mac = #{mac}
+			 </if>			
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(androidId)">
+				and android_id = #{androidId}
+			 </if>			
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(iosAdId)">
+				and ios_ad_id = #{iosAdId}
+			 </if>			
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(ua)">
+				and ua = #{ua}
+			 </if>			
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(os)">
+				and os = #{os}
+			 </if>			
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(osv)">
+				and osv = #{osv}
+			 </if>			
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(screenwh)">
+				and screenwh = #{screenwh}
+			 </if>			
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(op)">
+				and op = #{op}
+			 </if>			
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(nettype)">
+				and nettype = #{nettype}
+			 </if>			
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(versionCode)">
+				and version_code = #{versionCode}
+			 </if>			
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(channelId)">
+				and channel_id = #{channelId}
+			 </if>			
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(fromId)">
+				and from_id = #{fromId}
+			 </if>			
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(ip)">
+				and ip = #{ip}
+			 </if>			
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(md5)">
+				and md5 = #{md5}
+			 </if>			
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(versionNum)">
+				and version_num = #{versionNum}
+			 </if>			
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(addTime)">
+				and add_time = #{addTime}
+			 </if>			
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(updateTime)">
+				and update_time = #{updateTime}
+			 </if>			
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(isDeleted)">
+				and is_deleted = #{isDeleted}
+			 </if>			
+			</where>			
+	</select>
+	
+	<select id="coutByParams" parameterType="java.util.Map" resultType="Integer">
+		select count(*) from u_app_device 
+			<where>
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(id)">
+				and id = #{id}
+			 </if>			
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(dhid)">
+				and dhid = #{dhid}
+			 </if>			
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(ci)">
+				and ci = #{ci}
+			 </if>			
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(pid)">
+				and pid = #{pid}
+			 </if>			
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(imei)">
+				and imei = #{imei}
+			 </if>			
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(imsi)">
+				and imsi = #{imsi}
+			 </if>			
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(mac)">
+				and mac = #{mac}
+			 </if>			
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(androidId)">
+				and android_id = #{androidId}
+			 </if>			
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(iosAdId)">
+				and ios_ad_id = #{iosAdId}
+			 </if>			
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(ua)">
+				and ua = #{ua}
+			 </if>			
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(os)">
+				and os = #{os}
+			 </if>			
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(osv)">
+				and osv = #{osv}
+			 </if>			
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(screenwh)">
+				and screenwh = #{screenwh}
+			 </if>			
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(op)">
+				and op = #{op}
+			 </if>			
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(nettype)">
+				and nettype = #{nettype}
+			 </if>			
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(versionCode)">
+				and version_code = #{versionCode}
+			 </if>			
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(channelId)">
+				and channel_id = #{channelId}
+			 </if>			
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(fromId)">
+				and from_id = #{fromId}
+			 </if>			
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(ip)">
+				and ip = #{ip}
+			 </if>			
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(md5)">
+				and md5 = #{md5}
+			 </if>			
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(versionNum)">
+				and version_num = #{versionNum}
+			 </if>			
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(addTime)">
+				and add_time = #{addTime}
+			 </if>			
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(updateTime)">
+				and update_time = #{updateTime}
+			 </if>			
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(isDeleted)">
+				and is_deleted = #{isDeleted}
+			 </if>			
+			</where>			
+	</select>	
+	
+	<select id="count" resultType="Integer">
+		select count(*) from u_app_device 
+	</select>
+
+  	<insert id="saveOrUpdate" parameterType="com.wifi.live.account.domain.vo.AppDevice" >
+		insert into
+		u_app_device (
+			id ,
+			dhid ,
+			ci ,
+			pid ,
+			imei ,
+			imsi ,
+			mac ,
+			android_id ,
+			ios_ad_id ,
+			ua ,
+			os ,
+			osv ,
+			screenwh ,
+			op ,
+			nettype ,
+			version_code ,
+			channel_id ,
+			from_id ,
+			ip ,
+			md5 ,
+			version_num ,
+			add_time ,
+			update_time ,
+			is_deleted 
+		) values (
+			#{id,javaType=java.lang.Long,jdbcType=LONGVARCHAR} ,
+			#{dhid,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			#{ci,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			#{pid,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			#{imei,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			#{imsi,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			#{mac,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			#{androidId,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			#{iosAdId,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			#{ua,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			#{os,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			#{osv,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			#{screenwh,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			#{op,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			#{nettype,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			#{versionCode,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			#{channelId,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			#{fromId,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			#{ip,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			#{md5,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			#{versionNum,javaType=java.lang.Integer,jdbcType=INTEGER} ,
+			#{addTime,javaType=java.util.Date,jdbcType=TIMESTAMP} ,
+			#{updateTime,javaType=java.util.Date,jdbcType=TIMESTAMP} ,
+			#{isDeleted,javaType=java.lang.String,jdbcType=CHAR} 
+		)
+		on duplicate key update
+			id = #{id,javaType=java.lang.Long,jdbcType=LONGVARCHAR} ,
+			dhid = #{dhid,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			ci = #{ci,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			pid = #{pid,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			imei = #{imei,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			imsi = #{imsi,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			mac = #{mac,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			android_id = #{androidId,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			ios_ad_id = #{iosAdId,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			ua = #{ua,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			os = #{os,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			osv = #{osv,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			screenwh = #{screenwh,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			op = #{op,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			nettype = #{nettype,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			version_code = #{versionCode,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			channel_id = #{channelId,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			from_id = #{fromId,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			ip = #{ip,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			md5 = #{md5,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			version_num = #{versionNum,javaType=java.lang.Integer,jdbcType=INTEGER} ,
+			add_time = #{addTime,javaType=java.util.Date,jdbcType=TIMESTAMP} ,
+			update_time = #{updateTime,javaType=java.util.Date,jdbcType=TIMESTAMP} ,
+			is_deleted = #{isDeleted,javaType=java.lang.String,jdbcType=CHAR} 
+	</insert>
+	
+	<insert id="batchSave" parameterType="java.util.List">
+		insert into
+		u_app_device (
+			dhid ,
+			ci ,
+			pid ,
+			imei ,
+			imsi ,
+			mac ,
+			android_id ,
+			ios_ad_id ,
+			ua ,
+			os ,
+			osv ,
+			screenwh ,
+			op ,
+			nettype ,
+			version_code ,
+			channel_id ,
+			from_id ,
+			ip ,
+			md5 ,
+			version_num ,
+			add_time ,
+			update_time ,
+			is_deleted 
+		) values (
+		   <foreach collection="list" item="item" index="index" separator=",">
+			(#{item.dhid} ,#{item.ci} ,#{item.pid} ,#{item.imei} ,#{item.imsi} ,#{item.mac} ,#{item.androidId} ,#{item.iosAdId} ,#{item.ua} ,#{item.os} ,#{item.osv} ,#{item.screenwh} ,#{item.op} ,#{item.nettype} ,#{item.versionCode} ,#{item.channelId} ,#{item.fromId} ,#{item.ip} ,#{item.md5} ,#{item.versionNum} ,#{item.addTime} ,#{item.updateTime} ,#{item.isDeleted} )
+		   </foreach>
+		)
+	</insert>
+		
+	<update id="batchUpdate"  parameterType="java.util.List">
+	  <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+			update u_app_device
+			<set>
+				<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(dhid)">
+				dhid = #{item.dhid} ,
+				</if>
+				<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(ci)">
+				ci = #{item.ci} ,
+				</if>
+				<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(pid)">
+				pid = #{item.pid} ,
+				</if>
+				<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(imei)">
+				imei = #{item.imei} ,
+				</if>
+				<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(imsi)">
+				imsi = #{item.imsi} ,
+				</if>
+				<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(mac)">
+				mac = #{item.mac} ,
+				</if>
+				<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(androidId)">
+				android_id = #{item.androidId} ,
+				</if>
+				<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(iosAdId)">
+				ios_ad_id = #{item.iosAdId} ,
+				</if>
+				<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(ua)">
+				ua = #{item.ua} ,
+				</if>
+				<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(os)">
+				os = #{item.os} ,
+				</if>
+				<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(osv)">
+				osv = #{item.osv} ,
+				</if>
+				<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(screenwh)">
+				screenwh = #{item.screenwh} ,
+				</if>
+				<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(op)">
+				op = #{item.op} ,
+				</if>
+				<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(nettype)">
+				nettype = #{item.nettype} ,
+				</if>
+				<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(versionCode)">
+				version_code = #{item.versionCode} ,
+				</if>
+				<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(channelId)">
+				channel_id = #{item.channelId} ,
+				</if>
+				<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(fromId)">
+				from_id = #{item.fromId} ,
+				</if>
+				<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(ip)">
+				ip = #{item.ip} ,
+				</if>
+				<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(md5)">
+				md5 = #{item.md5} ,
+				</if>
+				<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(versionNum)">
+				version_num = #{item.versionNum} ,
+				</if>
+				<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(addTime)">
+				add_time = #{item.addTime} ,
+				</if>
+				<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(updateTime)">
+				update_time = #{item.updateTime} ,
+				</if>
+				<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(isDeleted)">
+				is_deleted = #{item.isDeleted} 
+				</if>
+			</set>
+			where
+				id = #{item.id} 
+	 </foreach>
+    </update>
+	
+  	<delete id="batchDeleteByPKs" parameterType="java.util.List">
+        delete from u_app_device 
+		where 
+		id in
+		<foreach item="item" index="index" collection="list" open="(" separator="," close=")">#{item}</foreach>					
+    </delete>	
+</mapper>

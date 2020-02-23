@@ -1,0 +1,365 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.wifi.live.account.dao.UserSnsInfoDao">
+
+	<resultMap id="UserSnsInfoResult" type="com.wifi.live.account.domain.vo.UserSnsInfo">
+		<result column="user_id" property="userId" jdbcType="LONGVARCHAR" />
+		<result column="open_id" property="openId" jdbcType="VARCHAR" />
+		<result column="token" property="token" jdbcType="VARCHAR" />
+		<result column="expires_token" property="expiresToken" jdbcType="INTEGER" />
+		<result column="creator" property="creator" jdbcType="VARCHAR" />
+		<result column="add_time" property="addTime" jdbcType="TIMESTAMP" />
+		<result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+		<result column="is_deleted" property="isDeleted" jdbcType="CHAR" />
+	</resultMap>
+
+	<sql id="UserSnsInfoColumns">
+		<![CDATA[
+			user_id,
+			open_id,
+			token,
+			expires_token,
+			creator,
+			add_time,
+			update_time,
+			is_deleted
+		]]>
+	</sql>
+
+	<sql id="UserSnsInfoWithOutPkColumns">
+		<![CDATA[
+			open_id,
+			token,
+			expires_token,
+			creator,
+			add_time,
+			update_time,
+			is_deleted
+		]]>
+	</sql>
+
+
+	<insert id="save" parameterType="com.wifi.live.account.domain.vo.UserSnsInfo" useGeneratedKeys="false" keyProperty="userId" flushCache="true">
+		<![CDATA[
+			INSERT INTO
+			u_user_sns_info (
+				user_id ,
+				open_id ,
+				token ,
+				expires_token ,
+				creator ,
+				add_time ,
+				update_time ,
+				is_deleted 
+			) values (
+				#{userId,javaType=java.lang.Long,jdbcType=LONGVARCHAR} ,
+				#{openId,javaType=java.lang.String,jdbcType=VARCHAR} ,
+				#{token,javaType=java.lang.String,jdbcType=VARCHAR} ,
+				#{expiresToken,javaType=java.lang.Integer,jdbcType=INTEGER} ,
+				#{creator,javaType=java.lang.String,jdbcType=VARCHAR} ,
+				#{addTime,javaType=java.util.Date,jdbcType=TIMESTAMP} ,
+				#{updateTime,javaType=java.util.Date,jdbcType=TIMESTAMP} ,
+				#{isDeleted,javaType=java.lang.String,jdbcType=CHAR} 
+			)
+		]]>
+		<!--
+		<selectKey resultType="java.lang.Long" order="AFTER" keyProperty="id">
+			select LAST_INSERT_ID() as value  
+		</selectKey>
+		 -->
+	</insert>
+	
+	<update id="update" parameterType="com.wifi.live.account.domain.vo.UserSnsInfo">
+		update u_user_sns_info
+		<set>
+			<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(openId)">
+			open_id = #{openId,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			</if>
+			<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(token)">
+			token = #{token,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			</if>
+			<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(expiresToken)">
+			expires_token = #{expiresToken,javaType=java.lang.Integer,jdbcType=INTEGER} ,
+			</if>
+			<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(addTime)">
+			add_time = #{addTime,javaType=java.util.Date,jdbcType=TIMESTAMP} ,
+			</if>
+			<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(updateTime)">
+			update_time = #{updateTime,javaType=java.util.Date,jdbcType=TIMESTAMP} ,
+			</if>
+			<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(isDeleted)">
+			is_deleted = #{isDeleted,javaType=java.lang.String,jdbcType=CHAR} 
+			</if>
+		</set>
+		where 
+			user_id = #{userId} 
+	</update>
+	
+	<update id="updateByCondition">
+		update u_user_sns_info
+		<set>
+			<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(entity.openId)">
+			open_id = #{entity.openId,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			</if>
+			<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(entity.token)">
+			token = #{entity.token,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			</if>
+			<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(entity.expiresToken)">
+			expires_token = #{entity.expiresToken,javaType=java.lang.Integer,jdbcType=INTEGER} ,
+			</if>
+			<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(entity.addTime)">
+			add_time = #{entity.addTime,javaType=java.util.Date,jdbcType=TIMESTAMP} ,
+			</if>
+			<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(entity.updateTime)">
+			update_time = #{entity.updateTime,javaType=java.util.Date,jdbcType=TIMESTAMP} ,
+			</if>
+			<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(entity.isDeleted)">
+			is_deleted = #{entity.isDeleted,javaType=java.lang.String,jdbcType=CHAR} 
+			</if>
+		</set>
+		<where>
+		 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(condition.userId)">
+			and user_id = #{condition.userId}
+		 </if>			
+		 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(condition.openId)">
+			and open_id = #{condition.openId}
+		 </if>			
+		 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(condition.token)">
+			and token = #{condition.token}
+		 </if>			
+		 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(condition.expiresToken)">
+			and expires_token = #{condition.expiresToken}
+		 </if>			
+		 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(condition.creator)">
+			and creator = #{condition.creator}
+		 </if>			
+		 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(condition.addTime)">
+			and add_time = #{condition.addTime}
+		 </if>			
+		 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(condition.updateTime)">
+			and update_time = #{condition.updateTime}
+		 </if>			
+		 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(condition.isDeleted)">
+			and is_deleted = #{condition.isDeleted}
+		 </if>			
+		</where>   
+	</update>
+	
+   <delete id="delete" parameterType="com.wifi.live.account.domain.vo.UserSnsInfo">
+		delete from u_user_sns_info where
+			user_id = #{userId} 
+	</delete> 
+	
+   <delete id="deleteByPK" parameterType="java.lang.Long">
+		delete from u_user_sns_info where
+			user_id = #{userId} 
+	</delete>  
+    
+	<select id="findByPK" parameterType="java.lang.Long" resultMap="UserSnsInfoResult" flushCache="false">
+		select <include refid="UserSnsInfoColumns" />
+		from u_user_sns_info 
+		where 
+		user_id = #{userId} 
+	</select>	
+	
+	<select id="findByPKs" parameterType="list"  resultMap="UserSnsInfoResult" flushCache="false">
+		select <include refid="UserSnsInfoColumns" />
+			from u_user_sns_info 
+			where 
+			user_id in
+			<foreach item="item" index="index" collection="list" open="(" separator="," close=")">#{item}</foreach>					
+	</select>
+	
+	<select id="findAll" resultMap="UserSnsInfoResult"  flushCache="false">
+		select <include refid="UserSnsInfoColumns" />
+			from u_user_sns_info 
+	</select>
+
+	<select id="findByEntity" parameterType="com.wifi.live.account.domain.vo.UserSnsInfo" resultMap="UserSnsInfoResult" flushCache="false">
+		select <include refid="UserSnsInfoColumns" />
+			from u_user_sns_info 
+			<where>
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(userId)">
+				and user_id = #{userId}
+			 </if>
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(openId)">
+				and open_id = #{openId}
+			 </if>
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(token)">
+				and token = #{token}
+			 </if>
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(expiresToken)">
+				and expires_token = #{expiresToken}
+			 </if>
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(creator)">
+				and creator = #{creator}
+			 </if>
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(addTime)">
+				and add_time = #{addTime}
+			 </if>
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(updateTime)">
+				and update_time = #{updateTime}
+			 </if>
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(isDeleted)">
+				and is_deleted = #{isDeleted}
+			 </if>
+			</where>
+	</select>
+	
+	<select id="findByParams" parameterType="java.util.Map" resultMap="UserSnsInfoResult" flushCache="false">
+		select <include refid="UserSnsInfoColumns" />
+			from u_user_sns_info 
+			<where>
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(userId)">
+				and user_id = #{userId}
+			 </if>			
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(openId)">
+				and open_id = #{openId}
+			 </if>			
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(token)">
+				and token = #{token}
+			 </if>			
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(expiresToken)">
+				and expires_token = #{expiresToken}
+			 </if>			
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(creator)">
+				and creator = #{creator}
+			 </if>			
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(addTime)">
+				and add_time = #{addTime}
+			 </if>			
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(updateTime)">
+				and update_time = #{updateTime}
+			 </if>			
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(isDeleted)">
+				and is_deleted = #{isDeleted}
+			 </if>			
+			</where>			
+	</select>
+	
+	<select id="coutByParams" parameterType="java.util.Map" resultType="Integer">
+		select count(*) from u_user_sns_info 
+			<where>
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(userId)">
+				and user_id = #{userId}
+			 </if>			
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(openId)">
+				and open_id = #{openId}
+			 </if>			
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(token)">
+				and token = #{token}
+			 </if>			
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(expiresToken)">
+				and expires_token = #{expiresToken}
+			 </if>			
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(creator)">
+				and creator = #{creator}
+			 </if>			
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(addTime)">
+				and add_time = #{addTime}
+			 </if>			
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(updateTime)">
+				and update_time = #{updateTime}
+			 </if>			
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(isDeleted)">
+				and is_deleted = #{isDeleted}
+			 </if>			
+			</where>			
+	</select>	
+	
+	<select id="count" resultType="Integer">
+		select count(*) from u_user_sns_info 
+	</select>
+
+  	<insert id="saveOrUpdate" parameterType="com.wifi.live.account.domain.vo.UserSnsInfo" >
+		insert into
+		u_user_sns_info (
+			user_id ,
+			open_id ,
+			token ,
+			expires_token ,
+			creator ,
+			add_time ,
+			update_time ,
+			is_deleted 
+		) values (
+			#{userId,javaType=java.lang.Long,jdbcType=LONGVARCHAR} ,
+			#{openId,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			#{token,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			#{expiresToken,javaType=java.lang.Integer,jdbcType=INTEGER} ,
+			#{creator,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			#{addTime,javaType=java.util.Date,jdbcType=TIMESTAMP} ,
+			#{updateTime,javaType=java.util.Date,jdbcType=TIMESTAMP} ,
+			#{isDeleted,javaType=java.lang.String,jdbcType=CHAR} 
+		)
+		on duplicate key update
+			user_id = #{userId,javaType=java.lang.Long,jdbcType=LONGVARCHAR} ,
+			open_id = #{openId,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			token = #{token,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			expires_token = #{expiresToken,javaType=java.lang.Integer,jdbcType=INTEGER} ,
+			creator = #{creator,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			add_time = #{addTime,javaType=java.util.Date,jdbcType=TIMESTAMP} ,
+			update_time = #{updateTime,javaType=java.util.Date,jdbcType=TIMESTAMP} ,
+			is_deleted = #{isDeleted,javaType=java.lang.String,jdbcType=CHAR} 
+	</insert>
+	
+	<insert id="batchSave" parameterType="java.util.List">
+		insert into
+		u_user_sns_info (
+			user_id ,
+			open_id ,
+			token ,
+			expires_token ,
+			creator ,
+			add_time ,
+			update_time ,
+			is_deleted 
+		) values (
+		   <foreach collection="list" item="item" index="index" separator=",">
+			(#{item.userId} ,#{item.openId} ,#{item.token} ,#{item.expiresToken} ,#{item.creator} ,#{item.addTime} ,#{item.updateTime} ,#{item.isDeleted} )
+		   </foreach>
+		)
+	</insert>
+		
+	<update id="batchUpdate"  parameterType="java.util.List">
+	  <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+			update u_user_sns_info
+			<set>
+				<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(userId)">
+				user_id = #{item.userId} ,
+				</if>
+				<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(openId)">
+				open_id = #{item.openId} ,
+				</if>
+				<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(token)">
+				token = #{item.token} ,
+				</if>
+				<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(expiresToken)">
+				expires_token = #{item.expiresToken} ,
+				</if>
+				<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(creator)">
+				creator = #{item.creator} ,
+				</if>
+				<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(addTime)">
+				add_time = #{item.addTime} ,
+				</if>
+				<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(updateTime)">
+				update_time = #{item.updateTime} ,
+				</if>
+				<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(isDeleted)">
+				is_deleted = #{item.isDeleted} 
+				</if>
+			</set>
+			where
+				user_id = #{item.userId} 
+	 </foreach>
+    </update>
+	
+  	<delete id="batchDeleteByPKs" parameterType="java.util.List">
+        delete from u_user_sns_info 
+		where 
+		user_id in
+		<foreach item="item" index="index" collection="list" open="(" separator="," close=")">#{item}</foreach>					
+    </delete>	
+</mapper>

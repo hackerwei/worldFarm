@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.wifi.live</groupId>
+		<artifactId>live-parent</artifactId>
+		<version>1.0.0-SNAPSHOT</version>
+		<relativePath>../../pom/pom.xml</relativePath>
+	</parent>
+	<groupId>com.wifi.live</groupId>
+	<name>Live-Module-Backstage</name>
+	<artifactId>live-backstage</artifactId>
+	<packaging>jar</packaging>
+	<version>1.0.0-SNAPSHOT</version>
+	
+	<properties>
+		<spring-boot.version>1.5.4.RELEASE</spring-boot.version>
+		<!--live dependencies -->
+		<live-dependencies.version>1.0.0-SNAPSHOT</live-dependencies.version>
+		<!--live springboot dependencies-->
+		<live-springboot-dependencies.version>1.0.0-SNAPSHOT</live-springboot-dependencies.version>
+		<!-- Maven Sounce Encoding-->
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+
+	<dependencies>
+	
+		<!-- live account share -->
+		<dependency>
+			<groupId>com.wifi.live</groupId>
+			<artifactId>live-account-share</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.wifi.live</groupId>
+			<artifactId>live-common</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.wifi.live</groupId>
+			<artifactId>live-base</artifactId>
+		</dependency>
+		
+		<!-- live-im-rongcloud-sdk -->
+		<dependency>
+			<groupId>com.wifi.live</groupId>
+			<artifactId>live-im-rongcloud-sdk</artifactId>
+		</dependency>
+		
+		<!-- live thirdparty share -->
+		<dependency>
+			<groupId>com.wifi.live</groupId>
+			<artifactId>live-thirdparty-share</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+		</dependency>
+		
+		<!-- live search share -->
+		<dependency>
+			<groupId>com.wifi.live</groupId>
+			<artifactId>live-search-share</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+		</dependency>
+		
+		<!-- live pay share -->
+		<dependency>
+			<groupId>com.wifi.live</groupId>
+			<artifactId>live-pay-share</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+		</dependency>
+		
+		<!-- live core share -->
+		<dependency>
+			<groupId>com.wifi.live</groupId>
+			<artifactId>live-core-share</artifactId>
+		</dependency>
+		<!--xstream-->
+		<dependency>
+			<groupId>com.thoughtworks.xstream</groupId>
+			<artifactId>xstream</artifactId>
+			<version>1.4.9</version>
+		</dependency>
+		
+		<!-- jsoup-->
+		<dependency>
+			<groupId>org.jsoup</groupId>
+			<artifactId>jsoup</artifactId>
+		</dependency>  
+		
+		<!-- Spring Boot Test 依赖 -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		
+		<!-- dubbo3 和 starter-dubbo start -->
+		<dependency>
+			<groupId>org.mvnsearch.spring.boot</groupId>
+			<artifactId>spring-boot-starter-dubbo</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.curator</groupId>
+			<artifactId>curator-framework</artifactId>
+			<version>2.12.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-devtools</artifactId>
+			<optional>true</optional>
+		</dependency>
+		<dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>dubbo</artifactId>
+        </dependency>
+		<!-- dubbo3 和 starter-dubbo end -->
+	</dependencies>
+	
+	<!-- 插件配置 -->
+	<build>
+	    <finalName>${project.artifactId}</finalName>
+		<plugins>
+			<!-- compiler插件, 设定JDK版本 -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.3</version>
+				<configuration>
+					<source>1.8</source>
+					<target>1.8</target>
+					<showWarnings>true</showWarnings>
+				</configuration>
+			</plugin>
+			<!-- resource插件, 设定编码 -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-resources-plugin</artifactId>
+				<version>2.7</version>
+				<configuration>
+					<encoding>UTF-8</encoding>
+				</configuration>
+			</plugin>
+			<!-- spring boot 插件-->
+			<plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>${spring-boot.version}</version>
+                <configuration>
+                    <executable>false</executable>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+		</plugins>
+	</build>
+</project>

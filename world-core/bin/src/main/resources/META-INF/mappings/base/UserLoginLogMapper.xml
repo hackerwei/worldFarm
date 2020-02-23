@@ -1,0 +1,545 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.wifi.live.account.dao.UserLoginLogDao">
+
+	<resultMap id="UserLoginLogResult" type="com.wifi.live.account.domain.vo.UserLoginLog">
+		<result column="id" property="id" jdbcType="LONGVARCHAR" />
+		<result column="user_id" property="userId" jdbcType="BIGINT" />
+		<result column="from_id" property="fromId" jdbcType="INTEGER" />
+		<result column="channel_id" property="channelId" jdbcType="VARCHAR" />
+		<result column="platform_info" property="platformInfo" jdbcType="VARCHAR" />
+		<result column="terminal_versions" property="terminalVersions" jdbcType="VARCHAR" />
+		<result column="app_versions" property="appVersions" jdbcType="VARCHAR" />
+		<result column="device_id" property="deviceId" jdbcType="VARCHAR" />
+		<result column="ip" property="ip" jdbcType="VARCHAR" />
+		<result column="mac" property="mac" jdbcType="VARCHAR" />
+		<result column="longitude" property="longitude" jdbcType="VARCHAR" />
+		<result column="latitude" property="latitude" jdbcType="VARCHAR" />
+		<result column="login_detail" property="loginDetail" jdbcType="VARCHAR" />
+		<result column="add_time" property="addTime" jdbcType="TIMESTAMP" />
+	</resultMap>
+
+	<sql id="UserLoginLogColumns">
+		<![CDATA[
+			id,
+			user_id,
+			from_id,
+			channel_id,
+			platform_info,
+			terminal_versions,
+			app_versions,
+			device_id,
+			ip,
+			mac,
+			longitude,
+			latitude,
+			login_detail,
+			add_time
+		]]>
+	</sql>
+
+	<sql id="UserLoginLogWithOutPkColumns">
+		<![CDATA[
+			user_id,
+			from_id,
+			channel_id,
+			platform_info,
+			terminal_versions,
+			app_versions,
+			device_id,
+			ip,
+			mac,
+			longitude,
+			latitude,
+			login_detail,
+			add_time
+		]]>
+	</sql>
+
+
+	<insert id="save" parameterType="com.wifi.live.account.domain.vo.UserLoginLog" useGeneratedKeys="false" keyProperty="id" flushCache="true">
+		<![CDATA[
+			INSERT INTO
+			u_user_login_log (
+				user_id ,
+				from_id ,
+				channel_id ,
+				platform_info ,
+				terminal_versions ,
+				app_versions ,
+				device_id ,
+				ip ,
+				mac ,
+				longitude ,
+				latitude ,
+				login_detail ,
+				add_time 
+			) values (
+				#{userId,javaType=java.lang.Long,jdbcType=BIGINT} ,
+				#{fromId,javaType=java.lang.Integer,jdbcType=INTEGER} ,
+				#{channelId,javaType=java.lang.String,jdbcType=VARCHAR} ,
+				#{platformInfo,javaType=java.lang.String,jdbcType=VARCHAR} ,
+				#{terminalVersions,javaType=java.lang.String,jdbcType=VARCHAR} ,
+				#{appVersions,javaType=java.lang.String,jdbcType=VARCHAR} ,
+				#{deviceId,javaType=java.lang.String,jdbcType=VARCHAR} ,
+				#{ip,javaType=java.lang.String,jdbcType=VARCHAR} ,
+				#{mac,javaType=java.lang.String,jdbcType=VARCHAR} ,
+				#{longitude,javaType=java.lang.String,jdbcType=VARCHAR} ,
+				#{latitude,javaType=java.lang.String,jdbcType=VARCHAR} ,
+				#{loginDetail,javaType=java.lang.String,jdbcType=VARCHAR} ,
+				#{addTime,javaType=java.util.Date,jdbcType=TIMESTAMP} 
+			)
+		]]>
+		<!--
+		<selectKey resultType="java.lang.Long" order="AFTER" keyProperty="id">
+			select LAST_INSERT_ID() as value  
+		</selectKey>
+		 -->
+	</insert>
+	
+	<update id="update" parameterType="com.wifi.live.account.domain.vo.UserLoginLog">
+		update u_user_login_log
+		<set>
+			<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(userId)">
+			user_id = #{userId,javaType=java.lang.Long,jdbcType=BIGINT} ,
+			</if>
+			<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(fromId)">
+			from_id = #{fromId,javaType=java.lang.Integer,jdbcType=INTEGER} ,
+			</if>
+			<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(channelId)">
+			channel_id = #{channelId,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			</if>
+			<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(platformInfo)">
+			platform_info = #{platformInfo,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			</if>
+			<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(terminalVersions)">
+			terminal_versions = #{terminalVersions,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			</if>
+			<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(appVersions)">
+			app_versions = #{appVersions,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			</if>
+			<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(deviceId)">
+			device_id = #{deviceId,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			</if>
+			<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(ip)">
+			ip = #{ip,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			</if>
+			<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(mac)">
+			mac = #{mac,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			</if>
+			<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(longitude)">
+			longitude = #{longitude,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			</if>
+			<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(latitude)">
+			latitude = #{latitude,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			</if>
+			<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(loginDetail)">
+			login_detail = #{loginDetail,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			</if>
+			<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(addTime)">
+			add_time = #{addTime,javaType=java.util.Date,jdbcType=TIMESTAMP} 
+			</if>
+		</set>
+		where 
+			id = #{id} 
+	</update>
+	
+	<update id="updateByCondition">
+		update u_user_login_log
+		<set>
+			<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(entity.userId)">
+			user_id = #{entity.userId,javaType=java.lang.Long,jdbcType=BIGINT} ,
+			</if>
+			<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(entity.fromId)">
+			from_id = #{entity.fromId,javaType=java.lang.Integer,jdbcType=INTEGER} ,
+			</if>
+			<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(entity.channelId)">
+			channel_id = #{entity.channelId,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			</if>
+			<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(entity.platformInfo)">
+			platform_info = #{entity.platformInfo,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			</if>
+			<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(entity.terminalVersions)">
+			terminal_versions = #{entity.terminalVersions,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			</if>
+			<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(entity.appVersions)">
+			app_versions = #{entity.appVersions,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			</if>
+			<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(entity.deviceId)">
+			device_id = #{entity.deviceId,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			</if>
+			<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(entity.ip)">
+			ip = #{entity.ip,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			</if>
+			<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(entity.mac)">
+			mac = #{entity.mac,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			</if>
+			<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(entity.longitude)">
+			longitude = #{entity.longitude,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			</if>
+			<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(entity.latitude)">
+			latitude = #{entity.latitude,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			</if>
+			<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(entity.loginDetail)">
+			login_detail = #{entity.loginDetail,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			</if>
+			<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(entity.addTime)">
+			add_time = #{entity.addTime,javaType=java.util.Date,jdbcType=TIMESTAMP} 
+			</if>
+		</set>
+		<where>
+		 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(condition.id)">
+			and id = #{condition.id}
+		 </if>			
+		 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(condition.userId)">
+			and user_id = #{condition.userId}
+		 </if>			
+		 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(condition.fromId)">
+			and from_id = #{condition.fromId}
+		 </if>			
+		 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(condition.channelId)">
+			and channel_id = #{condition.channelId}
+		 </if>			
+		 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(condition.platformInfo)">
+			and platform_info = #{condition.platformInfo}
+		 </if>			
+		 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(condition.terminalVersions)">
+			and terminal_versions = #{condition.terminalVersions}
+		 </if>			
+		 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(condition.appVersions)">
+			and app_versions = #{condition.appVersions}
+		 </if>			
+		 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(condition.deviceId)">
+			and device_id = #{condition.deviceId}
+		 </if>			
+		 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(condition.ip)">
+			and ip = #{condition.ip}
+		 </if>			
+		 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(condition.mac)">
+			and mac = #{condition.mac}
+		 </if>			
+		 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(condition.longitude)">
+			and longitude = #{condition.longitude}
+		 </if>			
+		 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(condition.latitude)">
+			and latitude = #{condition.latitude}
+		 </if>			
+		 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(condition.loginDetail)">
+			and login_detail = #{condition.loginDetail}
+		 </if>			
+		 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(condition.addTime)">
+			and add_time = #{condition.addTime}
+		 </if>			
+		</where>   
+	</update>
+	
+   <delete id="delete" parameterType="com.wifi.live.account.domain.vo.UserLoginLog">
+		delete from u_user_login_log where
+			id = #{id} 
+	</delete> 
+	
+   <delete id="deleteByPK" parameterType="java.lang.Long">
+		delete from u_user_login_log where
+			id = #{id} 
+	</delete>  
+    
+	<select id="findByPK" parameterType="java.lang.Long" resultMap="UserLoginLogResult" flushCache="false">
+		select <include refid="UserLoginLogColumns" />
+		from u_user_login_log 
+		where 
+		id = #{id} 
+	</select>	
+	
+	<select id="findByPKs" parameterType="list"  resultMap="UserLoginLogResult" flushCache="false">
+		select <include refid="UserLoginLogColumns" />
+			from u_user_login_log 
+			where 
+			id in
+			<foreach item="item" index="index" collection="list" open="(" separator="," close=")">#{item}</foreach>					
+	</select>
+	
+	<select id="findAll" resultMap="UserLoginLogResult"  flushCache="false">
+		select <include refid="UserLoginLogColumns" />
+			from u_user_login_log 
+	</select>
+
+	<select id="findByEntity" parameterType="com.wifi.live.account.domain.vo.UserLoginLog" resultMap="UserLoginLogResult" flushCache="false">
+		select <include refid="UserLoginLogColumns" />
+			from u_user_login_log 
+			<where>
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(id)">
+				and id = #{id}
+			 </if>
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(userId)">
+				and user_id = #{userId}
+			 </if>
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(fromId)">
+				and from_id = #{fromId}
+			 </if>
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(channelId)">
+				and channel_id = #{channelId}
+			 </if>
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(platformInfo)">
+				and platform_info = #{platformInfo}
+			 </if>
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(terminalVersions)">
+				and terminal_versions = #{terminalVersions}
+			 </if>
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(appVersions)">
+				and app_versions = #{appVersions}
+			 </if>
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(deviceId)">
+				and device_id = #{deviceId}
+			 </if>
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(ip)">
+				and ip = #{ip}
+			 </if>
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(mac)">
+				and mac = #{mac}
+			 </if>
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(longitude)">
+				and longitude = #{longitude}
+			 </if>
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(latitude)">
+				and latitude = #{latitude}
+			 </if>
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(loginDetail)">
+				and login_detail = #{loginDetail}
+			 </if>
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(addTime)">
+				and add_time = #{addTime}
+			 </if>
+			</where>
+	</select>
+	
+	<select id="findByParams" parameterType="java.util.Map" resultMap="UserLoginLogResult" flushCache="false">
+		select <include refid="UserLoginLogColumns" />
+			from u_user_login_log 
+			<where>
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(id)">
+				and id = #{id}
+			 </if>			
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(userId)">
+				and user_id = #{userId}
+			 </if>			
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(fromId)">
+				and from_id = #{fromId}
+			 </if>			
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(channelId)">
+				and channel_id = #{channelId}
+			 </if>			
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(platformInfo)">
+				and platform_info = #{platformInfo}
+			 </if>			
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(terminalVersions)">
+				and terminal_versions = #{terminalVersions}
+			 </if>			
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(appVersions)">
+				and app_versions = #{appVersions}
+			 </if>			
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(deviceId)">
+				and device_id = #{deviceId}
+			 </if>			
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(ip)">
+				and ip = #{ip}
+			 </if>			
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(mac)">
+				and mac = #{mac}
+			 </if>			
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(longitude)">
+				and longitude = #{longitude}
+			 </if>			
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(latitude)">
+				and latitude = #{latitude}
+			 </if>			
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(loginDetail)">
+				and login_detail = #{loginDetail}
+			 </if>			
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(addTime)">
+				and add_time = #{addTime}
+			 </if>			
+			</where>			
+	</select>
+	
+	<select id="coutByParams" parameterType="java.util.Map" resultType="Integer">
+		select count(*) from u_user_login_log 
+			<where>
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(id)">
+				and id = #{id}
+			 </if>			
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(userId)">
+				and user_id = #{userId}
+			 </if>			
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(fromId)">
+				and from_id = #{fromId}
+			 </if>			
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(channelId)">
+				and channel_id = #{channelId}
+			 </if>			
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(platformInfo)">
+				and platform_info = #{platformInfo}
+			 </if>			
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(terminalVersions)">
+				and terminal_versions = #{terminalVersions}
+			 </if>			
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(appVersions)">
+				and app_versions = #{appVersions}
+			 </if>			
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(deviceId)">
+				and device_id = #{deviceId}
+			 </if>			
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(ip)">
+				and ip = #{ip}
+			 </if>			
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(mac)">
+				and mac = #{mac}
+			 </if>			
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(longitude)">
+				and longitude = #{longitude}
+			 </if>			
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(latitude)">
+				and latitude = #{latitude}
+			 </if>			
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(loginDetail)">
+				and login_detail = #{loginDetail}
+			 </if>			
+			 <if test="@com.wifi.live.common.util.Ognl@isNotEmpty(addTime)">
+				and add_time = #{addTime}
+			 </if>			
+			</where>			
+	</select>	
+	
+	<select id="count" resultType="Integer">
+		select count(*) from u_user_login_log 
+	</select>
+
+  	<insert id="saveOrUpdate" parameterType="com.wifi.live.account.domain.vo.UserLoginLog" >
+		insert into
+		u_user_login_log (
+			id ,
+			user_id ,
+			from_id ,
+			channel_id ,
+			platform_info ,
+			terminal_versions ,
+			app_versions ,
+			device_id ,
+			ip ,
+			mac ,
+			longitude ,
+			latitude ,
+			login_detail ,
+			add_time 
+		) values (
+			#{id,javaType=java.lang.Long,jdbcType=LONGVARCHAR} ,
+			#{userId,javaType=java.lang.Long,jdbcType=BIGINT} ,
+			#{fromId,javaType=java.lang.Integer,jdbcType=INTEGER} ,
+			#{channelId,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			#{platformInfo,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			#{terminalVersions,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			#{appVersions,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			#{deviceId,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			#{ip,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			#{mac,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			#{longitude,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			#{latitude,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			#{loginDetail,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			#{addTime,javaType=java.util.Date,jdbcType=TIMESTAMP} 
+		)
+		on duplicate key update
+			id = #{id,javaType=java.lang.Long,jdbcType=LONGVARCHAR} ,
+			user_id = #{userId,javaType=java.lang.Long,jdbcType=BIGINT} ,
+			from_id = #{fromId,javaType=java.lang.Integer,jdbcType=INTEGER} ,
+			channel_id = #{channelId,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			platform_info = #{platformInfo,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			terminal_versions = #{terminalVersions,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			app_versions = #{appVersions,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			device_id = #{deviceId,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			ip = #{ip,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			mac = #{mac,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			longitude = #{longitude,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			latitude = #{latitude,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			login_detail = #{loginDetail,javaType=java.lang.String,jdbcType=VARCHAR} ,
+			add_time = #{addTime,javaType=java.util.Date,jdbcType=TIMESTAMP} 
+	</insert>
+	
+	<insert id="batchSave" parameterType="java.util.List">
+		insert into
+		u_user_login_log (
+			user_id ,
+			from_id ,
+			channel_id ,
+			platform_info ,
+			terminal_versions ,
+			app_versions ,
+			device_id ,
+			ip ,
+			mac ,
+			longitude ,
+			latitude ,
+			login_detail ,
+			add_time 
+		) values (
+		   <foreach collection="list" item="item" index="index" separator=",">
+			(#{item.userId} ,#{item.fromId} ,#{item.channelId} ,#{item.platformInfo} ,#{item.terminalVersions} ,#{item.appVersions} ,#{item.deviceId} ,#{item.ip} ,#{item.mac} ,#{item.longitude} ,#{item.latitude} ,#{item.loginDetail} ,#{item.addTime} )
+		   </foreach>
+		)
+	</insert>
+		
+	<update id="batchUpdate"  parameterType="java.util.List">
+	  <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+			update u_user_login_log
+			<set>
+				<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(userId)">
+				user_id = #{item.userId} ,
+				</if>
+				<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(fromId)">
+				from_id = #{item.fromId} ,
+				</if>
+				<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(channelId)">
+				channel_id = #{item.channelId} ,
+				</if>
+				<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(platformInfo)">
+				platform_info = #{item.platformInfo} ,
+				</if>
+				<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(terminalVersions)">
+				terminal_versions = #{item.terminalVersions} ,
+				</if>
+				<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(appVersions)">
+				app_versions = #{item.appVersions} ,
+				</if>
+				<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(deviceId)">
+				device_id = #{item.deviceId} ,
+				</if>
+				<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(ip)">
+				ip = #{item.ip} ,
+				</if>
+				<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(mac)">
+				mac = #{item.mac} ,
+				</if>
+				<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(longitude)">
+				longitude = #{item.longitude} ,
+				</if>
+				<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(latitude)">
+				latitude = #{item.latitude} ,
+				</if>
+				<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(loginDetail)">
+				login_detail = #{item.loginDetail} ,
+				</if>
+				<if test="@com.wifi.live.common.util.Ognl@isNotEmpty(addTime)">
+				add_time = #{item.addTime} 
+				</if>
+			</set>
+			where
+				id = #{item.id} 
+	 </foreach>
+    </update>
+	
+  	<delete id="batchDeleteByPKs" parameterType="java.util.List">
+        delete from u_user_login_log 
+		where 
+		id in
+		<foreach item="item" index="index" collection="list" open="(" separator="," close=")">#{item}</foreach>					
+    </delete>	
+</mapper>

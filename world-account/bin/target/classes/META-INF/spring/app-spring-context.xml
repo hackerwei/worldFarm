@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="
+           http://www.springframework.org/schema/beans   http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
+           http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd
+       ">
+
+	<!-- 定义扫描根路径为com.wifi.live.X，使用默认的扫描方式 -->
+	<context:component-scan base-package="com.wifi.live.account" />
+
+	<!-- Mybatis配置 -->
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="com.wifi.live.account.dao" />
+	</bean>
+
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="shardingDataSource" />
+		<property name="typeAliasesPackage" value="com.wifi.live.account.domain.vo" />
+		<property name="mapperLocations" value="classpath*:META-INF/mappings/**/*.xml" />
+	</bean>
+
+	<bean id="log-filter" class="com.alibaba.druid.filter.logging.Slf4jLogFilter">
+		<property name="statementExecutableSqlLogEnable" value="true" />
+	</bean>
+	
+	<bean id="redisService" class="com.wifi.live.common.cache.redis.RedisService"></bean>
+	
+	<!-- 自增ID获取 -->
+	<bean id="sequenceDao" class="com.wifi.live.sequence.DefaultSequenceDao">
+		<property name="dataSource" ref="dataSource"></property>
+	</bean>
+	<bean id="userIdSeq" class="com.wifi.live.sequence.DefaultSequence">
+		<property name="name" value="userId"></property>
+	</bean>
+
+</beans>

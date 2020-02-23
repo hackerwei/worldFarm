@@ -1,0 +1,343 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+  <mapper namespace="com.hz.world.account.dao.mapper.UserBaseInfoMapper" >
+    <resultMap id="UserBaseInfoResult" type="com.hz.world.account.dao.model.UserBaseInfo" >
+      <id column="user_id" property="userId" jdbcType="BIGINT" />
+      <result column="nickname" property="nickname" jdbcType="VARCHAR" />
+      <result column="head_img" property="headImg" jdbcType="VARCHAR" />
+      <result column="gender" property="gender" jdbcType="INTEGER" />
+      <result column="year" property="year" jdbcType="INTEGER" />
+      <result column="level" property="level" jdbcType="INTEGER" />
+      <result column="weight" property="weight" jdbcType="INTEGER" />
+      <result column="from_user_id" property="fromUserId" jdbcType="BIGINT" />
+      <result column="invite_code" property="inviteCode" jdbcType="VARCHAR" />
+      <result column="diamond" property="diamond" jdbcType="INTEGER" />
+      <result column="auth" property="auth" jdbcType="INTEGER" />
+      <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+      <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    </resultMap>
+    <sql id="Example_Where_Clause" >
+      <where >
+        <foreach collection="oredCriteria" item="criteria" separator="or" >
+          <if test="criteria.valid" >
+            <trim prefix="(" suffix=")" prefixOverrides="and" >
+              <foreach collection="criteria.criteria" item="criterion" >
+                <choose >
+                  <when test="criterion.noValue" >
+                    and ${criterion.condition}
+                  </when>
+                  <when test="criterion.singleValue" >
+                    and ${criterion.condition} #{criterion.value}
+                  </when>
+                  <when test="criterion.betweenValue" >
+                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                  </when>
+                  <when test="criterion.listValue" >
+                    and ${criterion.condition}
+                    <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                      #{listItem}
+                    </foreach>
+                  </when>
+                </choose>
+              </foreach>
+            </trim>
+          </if>
+        </foreach>
+      </where>
+    </sql>
+    <sql id="Update_By_Example_Where_Clause" >
+      <where >
+        <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+          <if test="criteria.valid" >
+            <trim prefix="(" suffix=")" prefixOverrides="and" >
+              <foreach collection="criteria.criteria" item="criterion" >
+                <choose >
+                  <when test="criterion.noValue" >
+                    and ${criterion.condition}
+                  </when>
+                  <when test="criterion.singleValue" >
+                    and ${criterion.condition} #{criterion.value}
+                  </when>
+                  <when test="criterion.betweenValue" >
+                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                  </when>
+                  <when test="criterion.listValue" >
+                    and ${criterion.condition}
+                    <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                      #{listItem}
+                    </foreach>
+                  </when>
+                </choose>
+              </foreach>
+            </trim>
+          </if>
+        </foreach>
+      </where>
+    </sql>
+    <sql id="UserBaseInfoColumns" >
+      user_id, nickname, head_img, gender, year, level, weight, from_user_id, invite_code, 
+      diamond, auth, create_time, update_time
+    </sql>
+    <select id="selectByExample" resultMap="UserBaseInfoResult" parameterType="com.hz.world.account.dao.model.UserBaseInfoExample" >
+      select
+      <if test="distinct" >
+        distinct
+      </if>
+      <include refid="UserBaseInfoColumns" />
+      from user_base_info
+      <if test="_parameter != null" >
+        <include refid="Example_Where_Clause" />
+      </if>
+      <if test="orderByClause != null" >
+        order by ${orderByClause}
+      </if>
+      <if test="mysqlOffset != null" >
+        <if test="mysqlLength != null" >
+           limit #{mysqlOffset} , #{mysqlLength} 
+        </if>
+      </if>
+    </select>
+    <select id="selectByPrimaryKey" resultMap="UserBaseInfoResult" parameterType="java.lang.Long" >
+      select 
+      <include refid="UserBaseInfoColumns" />
+      from user_base_info
+      where user_id = #{userId,jdbcType=BIGINT}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+      delete from user_base_info
+      where user_id = #{userId,jdbcType=BIGINT}
+    </delete>
+    <delete id="deleteByExample" parameterType="com.hz.world.account.dao.model.UserBaseInfoExample" >
+      delete from user_base_info
+      <if test="_parameter != null" >
+        <include refid="Example_Where_Clause" />
+      </if>
+    </delete>
+    <insert id="insert" parameterType="com.hz.world.account.dao.model.UserBaseInfo" >
+      insert into user_base_info (user_id, nickname, head_img, 
+        gender, year, level, 
+        weight, from_user_id, invite_code, 
+        diamond, auth, create_time, 
+        update_time)
+      values (#{userId,jdbcType=BIGINT}, #{nickname,jdbcType=VARCHAR}, #{headImg,jdbcType=VARCHAR}, 
+        #{gender,jdbcType=INTEGER}, #{year,jdbcType=INTEGER}, #{level,jdbcType=INTEGER}, 
+        #{weight,jdbcType=INTEGER}, #{fromUserId,jdbcType=BIGINT}, #{inviteCode,jdbcType=VARCHAR}, 
+        #{diamond,jdbcType=INTEGER}, #{auth,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
+        #{updateTime,jdbcType=TIMESTAMP})
+    </insert>
+    <insert id="insertSelective" parameterType="com.hz.world.account.dao.model.UserBaseInfo" >
+      insert into user_base_info
+      <trim prefix="(" suffix=")" suffixOverrides="," >
+        <if test="userId != null" >
+          user_id,
+        </if>
+        <if test="nickname != null" >
+          nickname,
+        </if>
+        <if test="headImg != null" >
+          head_img,
+        </if>
+        <if test="gender != null" >
+          gender,
+        </if>
+        <if test="year != null" >
+          year,
+        </if>
+        <if test="level != null" >
+          level,
+        </if>
+        <if test="weight != null" >
+          weight,
+        </if>
+        <if test="fromUserId != null" >
+          from_user_id,
+        </if>
+        <if test="inviteCode != null" >
+          invite_code,
+        </if>
+        <if test="diamond != null" >
+          diamond,
+        </if>
+        <if test="auth != null" >
+          auth,
+        </if>
+        <if test="createTime != null" >
+          create_time,
+        </if>
+        <if test="updateTime != null" >
+          update_time,
+        </if>
+      </trim>
+      <trim prefix="values (" suffix=")" suffixOverrides="," >
+        <if test="userId != null" >
+          #{userId,jdbcType=BIGINT},
+        </if>
+        <if test="nickname != null" >
+          #{nickname,jdbcType=VARCHAR},
+        </if>
+        <if test="headImg != null" >
+          #{headImg,jdbcType=VARCHAR},
+        </if>
+        <if test="gender != null" >
+          #{gender,jdbcType=INTEGER},
+        </if>
+        <if test="year != null" >
+          #{year,jdbcType=INTEGER},
+        </if>
+        <if test="level != null" >
+          #{level,jdbcType=INTEGER},
+        </if>
+        <if test="weight != null" >
+          #{weight,jdbcType=INTEGER},
+        </if>
+        <if test="fromUserId != null" >
+          #{fromUserId,jdbcType=BIGINT},
+        </if>
+        <if test="inviteCode != null" >
+          #{inviteCode,jdbcType=VARCHAR},
+        </if>
+        <if test="diamond != null" >
+          #{diamond,jdbcType=INTEGER},
+        </if>
+        <if test="auth != null" >
+          #{auth,jdbcType=INTEGER},
+        </if>
+        <if test="createTime != null" >
+          #{createTime,jdbcType=TIMESTAMP},
+        </if>
+        <if test="updateTime != null" >
+          #{updateTime,jdbcType=TIMESTAMP},
+        </if>
+      </trim>
+    </insert>
+    <select id="countByExample" parameterType="com.hz.world.account.dao.model.UserBaseInfoExample" resultType="java.lang.Integer" >
+      select count(*) from user_base_info
+      <if test="_parameter != null" >
+        <include refid="Example_Where_Clause" />
+      </if>
+    </select>
+    <update id="updateByExampleSelective" parameterType="map" >
+      update user_base_info
+      <set >
+        <if test="record.userId != null" >
+          user_id = #{record.userId,jdbcType=BIGINT},
+        </if>
+        <if test="record.nickname != null" >
+          nickname = #{record.nickname,jdbcType=VARCHAR},
+        </if>
+        <if test="record.headImg != null" >
+          head_img = #{record.headImg,jdbcType=VARCHAR},
+        </if>
+        <if test="record.gender != null" >
+          gender = #{record.gender,jdbcType=INTEGER},
+        </if>
+        <if test="record.year != null" >
+          year = #{record.year,jdbcType=INTEGER},
+        </if>
+        <if test="record.level != null" >
+          level = #{record.level,jdbcType=INTEGER},
+        </if>
+        <if test="record.weight != null" >
+          weight = #{record.weight,jdbcType=INTEGER},
+        </if>
+        <if test="record.fromUserId != null" >
+          from_user_id = #{record.fromUserId,jdbcType=BIGINT},
+        </if>
+        <if test="record.inviteCode != null" >
+          invite_code = #{record.inviteCode,jdbcType=VARCHAR},
+        </if>
+        <if test="record.diamond != null" >
+          diamond = #{record.diamond,jdbcType=INTEGER},
+        </if>
+        <if test="record.auth != null" >
+          auth = #{record.auth,jdbcType=INTEGER},
+        </if>
+        <if test="record.createTime != null" >
+          create_time = #{record.createTime,jdbcType=TIMESTAMP},
+        </if>
+        <if test="record.updateTime != null" >
+          update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+        </if>
+      </set>
+      <if test="_parameter != null" >
+        <include refid="Update_By_Example_Where_Clause" />
+      </if>
+    </update>
+    <update id="updateByExample" parameterType="map" >
+      update user_base_info
+      set user_id = #{record.userId,jdbcType=BIGINT},
+        nickname = #{record.nickname,jdbcType=VARCHAR},
+        head_img = #{record.headImg,jdbcType=VARCHAR},
+        gender = #{record.gender,jdbcType=INTEGER},
+        year = #{record.year,jdbcType=INTEGER},
+        level = #{record.level,jdbcType=INTEGER},
+        weight = #{record.weight,jdbcType=INTEGER},
+        from_user_id = #{record.fromUserId,jdbcType=BIGINT},
+        invite_code = #{record.inviteCode,jdbcType=VARCHAR},
+        diamond = #{record.diamond,jdbcType=INTEGER},
+        auth = #{record.auth,jdbcType=INTEGER},
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP}
+      <if test="_parameter != null" >
+        <include refid="Update_By_Example_Where_Clause" />
+      </if>
+    </update>
+    <update id="updateByPrimaryKeySelective" parameterType="com.hz.world.account.dao.model.UserBaseInfo" >
+      update user_base_info
+      <set >
+        <if test="nickname != null" >
+          nickname = #{nickname,jdbcType=VARCHAR},
+        </if>
+        <if test="headImg != null" >
+          head_img = #{headImg,jdbcType=VARCHAR},
+        </if>
+        <if test="gender != null" >
+          gender = #{gender,jdbcType=INTEGER},
+        </if>
+        <if test="year != null" >
+          year = #{year,jdbcType=INTEGER},
+        </if>
+        <if test="level != null" >
+          level = #{level,jdbcType=INTEGER},
+        </if>
+        <if test="weight != null" >
+          weight = #{weight,jdbcType=INTEGER},
+        </if>
+        <if test="fromUserId != null" >
+          from_user_id = #{fromUserId,jdbcType=BIGINT},
+        </if>
+        <if test="inviteCode != null" >
+          invite_code = #{inviteCode,jdbcType=VARCHAR},
+        </if>
+        <if test="diamond != null" >
+          diamond = #{diamond,jdbcType=INTEGER},
+        </if>
+        <if test="auth != null" >
+          auth = #{auth,jdbcType=INTEGER},
+        </if>
+        <if test="createTime != null" >
+          create_time = #{createTime,jdbcType=TIMESTAMP},
+        </if>
+        <if test="updateTime != null" >
+          update_time = #{updateTime,jdbcType=TIMESTAMP},
+        </if>
+      </set>
+      where user_id = #{userId,jdbcType=BIGINT}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.hz.world.account.dao.model.UserBaseInfo" >
+      update user_base_info
+      set nickname = #{nickname,jdbcType=VARCHAR},
+        head_img = #{headImg,jdbcType=VARCHAR},
+        gender = #{gender,jdbcType=INTEGER},
+        year = #{year,jdbcType=INTEGER},
+        level = #{level,jdbcType=INTEGER},
+        weight = #{weight,jdbcType=INTEGER},
+        from_user_id = #{fromUserId,jdbcType=BIGINT},
+        invite_code = #{inviteCode,jdbcType=VARCHAR},
+        diamond = #{diamond,jdbcType=INTEGER},
+        auth = #{auth,jdbcType=INTEGER},
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+        update_time = #{updateTime,jdbcType=TIMESTAMP}
+      where user_id = #{userId,jdbcType=BIGINT}
+    </update>
+  </mapper>

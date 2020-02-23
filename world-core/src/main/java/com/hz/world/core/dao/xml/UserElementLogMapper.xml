@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+  <mapper namespace="com.hz.world.core.dao.mapper.UserElementLogMapper" >
+    <resultMap id="UserElementLogResult" type="com.hz.world.core.dao.model.UserElementLog" >
+      <id column="id" property="id" jdbcType="BIGINT" />
+      <result column="user_id" property="userId" jdbcType="BIGINT" />
+      <result column="element" property="element" jdbcType="INTEGER" />
+      <result column="level" property="level" jdbcType="INTEGER" />
+      <result column="add_time" property="addTime" jdbcType="TIMESTAMP" />
+    </resultMap>
+    <sql id="Example_Where_Clause" >
+      <where >
+        <foreach collection="oredCriteria" item="criteria" separator="or" >
+          <if test="criteria.valid" >
+            <trim prefix="(" suffix=")" prefixOverrides="and" >
+              <foreach collection="criteria.criteria" item="criterion" >
+                <choose >
+                  <when test="criterion.noValue" >
+                    and ${criterion.condition}
+                  </when>
+                  <when test="criterion.singleValue" >
+                    and ${criterion.condition} #{criterion.value}
+                  </when>
+                  <when test="criterion.betweenValue" >
+                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                  </when>
+                  <when test="criterion.listValue" >
+                    and ${criterion.condition}
+                    <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                      #{listItem}
+                    </foreach>
+                  </when>
+                </choose>
+              </foreach>
+            </trim>
+          </if>
+        </foreach>
+      </where>
+    </sql>
+    <sql id="Update_By_Example_Where_Clause" >
+      <where >
+        <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+          <if test="criteria.valid" >
+            <trim prefix="(" suffix=")" prefixOverrides="and" >
+              <foreach collection="criteria.criteria" item="criterion" >
+                <choose >
+                  <when test="criterion.noValue" >
+                    and ${criterion.condition}
+                  </when>
+                  <when test="criterion.singleValue" >
+                    and ${criterion.condition} #{criterion.value}
+                  </when>
+                  <when test="criterion.betweenValue" >
+                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                  </when>
+                  <when test="criterion.listValue" >
+                    and ${criterion.condition}
+                    <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                      #{listItem}
+                    </foreach>
+                  </when>
+                </choose>
+              </foreach>
+            </trim>
+          </if>
+        </foreach>
+      </where>
+    </sql>
+    <sql id="UserElementLogColumns" >
+      id, user_id, element, level, add_time
+    </sql>
+    <select id="selectByExample" resultMap="UserElementLogResult" parameterType="com.hz.world.core.dao.model.UserElementLogExample" >
+      select
+      <if test="distinct" >
+        distinct
+      </if>
+      <include refid="UserElementLogColumns" />
+      from user_element_log
+      <if test="_parameter != null" >
+        <include refid="Example_Where_Clause" />
+      </if>
+      <if test="orderByClause != null" >
+        order by ${orderByClause}
+      </if>
+      <if test="mysqlOffset != null" >
+        <if test="mysqlLength != null" >
+           limit #{mysqlOffset} , #{mysqlLength} 
+        </if>
+      </if>
+    </select>
+    <select id="selectByPrimaryKey" resultMap="UserElementLogResult" parameterType="java.lang.Long" >
+      select 
+      <include refid="UserElementLogColumns" />
+      from user_element_log
+      where id = #{id,jdbcType=BIGINT}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+      delete from user_element_log
+      where id = #{id,jdbcType=BIGINT}
+    </delete>
+    <delete id="deleteByExample" parameterType="com.hz.world.core.dao.model.UserElementLogExample" >
+      delete from user_element_log
+      <if test="_parameter != null" >
+        <include refid="Example_Where_Clause" />
+      </if>
+    </delete>
+    <insert id="insert" parameterType="com.hz.world.core.dao.model.UserElementLog" >
+      insert into user_element_log (id, user_id, element, 
+        level, add_time)
+      values (#{id,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT}, #{element,jdbcType=INTEGER}, 
+        #{level,jdbcType=INTEGER}, #{addTime,jdbcType=TIMESTAMP})
+    </insert>
+    <insert id="insertSelective" parameterType="com.hz.world.core.dao.model.UserElementLog" >
+      insert into user_element_log
+      <trim prefix="(" suffix=")" suffixOverrides="," >
+        <if test="id != null" >
+          id,
+        </if>
+        <if test="userId != null" >
+          user_id,
+        </if>
+        <if test="element != null" >
+          element,
+        </if>
+        <if test="level != null" >
+          level,
+        </if>
+        <if test="addTime != null" >
+          add_time,
+        </if>
+      </trim>
+      <trim prefix="values (" suffix=")" suffixOverrides="," >
+        <if test="id != null" >
+          #{id,jdbcType=BIGINT},
+        </if>
+        <if test="userId != null" >
+          #{userId,jdbcType=BIGINT},
+        </if>
+        <if test="element != null" >
+          #{element,jdbcType=INTEGER},
+        </if>
+        <if test="level != null" >
+          #{level,jdbcType=INTEGER},
+        </if>
+        <if test="addTime != null" >
+          #{addTime,jdbcType=TIMESTAMP},
+        </if>
+      </trim>
+    </insert>
+    <select id="countByExample" parameterType="com.hz.world.core.dao.model.UserElementLogExample" resultType="java.lang.Integer" >
+      select count(*) from user_element_log
+      <if test="_parameter != null" >
+        <include refid="Example_Where_Clause" />
+      </if>
+    </select>
+    <update id="updateByExampleSelective" parameterType="map" >
+      update user_element_log
+      <set >
+        <if test="record.id != null" >
+          id = #{record.id,jdbcType=BIGINT},
+        </if>
+        <if test="record.userId != null" >
+          user_id = #{record.userId,jdbcType=BIGINT},
+        </if>
+        <if test="record.element != null" >
+          element = #{record.element,jdbcType=INTEGER},
+        </if>
+        <if test="record.level != null" >
+          level = #{record.level,jdbcType=INTEGER},
+        </if>
+        <if test="record.addTime != null" >
+          add_time = #{record.addTime,jdbcType=TIMESTAMP},
+        </if>
+      </set>
+      <if test="_parameter != null" >
+        <include refid="Update_By_Example_Where_Clause" />
+      </if>
+    </update>
+    <update id="updateByExample" parameterType="map" >
+      update user_element_log
+      set id = #{record.id,jdbcType=BIGINT},
+        user_id = #{record.userId,jdbcType=BIGINT},
+        element = #{record.element,jdbcType=INTEGER},
+        level = #{record.level,jdbcType=INTEGER},
+        add_time = #{record.addTime,jdbcType=TIMESTAMP}
+      <if test="_parameter != null" >
+        <include refid="Update_By_Example_Where_Clause" />
+      </if>
+    </update>
+    <update id="updateByPrimaryKeySelective" parameterType="com.hz.world.core.dao.model.UserElementLog" >
+      update user_element_log
+      <set >
+        <if test="userId != null" >
+          user_id = #{userId,jdbcType=BIGINT},
+        </if>
+        <if test="element != null" >
+          element = #{element,jdbcType=INTEGER},
+        </if>
+        <if test="level != null" >
+          level = #{level,jdbcType=INTEGER},
+        </if>
+        <if test="addTime != null" >
+          add_time = #{addTime,jdbcType=TIMESTAMP},
+        </if>
+      </set>
+      where id = #{id,jdbcType=BIGINT}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.hz.world.core.dao.model.UserElementLog" >
+      update user_element_log
+      set user_id = #{userId,jdbcType=BIGINT},
+        element = #{element,jdbcType=INTEGER},
+        level = #{level,jdbcType=INTEGER},
+        add_time = #{addTime,jdbcType=TIMESTAMP}
+      where id = #{id,jdbcType=BIGINT}
+    </update>
+  </mapper>
