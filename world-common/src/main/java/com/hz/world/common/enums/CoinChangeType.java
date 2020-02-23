@@ -10,7 +10,10 @@ package com.hz.world.common.enums;
 public enum CoinChangeType {
     
     ADD(0, "收益递增"),
-    UPGRADE_ELEMENT(1, "升级元素");
+    UPGRADE_ELEMENT(1, "升级元素"),
+    EXT_INCOME(2, "三小时收益"),
+    OFFLINE_REWARD(3, "离线收益"),
+    ;
     private final int code;
     private final String desc;
 

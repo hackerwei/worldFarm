@@ -92,9 +92,8 @@ public class UserElementServiceImpl implements UserElementService {
 			coreCacheUtil.addUserElementValue(userId, element, ElementAdd.OUTPUT.getCode(), output.toString());
 			//更新总的产出率
 			String totalOutput = getUserOutput(userId);
-			UserCoinDTO coin = coreCacheUtil.getUserCoin(userId);
-			coin.setIcomeRate(totalOutput);
-			coreCacheUtil.updateCoin(coin);
+			userCoinService.updateOutput(userId, totalOutput);
+			
 			resultDTO.set(ResultCodeEnum.SUCCESS, "OK");
 		} catch (Exception e) {
 			e.printStackTrace();

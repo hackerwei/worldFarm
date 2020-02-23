@@ -2,9 +2,12 @@ package com.hz.world.api.account.request;
 
 import lombok.Data;
 
+
 /**
- * @outhor lujian
- * @create 2018-06-28 16:06
+ * Title: 
+ * Description: 
+ * author linyanchun
+ * date Feb 23, 2020 
  */
 @Data
 public class UserInfoRequest {

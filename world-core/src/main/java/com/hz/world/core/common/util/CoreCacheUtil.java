@@ -20,6 +20,7 @@ import com.hz.world.core.dao.model.ElementConfig;
 import com.hz.world.core.dao.model.TitleConfig;
 import com.hz.world.core.dao.model.UserCoin;
 import com.hz.world.core.domain.dto.UserCoinDTO;
+import com.hz.world.core.domain.dto.UserTmpIncomeDTO;
 import com.hz.world.core.service.UserElementService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -147,6 +148,26 @@ public class CoreCacheUtil {
 			}
 		}
 		return level;
+	}
+
+	/**
+	 * 创建临时收益
+	 * @param income
+	 * @return
+	 */
+	public void createTmpUserIncome(Long userId, UserTmpIncomeDTO income) {
+		String key = String.format(RedisConstants.RICHER_USER_TMP_INCOME, userId);
+		redisService.set(key, JSON.toJSONString(income));
+	}
+	
+	public UserTmpIncomeDTO getTmpIncome(Long userId) {
+		String key = String.format(RedisConstants.RICHER_USER_TMP_INCOME, userId);
+		if (redisService.exists(key)) {
+			String json = redisService.get(key);
+			return  JSON.parseObject(json, UserTmpIncomeDTO.class);
+			 
+		}
+		return null;
 	}
 
 } 
