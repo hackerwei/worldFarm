@@ -15,6 +15,7 @@ public enum ElementAdd {
 	CHALLAGE("challage", "挑战"),
 	COLLECT("collect", "收集"),
 	OFFER("offer", "祭天"),
+	CATCH("catch", "捕捞"),
 	OUTPUT("output", "产出"),
 	;
     private final String code;

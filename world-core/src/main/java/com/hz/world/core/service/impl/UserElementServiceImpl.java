@@ -3,6 +3,7 @@ package com.hz.world.core.service.impl;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import com.hz.world.common.dto.ResultDTO;
 import com.hz.world.common.enums.CoinChangeType;
 import com.hz.world.common.enums.ElementAdd;
 import com.hz.world.common.ids.IDGenerator;
+import com.hz.world.core.common.util.ConfigCacheUtil;
 import com.hz.world.core.common.util.CoreCacheUtil;
 import com.hz.world.core.dao.impl.UserCoinDaoImpl;
 import com.hz.world.core.dao.impl.UserElementDaoImpl;
@@ -20,7 +22,6 @@ import com.hz.world.core.dao.impl.UserElementLogDaoImpl;
 import com.hz.world.core.dao.model.ElementConfig;
 import com.hz.world.core.dao.model.UserElement;
 import com.hz.world.core.dao.model.UserElementLog;
-import com.hz.world.core.domain.dto.UserCoinDTO;
 import com.hz.world.core.domain.dto.UserElementDTO;
 import com.hz.world.core.service.UserCoinService;
 import com.hz.world.core.service.UserElementService;
@@ -37,6 +38,8 @@ public class UserElementServiceImpl implements UserElementService {
 	@Autowired
 	private CoreCacheUtil coreCacheUtil;
 	@Autowired
+	private ConfigCacheUtil configCacheUtil;
+	@Autowired
 	private UserCoinDaoImpl userCoinDao;
 	@Autowired
 	private UserElementDaoImpl userElementDao;
@@ -48,6 +51,7 @@ public class UserElementServiceImpl implements UserElementService {
 	public ResultDTO<String> upgradeElement(Long userId, Integer element, Integer originLevel, Integer newLevel) {
 		ResultDTO<String> resultDTO = new ResultDTO<String>();
 		try {
+			userCoinService.updateUserCoin(userId);
 			UserElement userElement = userElementDao.fingUserElement(userId, element);
 			int initLevel = 0;
 			if (userElement != null ) {
@@ -101,9 +105,29 @@ public class UserElementServiceImpl implements UserElementService {
 		}
 		return resultDTO;
 	}
+	@Override
+	public ResultDTO<String> addElementAdd(Long userId, Integer element, String field, String value){
+		ResultDTO<String> resultDTO = new ResultDTO<String>();
+		try {
+			userCoinService.updateUserCoin(userId);	
+			//更新元素收益
+			coreCacheUtil.addUserElementValue(userId, element, field, value);
+			BigDecimal output = getOutputCoin(userId, element);
+			//更新单个元素产出
+			coreCacheUtil.addUserElementValue(userId, element, ElementAdd.OUTPUT.getCode(), output.toString());
+			//更新总的产出率
+			String totalOutput = getUserOutput(userId);
+			userCoinService.updateOutput(userId, totalOutput);
+			resultDTO.set(ResultCodeEnum.SUCCESS, "OK");
+		} catch (Exception e) {
+			e.printStackTrace();
+			resultDTO.set(ResultCodeEnum.ERROR_HANDLE, "异常");
+		}
+		return resultDTO;
+	}
 
 	private BigDecimal getCostCoin(Integer element, Integer originLevel, Integer newLevel) {
-		ElementConfig config = coreCacheUtil.getElement(element);
+		ElementConfig config = configCacheUtil.getElement(element);
 		if (config == null) {
 			return null;
 		}
@@ -126,20 +150,32 @@ public class UserElementServiceImpl implements UserElementService {
 	
 	private BigDecimal getOutputCoin(Long userId, Integer element) {
 		UserElement userElement = userElementDao.fingUserElement(userId, element);
-		ElementConfig config = coreCacheUtil.getElement(element);
+		ElementConfig config = configCacheUtil.getElement(element);
 		if (userElement == null || config == null) {
 			return BigDecimal.valueOf(0);
 		}
+		Map<String,String> addMaps = coreCacheUtil.getUserElementObject(userId,element);
+		int add = 0;
+		if (addMaps != null) {
+			for(Map.Entry<String, String> entry : addMaps.entrySet()){
+			    String mapKey = entry.getKey();
+			    String mapValue = entry.getValue();
+			    if (!mapKey.equals(ElementAdd.OUTPUT.getCode()) && !mapKey.equals(ElementAdd.LEVEL.getCode()) ) {
+			    	add += Integer.parseInt(mapValue);
+				}
+			}
+		}
+		
 		BigDecimal initialOuput = new BigDecimal(config.getInitialOutput());
 		
-		BigDecimal result = initialOuput.multiply(BigDecimal.valueOf(userElement.getLevel()));
+		BigDecimal result = initialOuput.multiply(BigDecimal.valueOf(userElement.getLevel())).multiply(BigDecimal.valueOf(1+add));
 		  
 	    return result;
 
 	}
 	@Override
 	public String getUserOutput(Long userId) {
-		List<ElementConfig> configList =  coreCacheUtil.getElementList();
+		List<ElementConfig> configList =  configCacheUtil.getElementList();
 		BigDecimal output = new BigDecimal(0);
 		if (configList != null && configList.size() > 0) {
 			for (ElementConfig elementConfig : configList) {
@@ -154,7 +190,7 @@ public class UserElementServiceImpl implements UserElementService {
 	@Override
 	public List<UserElementDTO> getUserElementList(Long userId){
 		List<UserElementDTO> elementList = new ArrayList<UserElementDTO>();
-		List<ElementConfig> configList =  coreCacheUtil.getElementList();
+		List<ElementConfig> configList =  configCacheUtil.getElementList();
 		if (configList != null && configList.size() > 0) {
 			for (ElementConfig elementConfig : configList) {
 				UserElementDTO elementOutput = new UserElementDTO();
@@ -190,4 +226,6 @@ public class UserElementServiceImpl implements UserElementService {
 		}
 		return elementOutput;
 	}
+	
+	
 }

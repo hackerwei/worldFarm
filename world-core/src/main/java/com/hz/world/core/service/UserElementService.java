@@ -42,4 +42,15 @@ public interface UserElementService {
 	 * @return
 	 */
 	public UserElementDTO getUserElement(Long userId, Integer element);
+	
+	/**
+	 * 更新元素收益加成
+	 * @param userId
+	 * @param element
+	 * @param field
+	 * @param value
+	 * @return
+	 */
+	public ResultDTO<String> addElementAdd(Long userId, Integer element, String field, String value);
+	
 } 

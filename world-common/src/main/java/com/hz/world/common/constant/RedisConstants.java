@@ -18,6 +18,8 @@ public final class RedisConstants {
 	/** =========配置相关==================*/
 	public static final String RICHER_CONFIG_ELEMENT = "richer:config:element";
 	public static final String RICHER_CONFIG_TITLE = "richer:config:title";
+	public static final String RICHER_CONFIG_CATCH = "richer:config:catch";
+	
 	
 	/** =========业务相关==================*/
 	public static final String RICHER_USER_ELEMENT = "richer:user:element:%s:%s";
@@ -25,4 +27,12 @@ public final class RedisConstants {
 	public static final String RICHER_USER_TMP_INCOME = "richer:user:tmp_income:%s";
 	/** 离线奖励*/
 	public static final String RICHER_USER_OFFLINE_REWARD = "richer:user:offline_reward:%s";
+	/** 排行榜*/
+	public static final String RICHER_USER_RANKING = "richer:user:ranking:%s";
+	/** 有分红小龙虾的用户集合*/
+	public static final String RICHER_USER_CATCH_FOREVER_SET = "richer:user:catch:forever_set";
+	/** 有小龙虾的用户集合，排序用*/
+	public static final String RICHER_USER_CATCH_SET = "richer:user:catch:set";
+	/** 排行榜*/
+	public static final String RICHER_RANKING_LIST = "richer:ranking_list:%s";
 }

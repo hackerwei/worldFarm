@@ -15,8 +15,10 @@ import com.hz.world.common.ids.IDGenerator;
 import com.hz.world.core.common.util.CoreCacheUtil;
 import com.hz.world.core.dao.impl.UserCoinChangeLogDaoImpl;
 import com.hz.world.core.dao.impl.UserCoinDaoImpl;
+import com.hz.world.core.dao.impl.UserTotalIncomeDaoImpl;
 import com.hz.world.core.dao.model.UserCoin;
 import com.hz.world.core.dao.model.UserCoinChangeLog;
+import com.hz.world.core.dao.model.UserTotalIncome;
 import com.hz.world.core.domain.dto.UserCoinDTO;
 import com.hz.world.core.domain.dto.UserTmpIncomeDTO;
 import com.hz.world.core.service.UserCoinService;
@@ -38,6 +40,8 @@ public class UserCoinServiceImpl implements UserCoinService {
 	private CoreCacheUtil coreCacheUtil;
 	@Autowired
 	private UserCoinDaoImpl userCoinDao;
+	@Autowired
+	private UserTotalIncomeDaoImpl userTotalIncomeDao;
 	@Autowired
 	private UserCoinChangeLogDaoImpl userCoinChangeLog;
 	@Autowired
@@ -96,8 +100,7 @@ public class UserCoinServiceImpl implements UserCoinService {
 				coin.setCoin(b1.toString()); 
 				coin.setUpdateTime(now);
 				coreCacheUtil.updateCoin(coin);
-				//增加总收益
-				coreCacheUtil.updateUserIncome(userId, b5.toString());
+				updateTotalIncome(userId,b5.toString());
 				//是否升级
 				boolean upgrade = userLevelService.updateLevelByIncome(userId, b5.toString());
 				UserCoinChangeLog record = new UserCoinChangeLog();
@@ -115,6 +118,20 @@ public class UserCoinServiceImpl implements UserCoinService {
 		}
 		
 	}
+	private void updateTotalIncome(Long userId, String income) {
+		//增加总收益
+		coreCacheUtil.updateUserIncome(userId, income);
+		UserTotalIncome total = userTotalIncomeDao.findByUserId(userId);
+		if (total == null) {
+			total = new UserTotalIncome();
+			total.setUserId(userId);
+			total.setIncome(income);
+			userTotalIncomeDao.insert(total);
+		}else {
+			total.setIncome(income);
+			userTotalIncomeDao.update(total);
+		}
+	}
 	@Override
 	public ResultDTO<String> changeUserCoin(Long userId, String amount, Integer relatedType, int changeType) {
 		ResultDTO<String> resultDTO = new ResultDTO<String> ();
@@ -126,6 +143,7 @@ public class UserCoinServiceImpl implements UserCoinService {
 			//增加
 			if (changeType == 0) {
 				b1 = b1.add(b2);
+				updateTotalIncome(userId,b1.toString());
 			}else{
 				if (b1.compareTo(b2) < 0) {
 					log.error("更新用户金币失败，金币不足{},{},{},{}",userId,amount,relatedType,changeType);

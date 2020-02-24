@@ -70,34 +70,14 @@ public class IndexController {
 			out.setUpdateTime(coin.getUpdateTime());
 			out.setCoin(coin.getCoin());
 			out.setOutput(coin.getIcomeRate());
-			UserTmpIncomeDTO income = userCoinService.getTmpIncome(userId);
-			long now = new Date().getTime()/1000;
-			long countDown =   income.getStartTime() + CoinConstants.COUNT_DOWN - now;
-			if (countDown < 0) {
-				countDown = 0;
-			}
+			
+			
 			Map<String, Object> data = new HashMap<String, Object>();
-			String lastOnlimeTime = apiCacheUtil.getUserOnline(userId);
-			if (StringUtils.isNoneBlank(lastOnlimeTime) ) {
-				//间隔超过1小时，显示离线收益
-				long diff = now - Long.parseLong(lastOnlimeTime)/1000;
-				if (diff >= 1) {
-					OfflineRewardDTO reward = new OfflineRewardDTO();
-					reward.setOfflineTime(diff);
-					if (diff >= 99*3600) {
-						diff = 99*3600;
-					}
-					BigDecimal b1 = new BigDecimal(coin.getIcomeRate()) ;
-					BigDecimal b2 = new BigDecimal(diff) ;
-					reward.setIncome(b1.multiply(b2).toString());
-					data.put("offlineReward", reward);
-				}
-			}
-			apiCacheUtil.setUserOnline(userId, now);
+			
 			data.put("user", user);
 			data.put("coin", out);
 			data.put("elementList", elementList);
-			data.put("countDown", countDown);
+			
 			outputMap.setResult(SysReturnCode.SUCC, data);
 		} catch (Exception e) {
 			log.error("用户{}查询主页失败", userId, e);
@@ -163,10 +143,33 @@ public class IndexController {
 				outputMap.setResult(SysReturnCode.UNKNOW_USER, "用户不存在");
 				return outputMap;
 			}
-			
+			Map<String, Object> data = new HashMap<String, Object>();
 			userCoinService.updateUserCoin(userId);
 			UserCoinDTO coin = userCoinService.getUserCoin(userId);
-			Map<String, Object> data = new HashMap<String, Object>();
+			UserTmpIncomeDTO income = userCoinService.getTmpIncome(userId);
+			long now = new Date().getTime()/1000;
+			long countDown =   income.getStartTime() + CoinConstants.COUNT_DOWN - now;
+			if (countDown < 0) {
+				countDown = 0;
+			}
+			String lastOnlimeTime = apiCacheUtil.getUserOnline(userId);
+			if (StringUtils.isNoneBlank(lastOnlimeTime) ) {
+				//间隔超过1小时，显示离线收益
+				long diff = now - Long.parseLong(lastOnlimeTime)/1000;
+				if (diff >= 1) {
+					OfflineRewardDTO reward = new OfflineRewardDTO();
+					reward.setOfflineTime(diff);
+					if (diff >= 99*3600) {
+						diff = 99*3600;
+					}
+					BigDecimal b1 = new BigDecimal(coin.getIcomeRate()) ;
+					BigDecimal b2 = new BigDecimal(diff) ;
+					reward.setIncome(b1.multiply(b2).toString());
+					data.put("offlineReward", reward);
+				}
+			}
+			
+			data.put("countDown", countDown);
 			data.put("coin", coin.getCoin());
 			data.put("output", coin.getIcomeRate());
 			data.put("level", user.getLevel());
