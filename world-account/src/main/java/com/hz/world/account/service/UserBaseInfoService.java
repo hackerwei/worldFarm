@@ -56,4 +56,20 @@ public interface UserBaseInfoService {
      * @return
      */
     int getInviteCount(Long userId);
+    
+    /**
+     * 更新用户现金
+     * @param userId
+     * @param num
+     * @return
+     */
+    boolean updateUserCash(Long userId, Integer num);
+    
+    /**
+     * 更新用户钻石
+     * @param userId
+     * @param num
+     * @return
+     */
+    boolean updateUserDiamond(Long userId, Integer num);
 }

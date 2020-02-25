@@ -26,6 +26,11 @@ public class UserBaseInfo implements Serializable {
 
     private Integer weight;
 
+    /**
+     * 用户现金
+     */
+    private Double cash;
+
     private Long fromUserId;
 
     private String inviteCode;
@@ -110,6 +115,20 @@ public class UserBaseInfo implements Serializable {
 
     public void setWeight(Integer weight) {
         this.weight = weight;
+    }
+
+    /**
+     * @return 用户现金
+     */
+    public Double getCash() {
+        return cash;
+    }
+
+    /**
+     * @param cash 用户现金
+     */
+    public void setCash(Double cash) {
+        this.cash = cash;
     }
 
     public Long getFromUserId() {

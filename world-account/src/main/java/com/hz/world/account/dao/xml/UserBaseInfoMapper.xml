@@ -9,6 +9,7 @@
       <result column="year" property="year" jdbcType="INTEGER" />
       <result column="level" property="level" jdbcType="INTEGER" />
       <result column="weight" property="weight" jdbcType="INTEGER" />
+      <result column="cash" property="cash" jdbcType="DOUBLE" />
       <result column="from_user_id" property="fromUserId" jdbcType="BIGINT" />
       <result column="invite_code" property="inviteCode" jdbcType="VARCHAR" />
       <result column="diamond" property="diamond" jdbcType="INTEGER" />
@@ -75,7 +76,7 @@
       </where>
     </sql>
     <sql id="UserBaseInfoColumns" >
-      user_id, nickname, head_img, gender, year, level, weight, from_user_id, invite_code, 
+      user_id, nickname, head_img, gender, year, level, weight, cash, from_user_id, invite_code, 
       diamond, auth, create_time, update_time
     </sql>
     <select id="selectByExample" resultMap="UserBaseInfoResult" parameterType="com.hz.world.account.dao.model.UserBaseInfoExample" >
@@ -116,14 +117,14 @@
     <insert id="insert" parameterType="com.hz.world.account.dao.model.UserBaseInfo" >
       insert into user_base_info (user_id, nickname, head_img, 
         gender, year, level, 
-        weight, from_user_id, invite_code, 
-        diamond, auth, create_time, 
-        update_time)
+        weight, cash, from_user_id, 
+        invite_code, diamond, auth, 
+        create_time, update_time)
       values (#{userId,jdbcType=BIGINT}, #{nickname,jdbcType=VARCHAR}, #{headImg,jdbcType=VARCHAR}, 
         #{gender,jdbcType=INTEGER}, #{year,jdbcType=INTEGER}, #{level,jdbcType=INTEGER}, 
-        #{weight,jdbcType=INTEGER}, #{fromUserId,jdbcType=BIGINT}, #{inviteCode,jdbcType=VARCHAR}, 
-        #{diamond,jdbcType=INTEGER}, #{auth,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
-        #{updateTime,jdbcType=TIMESTAMP})
+        #{weight,jdbcType=INTEGER}, #{cash,jdbcType=DOUBLE}, #{fromUserId,jdbcType=BIGINT}, 
+        #{inviteCode,jdbcType=VARCHAR}, #{diamond,jdbcType=INTEGER}, #{auth,jdbcType=INTEGER}, 
+        #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
     </insert>
     <insert id="insertSelective" parameterType="com.hz.world.account.dao.model.UserBaseInfo" >
       insert into user_base_info
@@ -148,6 +149,9 @@
         </if>
         <if test="weight != null" >
           weight,
+        </if>
+        <if test="cash != null" >
+          cash,
         </if>
         <if test="fromUserId != null" >
           from_user_id,
@@ -189,6 +193,9 @@
         </if>
         <if test="weight != null" >
           #{weight,jdbcType=INTEGER},
+        </if>
+        <if test="cash != null" >
+          #{cash,jdbcType=DOUBLE},
         </if>
         <if test="fromUserId != null" >
           #{fromUserId,jdbcType=BIGINT},
@@ -240,6 +247,9 @@
         <if test="record.weight != null" >
           weight = #{record.weight,jdbcType=INTEGER},
         </if>
+        <if test="record.cash != null" >
+          cash = #{record.cash,jdbcType=DOUBLE},
+        </if>
         <if test="record.fromUserId != null" >
           from_user_id = #{record.fromUserId,jdbcType=BIGINT},
         </if>
@@ -272,6 +282,7 @@
         year = #{record.year,jdbcType=INTEGER},
         level = #{record.level,jdbcType=INTEGER},
         weight = #{record.weight,jdbcType=INTEGER},
+        cash = #{record.cash,jdbcType=DOUBLE},
         from_user_id = #{record.fromUserId,jdbcType=BIGINT},
         invite_code = #{record.inviteCode,jdbcType=VARCHAR},
         diamond = #{record.diamond,jdbcType=INTEGER},
@@ -303,6 +314,9 @@
         <if test="weight != null" >
           weight = #{weight,jdbcType=INTEGER},
         </if>
+        <if test="cash != null" >
+          cash = #{cash,jdbcType=DOUBLE},
+        </if>
         <if test="fromUserId != null" >
           from_user_id = #{fromUserId,jdbcType=BIGINT},
         </if>
@@ -332,6 +346,7 @@
         year = #{year,jdbcType=INTEGER},
         level = #{level,jdbcType=INTEGER},
         weight = #{weight,jdbcType=INTEGER},
+        cash = #{cash,jdbcType=DOUBLE},
         from_user_id = #{fromUserId,jdbcType=BIGINT},
         invite_code = #{inviteCode,jdbcType=VARCHAR},
         diamond = #{diamond,jdbcType=INTEGER},

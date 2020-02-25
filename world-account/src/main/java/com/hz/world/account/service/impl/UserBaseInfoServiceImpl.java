@@ -103,5 +103,22 @@ public class UserBaseInfoServiceImpl implements UserBaseInfoService {
     public int getInviteCount(Long userId) {
     		return userBaseInfoDao.getInviteCount(userId);
     }
+    @Override
+    public boolean updateUserCash(Long userId, Integer num) {
+    	boolean result =  userBaseInfoDao.updateUserCash(userId, num);
+    	if (result) {
+    		accountCacheUtil.deleteUserBaeInfo(userId);
+		}	
+		return result;
+    }
+    
+    @Override
+    public boolean updateUserDiamond(Long userId, Integer num) {
+    	boolean result =  userBaseInfoDao.updateUserDiamond(userId, num);
+    	if (result) {
+    		accountCacheUtil.deleteUserBaeInfo(userId);
+		}	
+		return result;
+    }
     
 }

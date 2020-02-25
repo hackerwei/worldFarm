@@ -567,6 +567,66 @@ public class UserBaseInfoExample {
             return (Criteria) this;
         }
 
+        public Criteria andCashIsNull() {
+            addCriterion("cash is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCashIsNotNull() {
+            addCriterion("cash is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCashEqualTo(Double value) {
+            addCriterion("cash =", value, "cash");
+            return (Criteria) this;
+        }
+
+        public Criteria andCashNotEqualTo(Double value) {
+            addCriterion("cash <>", value, "cash");
+            return (Criteria) this;
+        }
+
+        public Criteria andCashGreaterThan(Double value) {
+            addCriterion("cash >", value, "cash");
+            return (Criteria) this;
+        }
+
+        public Criteria andCashGreaterThanOrEqualTo(Double value) {
+            addCriterion("cash >=", value, "cash");
+            return (Criteria) this;
+        }
+
+        public Criteria andCashLessThan(Double value) {
+            addCriterion("cash <", value, "cash");
+            return (Criteria) this;
+        }
+
+        public Criteria andCashLessThanOrEqualTo(Double value) {
+            addCriterion("cash <=", value, "cash");
+            return (Criteria) this;
+        }
+
+        public Criteria andCashIn(List<Double> values) {
+            addCriterion("cash in", values, "cash");
+            return (Criteria) this;
+        }
+
+        public Criteria andCashNotIn(List<Double> values) {
+            addCriterion("cash not in", values, "cash");
+            return (Criteria) this;
+        }
+
+        public Criteria andCashBetween(Double value1, Double value2) {
+            addCriterion("cash between", value1, value2, "cash");
+            return (Criteria) this;
+        }
+
+        public Criteria andCashNotBetween(Double value1, Double value2) {
+            addCriterion("cash not between", value1, value2, "cash");
+            return (Criteria) this;
+        }
+
         public Criteria andFromUserIdIsNull() {
             addCriterion("from_user_id is null");
             return (Criteria) this;

@@ -19,6 +19,7 @@ public final class RedisConstants {
 	public static final String RICHER_CONFIG_ELEMENT = "richer:config:element";
 	public static final String RICHER_CONFIG_TITLE = "richer:config:title";
 	public static final String RICHER_CONFIG_CATCH = "richer:config:catch";
+	public static final String RICHER_RECHARGE_CATCH = "richer:config:recharge";
 	
 	
 	/** =========业务相关==================*/

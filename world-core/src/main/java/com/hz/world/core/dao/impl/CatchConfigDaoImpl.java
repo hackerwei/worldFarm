@@ -14,7 +14,7 @@ import com.hz.world.core.dao.model.CatchConfigExample;
  * Title: 
  * Description: 
  * author linyanchun
- * date Feb 22, 2020 
+ * date Feb 22, 2020
  */
 @Repository
 public class CatchConfigDaoImpl {

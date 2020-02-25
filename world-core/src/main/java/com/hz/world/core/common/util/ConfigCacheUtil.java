@@ -11,9 +11,11 @@ import com.hz.world.common.cache.redis.RedisService;
 import com.hz.world.common.constant.RedisConstants;
 import com.hz.world.core.dao.impl.CatchConfigDaoImpl;
 import com.hz.world.core.dao.impl.ElementConfigDaoImpl;
+import com.hz.world.core.dao.impl.RechargeConfigDaoImpl;
 import com.hz.world.core.dao.impl.TitleConfigDaoImpl;
 import com.hz.world.core.dao.model.CatchConfig;
 import com.hz.world.core.dao.model.ElementConfig;
+import com.hz.world.core.dao.model.RechargeConfig;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -30,7 +32,8 @@ public class ConfigCacheUtil {
 	TitleConfigDaoImpl titleConfigDao;
 	@Autowired
 	CatchConfigDaoImpl catchConfigDao;
-
+	@Autowired
+	RechargeConfigDaoImpl rechargeConfigDao;
 	
 	public ElementConfig getElement(Integer id) {
 		
@@ -74,6 +77,30 @@ public class ConfigCacheUtil {
 		List<CatchConfig> list = getCatchList();
 		if (list != null && list.size() > 0) {
 			for (CatchConfig catchConfig : list) {
+				if (catchConfig.getId().equals(id)) {
+					return catchConfig;
+				}
+			}
+		}
+		return null;
+	}
+	public List<RechargeConfig> getRechargeList(){
+		String key = RedisConstants.RICHER_RECHARGE_CATCH;
+		List<RechargeConfig> list = new ArrayList<RechargeConfig>();
+		if (!redisService.exists(key)) {
+			list = rechargeConfigDao.findAll();
+			redisService.set(key, JSON.toJSONString(list));
+		}else {
+			String json = redisService.get(key);
+			list = JSON.parseArray(json, RechargeConfig.class);
+
+		}
+		return list;
+	}
+	public RechargeConfig getRechargeConfig(Integer id) {
+		List<RechargeConfig> list = getRechargeList();
+		if (list != null && list.size() > 0) {
+			for (RechargeConfig catchConfig : list) {
 				if (catchConfig.getId().equals(id)) {
 					return catchConfig;
 				}

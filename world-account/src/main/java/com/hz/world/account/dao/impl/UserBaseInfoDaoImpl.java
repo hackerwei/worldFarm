@@ -85,4 +85,12 @@ public class UserBaseInfoDaoImpl {
         criteria.andFromUserIdEqualTo(userId);
         return userBaseInfoMapper.countByExample(example);
     }
+    public boolean updateUserCash(Long userId, Integer num) {
+    	return userBaseInfoExtMapper.updateUserCash(userId, num) >0;
+    }
+    
+
+    public boolean updateUserDiamond(Long userId, Integer num) {
+    	return userBaseInfoExtMapper.updateUserDiamond(userId, num) >0;
+    }
 }

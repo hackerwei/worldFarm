@@ -103,14 +103,7 @@ public class UserCoinServiceImpl implements UserCoinService {
 				updateTotalIncome(userId,b5.toString());
 				//是否升级
 				boolean upgrade = userLevelService.updateLevelByIncome(userId, b5.toString());
-				UserCoinChangeLog record = new UserCoinChangeLog();
-				record.setId(IDGenerator.getUniqueId());
-				record.setUserId(userId);
-				record.setRelatedType(CoinChangeType.ADD.getCode());
-				record.setNum(b4.toString());
-				record.setAfterNum(b1.toString());
-				userCoinChangeLog.insert(record);
-				
+		
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

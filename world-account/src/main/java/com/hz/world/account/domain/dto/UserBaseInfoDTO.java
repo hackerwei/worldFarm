@@ -40,6 +40,8 @@ public class UserBaseInfoDTO implements Serializable {
      * 0:未认证，1:已认证
      */
     private Integer auth;
+    
+    private Double cash;
 
     
 }
