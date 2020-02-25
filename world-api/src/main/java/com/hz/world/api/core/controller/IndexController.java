@@ -113,7 +113,8 @@ public class IndexController {
 			UserCoinOutDTO out = new UserCoinOutDTO();
 			out.setUpdateTime(coin.getUpdateTime());
 			out.setCoin(coin.getCoin());
-			out.setOutput(coin.getIcomeRate());			
+			out.setOutput(coin.getIcomeRate());	
+		
 			Map<String, Object> data = new HashMap<String, Object>();
 			data.put("coin", out);
 			data.put("income", resultDTO.getResult());

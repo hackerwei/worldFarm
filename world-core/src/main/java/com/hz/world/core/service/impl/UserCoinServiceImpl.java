@@ -237,10 +237,11 @@ public class UserCoinServiceImpl implements UserCoinService {
 		ResultDTO<String> resultDTO2 = changeUserCoin( userId, coin, CoinChangeType.ADD.getCode(), 0);
 		if (resultDTO2.isSuccess()) {
 			resultDTO.set(ResultCodeEnum.SUCCESS, "OK",coin);
+			createTmpUserIncome(userId);
 			return resultDTO;
 		}
 		resultDTO.set(ResultCodeEnum.ERROR_HANDLE, resultDTO2.getErrDesc());
-		createTmpUserIncome(userId);
+		
 		log.error("领取3小时奖励失败，{},{}",userId,coin);
 		return resultDTO;
 	}
