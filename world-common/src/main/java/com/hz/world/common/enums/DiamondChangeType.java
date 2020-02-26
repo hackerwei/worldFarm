@@ -10,6 +10,7 @@ package com.hz.world.common.enums;
 public enum DiamondChangeType {
     
     RECHARGE(0, "充值"),
+    SHOP(1, "商场"),
     ;
     private final int code;
     private final String desc;

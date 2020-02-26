@@ -19,8 +19,9 @@ public final class RedisConstants {
 	public static final String RICHER_CONFIG_ELEMENT = "richer:config:element";
 	public static final String RICHER_CONFIG_TITLE = "richer:config:title";
 	public static final String RICHER_CONFIG_CATCH = "richer:config:catch";
-	public static final String RICHER_RECHARGE_CATCH = "richer:config:recharge";
-	
+	public static final String RICHER_CONFIG_RECHARGE = "richer:config:recharge";
+	public static final String RICHER_CONFIG_YEAR = "richer:config:year";
+	public static final String RICHER_CONFIG_SHOP = "richer:config:shop";
 	
 	/** =========业务相关==================*/
 	public static final String RICHER_USER_ELEMENT = "richer:user:element:%s:%s";
@@ -36,4 +37,6 @@ public final class RedisConstants {
 	public static final String RICHER_USER_CATCH_SET = "richer:user:catch:set";
 	/** 排行榜*/
 	public static final String RICHER_RANKING_LIST = "richer:ranking_list:%s";
+	/** 用户全局增益*/
+	public static final String RICHER_USER_TOTAL_ADD = "richer:user:total_add:%s";
 }

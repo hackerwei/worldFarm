@@ -11,6 +11,7 @@ import com.hz.world.common.constant.CoinConstants;
 import com.hz.world.common.dto.ResultCodeEnum;
 import com.hz.world.common.dto.ResultDTO;
 import com.hz.world.common.enums.CoinChangeType;
+import com.hz.world.common.enums.ElementAdd;
 import com.hz.world.common.ids.IDGenerator;
 import com.hz.world.core.common.util.CoreCacheUtil;
 import com.hz.world.core.dao.impl.UserCoinChangeLogDaoImpl;
@@ -47,14 +48,7 @@ public class UserCoinServiceImpl implements UserCoinService {
 	@Autowired
 	private UserLevelService userLevelService;
 
-	/**
-	 * 微信登录接口,用户不存在进行注册，否则登录
-	 *
-	 * @param appId
-	 * @param uuid
-	 * @param userLoginDTO
-	 * @return
-	 */
+	
 	@Override
 	public boolean createUserCoin(Long userId) {
 		UserCoin userCoin = new UserCoin();
@@ -62,6 +56,7 @@ public class UserCoinServiceImpl implements UserCoinService {
 		userCoin.setIncomeRate("0");
 		userCoin.setCoin("100");
 		userCoin.setUpdateTime(new Date().getTime()/1000);
+		coreCacheUtil.addUserTotalAdd(userId,ElementAdd.YEAR.getCode(),1);
 		return userCoinDao.insert(userCoin);
 	}
 	@Override

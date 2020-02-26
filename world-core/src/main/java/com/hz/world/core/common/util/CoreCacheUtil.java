@@ -83,6 +83,35 @@ public class CoreCacheUtil {
 		}
 	}
 
+	/**
+	 * 增加用户全局收益
+	 * @param userId
+	 * @param field
+	 * @param value
+	 */
+	public void addUserTotalAdd(Long userId, String field, long value) {
+		String key = String.format(RedisConstants.RICHER_USER_TOTAL_ADD, userId);
+		redisService.hincrBy(key, field, value);
+	}
+	public int getUserTotalAddByField(Long userId, String field) {
+		String key = String.format(RedisConstants.RICHER_USER_TOTAL_ADD, userId);
+		String value = redisService.hget(key, field);
+		if (value == null) {
+			return 1;
+		}
+		return Integer.parseInt(value);
+	}
+	public int getUserTotalAdd(Long userId) {
+		String key = String.format(RedisConstants.RICHER_USER_TOTAL_ADD, userId);
+		int total = 0;
+		Map<String,String> map = redisService.hgetAll(key);
+		if (map != null && map.size() > 0) {
+			for (Map.Entry<String, String> entry : map.entrySet()) {
+				total += Integer.parseInt(entry.getValue());
+			}
+		}
+		return total;
+	}
 	public void addUserElementValue(Long userId, Integer element, String field, String value) {
 		String key = String.format(RedisConstants.RICHER_USER_ELEMENT, userId, element);
 		redisService.hset(key, field, value);

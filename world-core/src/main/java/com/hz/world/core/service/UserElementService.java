@@ -53,4 +53,21 @@ public interface UserElementService {
 	 */
 	public ResultDTO<String> addElementAdd(Long userId, Integer element, String field, String value);
 	
+
+	/**
+	 * 更新总收益系数
+	 * @param userId
+	 * @param field
+	 * @param value
+	 * @return
+	 */
+	public ResultDTO<String> addTotalAdd(Long userId, String field, Integer value);
+	
+	/**
+	 * 获取单系统的的总收益加成
+	 * @param userId
+	 * @param field
+	 * @return
+	 */
+	public int getUserTotalAddByField(Long userId, String field);
 } 

@@ -177,6 +177,7 @@ public class UserElementServiceImpl implements UserElementService {
 	public String getUserOutput(Long userId) {
 		List<ElementConfig> configList =  configCacheUtil.getElementList();
 		BigDecimal output = new BigDecimal(0);
+		//每个元素的收益和
 		if (configList != null && configList.size() > 0) {
 			for (ElementConfig elementConfig : configList) {
 				String elementOutput = coreCacheUtil.getUserElementValue(userId, elementConfig.getId(), ElementAdd.OUTPUT.getCode() );
@@ -185,6 +186,9 @@ public class UserElementServiceImpl implements UserElementService {
 				}
 			}
 		}
+		//全局收益
+		int totalAdd = coreCacheUtil.getUserTotalAdd(userId);
+		output = output.multiply(new BigDecimal(totalAdd));
 		return output.toString();
 	}
 	@Override
@@ -227,5 +231,25 @@ public class UserElementServiceImpl implements UserElementService {
 		return elementOutput;
 	}
 	
-	
+	@Override
+	public ResultDTO<String> addTotalAdd(Long userId, String field, Integer value){
+		ResultDTO<String> resultDTO = new ResultDTO<String>();
+		try {
+			userCoinService.updateUserCoin(userId);	
+			//更新元素收益
+			coreCacheUtil.addUserTotalAdd(userId, field, value);
+			String totalOutput = getUserOutput(userId);
+			userCoinService.updateOutput(userId, totalOutput);
+			resultDTO.set(ResultCodeEnum.SUCCESS, "OK");
+		} catch (Exception e) {
+			e.printStackTrace();
+			resultDTO.set(ResultCodeEnum.ERROR_HANDLE, "异常");
+		}
+		return resultDTO;
+	}
+	@Override
+	public int getUserTotalAddByField(Long userId, String field) {
+		return coreCacheUtil.getUserTotalAddByField(userId, field);
+	}
+
 }

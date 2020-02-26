@@ -27,6 +27,7 @@ import com.hz.world.common.constant.CoinConstants;
 import com.hz.world.common.dto.ResultCodeEnum;
 import com.hz.world.common.dto.ResultDTO;
 import com.hz.world.common.enums.CoinChangeType;
+import com.hz.world.common.enums.ElementAdd;
 import com.hz.world.core.domain.dto.UserCoinDTO;
 import com.hz.world.core.domain.dto.UserElementDTO;
 import com.hz.world.core.domain.dto.UserTmpIncomeDTO;
@@ -77,6 +78,7 @@ public class IndexController {
 			data.put("user", user);
 			data.put("coin", out);
 			data.put("elementList", elementList);
+			data.put("shopAdd", userElementService.getUserTotalAddByField(userId, ElementAdd.SHOP.getCode()));
 			
 			outputMap.setResult(SysReturnCode.SUCC, data);
 		} catch (Exception e) {

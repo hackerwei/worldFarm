@@ -12,10 +12,14 @@ import com.hz.world.common.constant.RedisConstants;
 import com.hz.world.core.dao.impl.CatchConfigDaoImpl;
 import com.hz.world.core.dao.impl.ElementConfigDaoImpl;
 import com.hz.world.core.dao.impl.RechargeConfigDaoImpl;
+import com.hz.world.core.dao.impl.ShopConfigDaoImpl;
 import com.hz.world.core.dao.impl.TitleConfigDaoImpl;
+import com.hz.world.core.dao.impl.YearConfigDaoImpl;
 import com.hz.world.core.dao.model.CatchConfig;
 import com.hz.world.core.dao.model.ElementConfig;
 import com.hz.world.core.dao.model.RechargeConfig;
+import com.hz.world.core.dao.model.ShopConfig;
+import com.hz.world.core.dao.model.YearConfig;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -34,6 +38,10 @@ public class ConfigCacheUtil {
 	CatchConfigDaoImpl catchConfigDao;
 	@Autowired
 	RechargeConfigDaoImpl rechargeConfigDao;
+	@Autowired
+	YearConfigDaoImpl yearConfigDao;
+	@Autowired
+	ShopConfigDaoImpl shopConfigDao;
 	
 	public ElementConfig getElement(Integer id) {
 		
@@ -85,7 +93,7 @@ public class ConfigCacheUtil {
 		return null;
 	}
 	public List<RechargeConfig> getRechargeList(){
-		String key = RedisConstants.RICHER_RECHARGE_CATCH;
+		String key = RedisConstants.RICHER_CONFIG_RECHARGE;
 		List<RechargeConfig> list = new ArrayList<RechargeConfig>();
 		if (!redisService.exists(key)) {
 			list = rechargeConfigDao.findAll();
@@ -102,6 +110,54 @@ public class ConfigCacheUtil {
 		if (list != null && list.size() > 0) {
 			for (RechargeConfig catchConfig : list) {
 				if (catchConfig.getId().equals(id)) {
+					return catchConfig;
+				}
+			}
+		}
+		return null;
+	}
+	public List<ShopConfig> getShopList(){
+		String key = RedisConstants.RICHER_CONFIG_SHOP;
+		List<ShopConfig> list = new ArrayList<ShopConfig>();
+		if (!redisService.exists(key)) {
+			list = shopConfigDao.findAll();
+			redisService.set(key, JSON.toJSONString(list));
+		}else {
+			String json = redisService.get(key);
+			list = JSON.parseArray(json, ShopConfig.class);
+
+		}
+		return list;
+	}
+	public ShopConfig getShopConfig(Integer id) {
+		List<ShopConfig> list = getShopList();
+		if (list != null && list.size() > 0) {
+			for (ShopConfig catchConfig : list) {
+				if (catchConfig.getId().equals(id)) {
+					return catchConfig;
+				}
+			}
+		}
+		return null;
+	}
+	public List<YearConfig> getYearList(){
+		String key = RedisConstants.RICHER_CONFIG_YEAR;
+		List<YearConfig> list = new ArrayList<YearConfig>();
+		if (!redisService.exists(key)) {
+			list = yearConfigDao.findAll();
+			redisService.set(key, JSON.toJSONString(list));
+		}else {
+			String json = redisService.get(key);
+			list = JSON.parseArray(json, YearConfig.class);
+
+		}
+		return list;
+	}
+	public YearConfig getYearConfig(Integer year) {
+		List<YearConfig> list = getYearList();
+		if (list != null && list.size() > 0) {
+			for (YearConfig catchConfig : list) {
+				if (catchConfig.getYear().equals(year)) {
 					return catchConfig;
 				}
 			}
