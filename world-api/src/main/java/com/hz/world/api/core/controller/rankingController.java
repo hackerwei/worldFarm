@@ -47,18 +47,22 @@ public class rankingController {
 			if (request == null || request.getType() == null) {
 				outputMap.setResult(SysReturnCode.LACK_PARAMS, "参数错误");
 			}
-			int myrank = 0;
+	
+			RankDTO myRankDTO = null;
 			List<RankDTO> list = rankingService.getRankingList(request.getType());
 			if (list != null && list.size() > 0 ) {
 				for (RankDTO rankDTO : list) {
 					if (rankDTO.getUserId().equals(userId)) {
-						myrank = rankDTO.getRank();
+						myRankDTO = rankDTO;
 					}
 				}
 			}
+			if (myRankDTO == null) {
+				myRankDTO = rankingService.getMyrank(userId, request.getType());
+			}
 			Map<String, Object> data = new HashMap<String, Object>();
 			data.put("list", list);
-			data.put("myrank", myrank);
+			data.put("myrank", myRankDTO);
 			outputMap.setResult(SysReturnCode.SUCC, data);
 			
 		} catch (Exception e) {

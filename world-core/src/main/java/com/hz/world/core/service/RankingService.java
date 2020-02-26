@@ -13,5 +13,12 @@ public interface RankingService {
 	 * @return
 	 */
 	public List<RankDTO> getRankingList(Integer type);
+
+	/**
+	 * 获取自己的数据
+	 * @param userId
+	 * @return
+	 */
+	public RankDTO getMyrank(Long userId, Integer type);
 	
 }

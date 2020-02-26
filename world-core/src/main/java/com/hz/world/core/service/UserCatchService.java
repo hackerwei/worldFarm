@@ -13,4 +13,5 @@ public interface UserCatchService {
 	 */
 	public ResultDTO<Integer> doCatch(Long userId, Integer year);
 	
+
 }

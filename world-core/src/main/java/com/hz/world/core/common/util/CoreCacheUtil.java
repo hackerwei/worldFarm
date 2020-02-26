@@ -210,6 +210,11 @@ public class CoreCacheUtil {
 		String key = RedisConstants.RICHER_USER_CATCH_SET;
 		return redisService.zrevrangeByScoreWithScores(key, "+inf", "-inf", 0, 100);
 	}
+	public Double  getUserYear(Long userId) {
+		String key = RedisConstants.RICHER_USER_CATCH_SET;
+		return redisService.zscore(key, userId+"");
+	}
+	
 
 	/**
 	 * 排行榜
