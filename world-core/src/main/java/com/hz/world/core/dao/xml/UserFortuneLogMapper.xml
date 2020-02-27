@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+  <mapper namespace="com.hz.world.core.dao.mapper.UserFortuneLogMapper" >
+    <resultMap id="UserFortuneLogResult" type="com.hz.world.core.dao.model.UserFortuneLog" >
+      <id column="id" property="id" jdbcType="BIGINT" />
+      <result column="user_id" property="userId" jdbcType="BIGINT" />
+      <result column="diamond_count" property="diamondCount" jdbcType="INTEGER" />
+      <result column="date" property="date" jdbcType="DATE" />
+      <result column="add_time" property="addTime" jdbcType="TIMESTAMP" />
+    </resultMap>
+    <sql id="Example_Where_Clause" >
+      <where >
+        <foreach collection="oredCriteria" item="criteria" separator="or" >
+          <if test="criteria.valid" >
+            <trim prefix="(" suffix=")" prefixOverrides="and" >
+              <foreach collection="criteria.criteria" item="criterion" >
+                <choose >
+                  <when test="criterion.noValue" >
+                    and ${criterion.condition}
+                  </when>
+                  <when test="criterion.singleValue" >
+                    and ${criterion.condition} #{criterion.value}
+                  </when>
+                  <when test="criterion.betweenValue" >
+                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                  </when>
+                  <when test="criterion.listValue" >
+                    and ${criterion.condition}
+                    <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                      #{listItem}
+                    </foreach>
+                  </when>
+                </choose>
+              </foreach>
+            </trim>
+          </if>
+        </foreach>
+      </where>
+    </sql>
+    <sql id="Update_By_Example_Where_Clause" >
+      <where >
+        <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+          <if test="criteria.valid" >
+            <trim prefix="(" suffix=")" prefixOverrides="and" >
+              <foreach collection="criteria.criteria" item="criterion" >
+                <choose >
+                  <when test="criterion.noValue" >
+                    and ${criterion.condition}
+                  </when>
+                  <when test="criterion.singleValue" >
+                    and ${criterion.condition} #{criterion.value}
+                  </when>
+                  <when test="criterion.betweenValue" >
+                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                  </when>
+                  <when test="criterion.listValue" >
+                    and ${criterion.condition}
+                    <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                      #{listItem}
+                    </foreach>
+                  </when>
+                </choose>
+              </foreach>
+            </trim>
+          </if>
+        </foreach>
+      </where>
+    </sql>
+    <sql id="UserFortuneLogColumns" >
+      id, user_id, diamond_count, date, add_time
+    </sql>
+    <select id="selectByExample" resultMap="UserFortuneLogResult" parameterType="com.hz.world.core.dao.model.UserFortuneLogExample" >
+      select
+      <if test="distinct" >
+        distinct
+      </if>
+      <include refid="UserFortuneLogColumns" />
+      from user_fortune_log
+      <if test="_parameter != null" >
+        <include refid="Example_Where_Clause" />
+      </if>
+      <if test="orderByClause != null" >
+        order by ${orderByClause}
+      </if>
+      <if test="mysqlOffset != null" >
+        <if test="mysqlLength != null" >
+           limit #{mysqlOffset} , #{mysqlLength} 
+        </if>
+      </if>
+    </select>
+    <select id="selectByPrimaryKey" resultMap="UserFortuneLogResult" parameterType="java.lang.Long" >
+      select 
+      <include refid="UserFortuneLogColumns" />
+      from user_fortune_log
+      where id = #{id,jdbcType=BIGINT}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+      delete from user_fortune_log
+      where id = #{id,jdbcType=BIGINT}
+    </delete>
+    <delete id="deleteByExample" parameterType="com.hz.world.core.dao.model.UserFortuneLogExample" >
+      delete from user_fortune_log
+      <if test="_parameter != null" >
+        <include refid="Example_Where_Clause" />
+      </if>
+    </delete>
+    <insert id="insert" parameterType="com.hz.world.core.dao.model.UserFortuneLog" >
+      insert into user_fortune_log (id, user_id, diamond_count, 
+        date, add_time)
+      values (#{id,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT}, #{diamondCount,jdbcType=INTEGER}, 
+        #{date,jdbcType=DATE}, #{addTime,jdbcType=TIMESTAMP})
+    </insert>
+    <insert id="insertSelective" parameterType="com.hz.world.core.dao.model.UserFortuneLog" >
+      insert into user_fortune_log
+      <trim prefix="(" suffix=")" suffixOverrides="," >
+        <if test="id != null" >
+          id,
+        </if>
+        <if test="userId != null" >
+          user_id,
+        </if>
+        <if test="diamondCount != null" >
+          diamond_count,
+        </if>
+        <if test="date != null" >
+          date,
+        </if>
+        <if test="addTime != null" >
+          add_time,
+        </if>
+      </trim>
+      <trim prefix="values (" suffix=")" suffixOverrides="," >
+        <if test="id != null" >
+          #{id,jdbcType=BIGINT},
+        </if>
+        <if test="userId != null" >
+          #{userId,jdbcType=BIGINT},
+        </if>
+        <if test="diamondCount != null" >
+          #{diamondCount,jdbcType=INTEGER},
+        </if>
+        <if test="date != null" >
+          #{date,jdbcType=DATE},
+        </if>
+        <if test="addTime != null" >
+          #{addTime,jdbcType=TIMESTAMP},
+        </if>
+      </trim>
+    </insert>
+    <select id="countByExample" parameterType="com.hz.world.core.dao.model.UserFortuneLogExample" resultType="java.lang.Integer" >
+      select count(*) from user_fortune_log
+      <if test="_parameter != null" >
+        <include refid="Example_Where_Clause" />
+      </if>
+    </select>
+    <update id="updateByExampleSelective" parameterType="map" >
+      update user_fortune_log
+      <set >
+        <if test="record.id != null" >
+          id = #{record.id,jdbcType=BIGINT},
+        </if>
+        <if test="record.userId != null" >
+          user_id = #{record.userId,jdbcType=BIGINT},
+        </if>
+        <if test="record.diamondCount != null" >
+          diamond_count = #{record.diamondCount,jdbcType=INTEGER},
+        </if>
+        <if test="record.date != null" >
+          date = #{record.date,jdbcType=DATE},
+        </if>
+        <if test="record.addTime != null" >
+          add_time = #{record.addTime,jdbcType=TIMESTAMP},
+        </if>
+      </set>
+      <if test="_parameter != null" >
+        <include refid="Update_By_Example_Where_Clause" />
+      </if>
+    </update>
+    <update id="updateByExample" parameterType="map" >
+      update user_fortune_log
+      set id = #{record.id,jdbcType=BIGINT},
+        user_id = #{record.userId,jdbcType=BIGINT},
+        diamond_count = #{record.diamondCount,jdbcType=INTEGER},
+        date = #{record.date,jdbcType=DATE},
+        add_time = #{record.addTime,jdbcType=TIMESTAMP}
+      <if test="_parameter != null" >
+        <include refid="Update_By_Example_Where_Clause" />
+      </if>
+    </update>
+    <update id="updateByPrimaryKeySelective" parameterType="com.hz.world.core.dao.model.UserFortuneLog" >
+      update user_fortune_log
+      <set >
+        <if test="userId != null" >
+          user_id = #{userId,jdbcType=BIGINT},
+        </if>
+        <if test="diamondCount != null" >
+          diamond_count = #{diamondCount,jdbcType=INTEGER},
+        </if>
+        <if test="date != null" >
+          date = #{date,jdbcType=DATE},
+        </if>
+        <if test="addTime != null" >
+          add_time = #{addTime,jdbcType=TIMESTAMP},
+        </if>
+      </set>
+      where id = #{id,jdbcType=BIGINT}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.hz.world.core.dao.model.UserFortuneLog" >
+      update user_fortune_log
+      set user_id = #{userId,jdbcType=BIGINT},
+        diamond_count = #{diamondCount,jdbcType=INTEGER},
+        date = #{date,jdbcType=DATE},
+        add_time = #{addTime,jdbcType=TIMESTAMP}
+      where id = #{id,jdbcType=BIGINT}
+    </update>
+  </mapper>

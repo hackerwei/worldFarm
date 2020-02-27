@@ -26,7 +26,7 @@ import com.hz.world.core.dao.model.UserInviteLog;
 import com.hz.world.core.domain.dto.UserInviteDTO;
 import com.hz.world.core.service.InviteService;
 import com.hz.world.core.service.TaskService;
-import com.hz.world.core.service.UserDIamondService;
+import com.hz.world.core.service.UserDiamondService;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -43,7 +43,7 @@ public class InviteServiceImpl implements InviteService {
 	@Autowired
 	private UserBaseInfoService userBaseInfoService;
 	@Autowired
-	private UserDIamondService userDIamondService;
+	private UserDiamondService userDiamondService;
 
 	@Override
 	/**
@@ -95,7 +95,7 @@ public class InviteServiceImpl implements InviteService {
 			return resultDTO;
 		}
 		UserBaseInfoDTO user = userBaseInfoService.getByUserId(userId);
-		userDIamondService.createDiamondChangeLog(userId, 50, user.getDiamond(), DiamondChangeType.INVITE.getCode());
+		userDiamondService.createDiamondChangeLog(userId, 50, user.getDiamond(), DiamondChangeType.INVITE.getCode());
 
 		record.setStatus(1);
 		userInviteLogDao.update(record);

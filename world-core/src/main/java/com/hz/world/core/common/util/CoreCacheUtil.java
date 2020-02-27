@@ -17,6 +17,7 @@ import com.hz.world.account.domain.dto.UserBaseInfoDTO;
 import com.hz.world.account.service.UserBaseInfoService;
 import com.hz.world.common.cache.redis.RedisService;
 import com.hz.world.common.constant.RedisConstants;
+import com.hz.world.common.util.DateUtil;
 import com.hz.world.core.dao.impl.TitleConfigDaoImpl;
 import com.hz.world.core.dao.impl.UserCoinDaoImpl;
 import com.hz.world.core.dao.impl.UserTotalIncomeDaoImpl;
@@ -320,4 +321,14 @@ public class CoreCacheUtil {
 		}
 		return list;
 	}
+	public boolean isFortuneToday(Long userId) {
+		String key = String.format(RedisConstants.USER_FORTUNE_TODAY, userId);
+		return redisService.exists(key);
+	}
+	public void setFortuneToday(Long userId) {
+		String key = String.format(RedisConstants.USER_FORTUNE_TODAY, userId);
+		redisService.set(key, "1");
+		redisService.expire(key, DateUtil.getSecondToTomorrow());
+	}
+	
 }

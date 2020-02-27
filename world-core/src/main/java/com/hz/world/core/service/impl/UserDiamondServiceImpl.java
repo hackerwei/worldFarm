@@ -7,7 +7,7 @@ import com.hz.world.common.enums.DiamondChangeType;
 import com.hz.world.common.ids.IDGenerator;
 import com.hz.world.core.dao.impl.UserDiamondChangeLogDaoImpl;
 import com.hz.world.core.dao.model.UserDiamondChangeLog;
-import com.hz.world.core.service.UserDIamondService;
+import com.hz.world.core.service.UserDiamondService;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -19,7 +19,7 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 @Service
-public class UserDiamondServiceImpl implements UserDIamondService {
+public class UserDiamondServiceImpl implements UserDiamondService {
 
 	@Autowired
 	private UserDiamondChangeLogDaoImpl userDiamondChangeLogDao;

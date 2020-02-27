@@ -1,6 +1,6 @@
 package com.hz.world.core.service;
 
-public interface UserDIamondService {
+public interface UserDiamondService {
 
 
 	/**

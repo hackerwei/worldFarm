@@ -12,7 +12,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.hz.world.account.domain.dto.UserBaseInfoDTO;
 import com.hz.world.account.service.UserBaseInfoService;
+import com.hz.world.common.enums.DiamondChangeType;
 import com.hz.world.common.enums.RewardType;
 import com.hz.world.common.enums.TaskCode;
 import com.hz.world.common.enums.TaskStatus;
@@ -26,6 +28,7 @@ import com.hz.world.core.dao.model.UserRewardLog;
 import com.hz.world.core.dao.model.UserTaskLog;
 import com.hz.world.core.domain.dto.TaskOutDTO;
 import com.hz.world.core.service.TaskService;
+import com.hz.world.core.service.UserDiamondService;
 import com.hz.world.core.service.UserRewardService;
 
 @Service
@@ -41,6 +44,8 @@ public class TaskServiceImpl implements TaskService {
 
 	@Autowired
 	UserRewardService userRewardService;
+	@Autowired
+	UserDiamondService userDiamondService;
 
 	@Override
 	public List<TaskDetailInfo> getTaskByParentCode(String parentCode) {
@@ -201,6 +206,10 @@ public class TaskServiceImpl implements TaskService {
 		if (!userBaseInfoService.updateUserDiamond(userId, taskDetailInfo.getDiamondCount())) {
 			return false;
 		}
+		UserBaseInfoDTO user = userBaseInfoService.getByUserId(userId);
+		
+		userDiamondService.createDiamondChangeLog(userId, taskDetailInfo.getDiamondCount(), user.getDiamond(), DiamondChangeType.TASK.getCode());
+
 		record.setRewardMessage(taskDetailInfo.getName()+"获取奖励");
 		userRewardService.createUserRewardLog(record.getUserId(),record.getRewardType(),record.getRelatedId(),record.getRewardCount(),record.getRewardMessage());
 		return true;
