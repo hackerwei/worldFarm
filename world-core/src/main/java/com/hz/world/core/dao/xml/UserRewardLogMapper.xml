@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+  <mapper namespace="com.hz.world.core.dao.mapper.UserRewardLogMapper" >
+    <resultMap id="UserRewardLogResult" type="com.hz.world.core.dao.model.UserRewardLog" >
+      <id column="id" property="id" jdbcType="BIGINT" />
+      <result column="user_id" property="userId" jdbcType="BIGINT" />
+      <result column="reward_type" property="rewardType" jdbcType="INTEGER" />
+      <result column="related_id" property="relatedId" jdbcType="INTEGER" />
+      <result column="reward_count" property="rewardCount" jdbcType="VARCHAR" />
+      <result column="reward_message" property="rewardMessage" jdbcType="VARCHAR" />
+      <result column="add_time" property="addTime" jdbcType="TIMESTAMP" />
+    </resultMap>
+    <sql id="Example_Where_Clause" >
+      <where >
+        <foreach collection="oredCriteria" item="criteria" separator="or" >
+          <if test="criteria.valid" >
+            <trim prefix="(" suffix=")" prefixOverrides="and" >
+              <foreach collection="criteria.criteria" item="criterion" >
+                <choose >
+                  <when test="criterion.noValue" >
+                    and ${criterion.condition}
+                  </when>
+                  <when test="criterion.singleValue" >
+                    and ${criterion.condition} #{criterion.value}
+                  </when>
+                  <when test="criterion.betweenValue" >
+                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                  </when>
+                  <when test="criterion.listValue" >
+                    and ${criterion.condition}
+                    <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                      #{listItem}
+                    </foreach>
+                  </when>
+                </choose>
+              </foreach>
+            </trim>
+          </if>
+        </foreach>
+      </where>
+    </sql>
+    <sql id="Update_By_Example_Where_Clause" >
+      <where >
+        <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+          <if test="criteria.valid" >
+            <trim prefix="(" suffix=")" prefixOverrides="and" >
+              <foreach collection="criteria.criteria" item="criterion" >
+                <choose >
+                  <when test="criterion.noValue" >
+                    and ${criterion.condition}
+                  </when>
+                  <when test="criterion.singleValue" >
+                    and ${criterion.condition} #{criterion.value}
+                  </when>
+                  <when test="criterion.betweenValue" >
+                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                  </when>
+                  <when test="criterion.listValue" >
+                    and ${criterion.condition}
+                    <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                      #{listItem}
+                    </foreach>
+                  </when>
+                </choose>
+              </foreach>
+            </trim>
+          </if>
+        </foreach>
+      </where>
+    </sql>
+    <sql id="UserRewardLogColumns" >
+      id, user_id, reward_type, related_id, reward_count, reward_message, add_time
+    </sql>
+    <select id="selectByExample" resultMap="UserRewardLogResult" parameterType="com.hz.world.core.dao.model.UserRewardLogExample" >
+      select
+      <if test="distinct" >
+        distinct
+      </if>
+      <include refid="UserRewardLogColumns" />
+      from user_reward_log
+      <if test="_parameter != null" >
+        <include refid="Example_Where_Clause" />
+      </if>
+      <if test="orderByClause != null" >
+        order by ${orderByClause}
+      </if>
+      <if test="mysqlOffset != null" >
+        <if test="mysqlLength != null" >
+           limit #{mysqlOffset} , #{mysqlLength} 
+        </if>
+      </if>
+    </select>
+    <select id="selectByPrimaryKey" resultMap="UserRewardLogResult" parameterType="java.lang.Long" >
+      select 
+      <include refid="UserRewardLogColumns" />
+      from user_reward_log
+      where id = #{id,jdbcType=BIGINT}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+      delete from user_reward_log
+      where id = #{id,jdbcType=BIGINT}
+    </delete>
+    <delete id="deleteByExample" parameterType="com.hz.world.core.dao.model.UserRewardLogExample" >
+      delete from user_reward_log
+      <if test="_parameter != null" >
+        <include refid="Example_Where_Clause" />
+      </if>
+    </delete>
+    <insert id="insert" parameterType="com.hz.world.core.dao.model.UserRewardLog" >
+      insert into user_reward_log (id, user_id, reward_type, 
+        related_id, reward_count, reward_message, 
+        add_time)
+      values (#{id,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT}, #{rewardType,jdbcType=INTEGER}, 
+        #{relatedId,jdbcType=INTEGER}, #{rewardCount,jdbcType=VARCHAR}, #{rewardMessage,jdbcType=VARCHAR}, 
+        #{addTime,jdbcType=TIMESTAMP})
+    </insert>
+    <insert id="insertSelective" parameterType="com.hz.world.core.dao.model.UserRewardLog" >
+      insert into user_reward_log
+      <trim prefix="(" suffix=")" suffixOverrides="," >
+        <if test="id != null" >
+          id,
+        </if>
+        <if test="userId != null" >
+          user_id,
+        </if>
+        <if test="rewardType != null" >
+          reward_type,
+        </if>
+        <if test="relatedId != null" >
+          related_id,
+        </if>
+        <if test="rewardCount != null" >
+          reward_count,
+        </if>
+        <if test="rewardMessage != null" >
+          reward_message,
+        </if>
+        <if test="addTime != null" >
+          add_time,
+        </if>
+      </trim>
+      <trim prefix="values (" suffix=")" suffixOverrides="," >
+        <if test="id != null" >
+          #{id,jdbcType=BIGINT},
+        </if>
+        <if test="userId != null" >
+          #{userId,jdbcType=BIGINT},
+        </if>
+        <if test="rewardType != null" >
+          #{rewardType,jdbcType=INTEGER},
+        </if>
+        <if test="relatedId != null" >
+          #{relatedId,jdbcType=INTEGER},
+        </if>
+        <if test="rewardCount != null" >
+          #{rewardCount,jdbcType=VARCHAR},
+        </if>
+        <if test="rewardMessage != null" >
+          #{rewardMessage,jdbcType=VARCHAR},
+        </if>
+        <if test="addTime != null" >
+          #{addTime,jdbcType=TIMESTAMP},
+        </if>
+      </trim>
+    </insert>
+    <select id="countByExample" parameterType="com.hz.world.core.dao.model.UserRewardLogExample" resultType="java.lang.Integer" >
+      select count(*) from user_reward_log
+      <if test="_parameter != null" >
+        <include refid="Example_Where_Clause" />
+      </if>
+    </select>
+    <update id="updateByExampleSelective" parameterType="map" >
+      update user_reward_log
+      <set >
+        <if test="record.id != null" >
+          id = #{record.id,jdbcType=BIGINT},
+        </if>
+        <if test="record.userId != null" >
+          user_id = #{record.userId,jdbcType=BIGINT},
+        </if>
+        <if test="record.rewardType != null" >
+          reward_type = #{record.rewardType,jdbcType=INTEGER},
+        </if>
+        <if test="record.relatedId != null" >
+          related_id = #{record.relatedId,jdbcType=INTEGER},
+        </if>
+        <if test="record.rewardCount != null" >
+          reward_count = #{record.rewardCount,jdbcType=VARCHAR},
+        </if>
+        <if test="record.rewardMessage != null" >
+          reward_message = #{record.rewardMessage,jdbcType=VARCHAR},
+        </if>
+        <if test="record.addTime != null" >
+          add_time = #{record.addTime,jdbcType=TIMESTAMP},
+        </if>
+      </set>
+      <if test="_parameter != null" >
+        <include refid="Update_By_Example_Where_Clause" />
+      </if>
+    </update>
+    <update id="updateByExample" parameterType="map" >
+      update user_reward_log
+      set id = #{record.id,jdbcType=BIGINT},
+        user_id = #{record.userId,jdbcType=BIGINT},
+        reward_type = #{record.rewardType,jdbcType=INTEGER},
+        related_id = #{record.relatedId,jdbcType=INTEGER},
+        reward_count = #{record.rewardCount,jdbcType=VARCHAR},
+        reward_message = #{record.rewardMessage,jdbcType=VARCHAR},
+        add_time = #{record.addTime,jdbcType=TIMESTAMP}
+      <if test="_parameter != null" >
+        <include refid="Update_By_Example_Where_Clause" />
+      </if>
+    </update>
+    <update id="updateByPrimaryKeySelective" parameterType="com.hz.world.core.dao.model.UserRewardLog" >
+      update user_reward_log
+      <set >
+        <if test="userId != null" >
+          user_id = #{userId,jdbcType=BIGINT},
+        </if>
+        <if test="rewardType != null" >
+          reward_type = #{rewardType,jdbcType=INTEGER},
+        </if>
+        <if test="relatedId != null" >
+          related_id = #{relatedId,jdbcType=INTEGER},
+        </if>
+        <if test="rewardCount != null" >
+          reward_count = #{rewardCount,jdbcType=VARCHAR},
+        </if>
+        <if test="rewardMessage != null" >
+          reward_message = #{rewardMessage,jdbcType=VARCHAR},
+        </if>
+        <if test="addTime != null" >
+          add_time = #{addTime,jdbcType=TIMESTAMP},
+        </if>
+      </set>
+      where id = #{id,jdbcType=BIGINT}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.hz.world.core.dao.model.UserRewardLog" >
+      update user_reward_log
+      set user_id = #{userId,jdbcType=BIGINT},
+        reward_type = #{rewardType,jdbcType=INTEGER},
+        related_id = #{relatedId,jdbcType=INTEGER},
+        reward_count = #{rewardCount,jdbcType=VARCHAR},
+        reward_message = #{rewardMessage,jdbcType=VARCHAR},
+        add_time = #{addTime,jdbcType=TIMESTAMP}
+      where id = #{id,jdbcType=BIGINT}
+    </update>
+  </mapper>

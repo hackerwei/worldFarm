@@ -11,6 +11,7 @@ public enum DiamondChangeType {
     
     RECHARGE(0, "充值"),
     SHOP(1, "商场"),
+    INVITE(2, "邀请"),
     ;
     private final int code;
     private final String desc;

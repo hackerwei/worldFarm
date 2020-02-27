@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+  <mapper namespace="com.hz.world.core.dao.mapper.TaskDetailInfoMapper" >
+    <resultMap id="TaskDetailInfoResult" type="com.hz.world.core.dao.model.TaskDetailInfo" >
+      <id column="id" property="id" jdbcType="INTEGER" />
+      <result column="parent_code" property="parentCode" jdbcType="VARCHAR" />
+      <result column="code" property="code" jdbcType="VARCHAR" />
+      <result column="name" property="name" jdbcType="VARCHAR" />
+      <result column="diamond_count" property="diamondCount" jdbcType="INTEGER" />
+      <result column="ext" property="ext" jdbcType="VARCHAR" />
+      <result column="to_num" property="toNum" jdbcType="INTEGER" />
+      <result column="add_time" property="addTime" jdbcType="TIMESTAMP" />
+    </resultMap>
+    <sql id="Example_Where_Clause" >
+      <where >
+        <foreach collection="oredCriteria" item="criteria" separator="or" >
+          <if test="criteria.valid" >
+            <trim prefix="(" suffix=")" prefixOverrides="and" >
+              <foreach collection="criteria.criteria" item="criterion" >
+                <choose >
+                  <when test="criterion.noValue" >
+                    and ${criterion.condition}
+                  </when>
+                  <when test="criterion.singleValue" >
+                    and ${criterion.condition} #{criterion.value}
+                  </when>
+                  <when test="criterion.betweenValue" >
+                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                  </when>
+                  <when test="criterion.listValue" >
+                    and ${criterion.condition}
+                    <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                      #{listItem}
+                    </foreach>
+                  </when>
+                </choose>
+              </foreach>
+            </trim>
+          </if>
+        </foreach>
+      </where>
+    </sql>
+    <sql id="Update_By_Example_Where_Clause" >
+      <where >
+        <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+          <if test="criteria.valid" >
+            <trim prefix="(" suffix=")" prefixOverrides="and" >
+              <foreach collection="criteria.criteria" item="criterion" >
+                <choose >
+                  <when test="criterion.noValue" >
+                    and ${criterion.condition}
+                  </when>
+                  <when test="criterion.singleValue" >
+                    and ${criterion.condition} #{criterion.value}
+                  </when>
+                  <when test="criterion.betweenValue" >
+                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                  </when>
+                  <when test="criterion.listValue" >
+                    and ${criterion.condition}
+                    <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                      #{listItem}
+                    </foreach>
+                  </when>
+                </choose>
+              </foreach>
+            </trim>
+          </if>
+        </foreach>
+      </where>
+    </sql>
+    <sql id="TaskDetailInfoColumns" >
+      id, parent_code, code, name, diamond_count, ext, to_num, add_time
+    </sql>
+    <select id="selectByExample" resultMap="TaskDetailInfoResult" parameterType="com.hz.world.core.dao.model.TaskDetailInfoExample" >
+      select
+      <if test="distinct" >
+        distinct
+      </if>
+      <include refid="TaskDetailInfoColumns" />
+      from task_detail_info
+      <if test="_parameter != null" >
+        <include refid="Example_Where_Clause" />
+      </if>
+      <if test="orderByClause != null" >
+        order by ${orderByClause}
+      </if>
+      <if test="mysqlOffset != null" >
+        <if test="mysqlLength != null" >
+           limit #{mysqlOffset} , #{mysqlLength} 
+        </if>
+      </if>
+    </select>
+    <select id="selectByPrimaryKey" resultMap="TaskDetailInfoResult" parameterType="java.lang.Integer" >
+      select 
+      <include refid="TaskDetailInfoColumns" />
+      from task_detail_info
+      where id = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+      delete from task_detail_info
+      where id = #{id,jdbcType=INTEGER}
+    </delete>
+    <delete id="deleteByExample" parameterType="com.hz.world.core.dao.model.TaskDetailInfoExample" >
+      delete from task_detail_info
+      <if test="_parameter != null" >
+        <include refid="Example_Where_Clause" />
+      </if>
+    </delete>
+    <insert id="insert" parameterType="com.hz.world.core.dao.model.TaskDetailInfo" >
+      insert into task_detail_info (id, parent_code, code, 
+        name, diamond_count, ext, 
+        to_num, add_time)
+      values (#{id,jdbcType=INTEGER}, #{parentCode,jdbcType=VARCHAR}, #{code,jdbcType=VARCHAR}, 
+        #{name,jdbcType=VARCHAR}, #{diamondCount,jdbcType=INTEGER}, #{ext,jdbcType=VARCHAR}, 
+        #{toNum,jdbcType=INTEGER}, #{addTime,jdbcType=TIMESTAMP})
+    </insert>
+    <insert id="insertSelective" parameterType="com.hz.world.core.dao.model.TaskDetailInfo" >
+      insert into task_detail_info
+      <trim prefix="(" suffix=")" suffixOverrides="," >
+        <if test="id != null" >
+          id,
+        </if>
+        <if test="parentCode != null" >
+          parent_code,
+        </if>
+        <if test="code != null" >
+          code,
+        </if>
+        <if test="name != null" >
+          name,
+        </if>
+        <if test="diamondCount != null" >
+          diamond_count,
+        </if>
+        <if test="ext != null" >
+          ext,
+        </if>
+        <if test="toNum != null" >
+          to_num,
+        </if>
+        <if test="addTime != null" >
+          add_time,
+        </if>
+      </trim>
+      <trim prefix="values (" suffix=")" suffixOverrides="," >
+        <if test="id != null" >
+          #{id,jdbcType=INTEGER},
+        </if>
+        <if test="parentCode != null" >
+          #{parentCode,jdbcType=VARCHAR},
+        </if>
+        <if test="code != null" >
+          #{code,jdbcType=VARCHAR},
+        </if>
+        <if test="name != null" >
+          #{name,jdbcType=VARCHAR},
+        </if>
+        <if test="diamondCount != null" >
+          #{diamondCount,jdbcType=INTEGER},
+        </if>
+        <if test="ext != null" >
+          #{ext,jdbcType=VARCHAR},
+        </if>
+        <if test="toNum != null" >
+          #{toNum,jdbcType=INTEGER},
+        </if>
+        <if test="addTime != null" >
+          #{addTime,jdbcType=TIMESTAMP},
+        </if>
+      </trim>
+    </insert>
+    <select id="countByExample" parameterType="com.hz.world.core.dao.model.TaskDetailInfoExample" resultType="java.lang.Integer" >
+      select count(*) from task_detail_info
+      <if test="_parameter != null" >
+        <include refid="Example_Where_Clause" />
+      </if>
+    </select>
+    <update id="updateByExampleSelective" parameterType="map" >
+      update task_detail_info
+      <set >
+        <if test="record.id != null" >
+          id = #{record.id,jdbcType=INTEGER},
+        </if>
+        <if test="record.parentCode != null" >
+          parent_code = #{record.parentCode,jdbcType=VARCHAR},
+        </if>
+        <if test="record.code != null" >
+          code = #{record.code,jdbcType=VARCHAR},
+        </if>
+        <if test="record.name != null" >
+          name = #{record.name,jdbcType=VARCHAR},
+        </if>
+        <if test="record.diamondCount != null" >
+          diamond_count = #{record.diamondCount,jdbcType=INTEGER},
+        </if>
+        <if test="record.ext != null" >
+          ext = #{record.ext,jdbcType=VARCHAR},
+        </if>
+        <if test="record.toNum != null" >
+          to_num = #{record.toNum,jdbcType=INTEGER},
+        </if>
+        <if test="record.addTime != null" >
+          add_time = #{record.addTime,jdbcType=TIMESTAMP},
+        </if>
+      </set>
+      <if test="_parameter != null" >
+        <include refid="Update_By_Example_Where_Clause" />
+      </if>
+    </update>
+    <update id="updateByExample" parameterType="map" >
+      update task_detail_info
+      set id = #{record.id,jdbcType=INTEGER},
+        parent_code = #{record.parentCode,jdbcType=VARCHAR},
+        code = #{record.code,jdbcType=VARCHAR},
+        name = #{record.name,jdbcType=VARCHAR},
+        diamond_count = #{record.diamondCount,jdbcType=INTEGER},
+        ext = #{record.ext,jdbcType=VARCHAR},
+        to_num = #{record.toNum,jdbcType=INTEGER},
+        add_time = #{record.addTime,jdbcType=TIMESTAMP}
+      <if test="_parameter != null" >
+        <include refid="Update_By_Example_Where_Clause" />
+      </if>
+    </update>
+    <update id="updateByPrimaryKeySelective" parameterType="com.hz.world.core.dao.model.TaskDetailInfo" >
+      update task_detail_info
+      <set >
+        <if test="parentCode != null" >
+          parent_code = #{parentCode,jdbcType=VARCHAR},
+        </if>
+        <if test="code != null" >
+          code = #{code,jdbcType=VARCHAR},
+        </if>
+        <if test="name != null" >
+          name = #{name,jdbcType=VARCHAR},
+        </if>
+        <if test="diamondCount != null" >
+          diamond_count = #{diamondCount,jdbcType=INTEGER},
+        </if>
+        <if test="ext != null" >
+          ext = #{ext,jdbcType=VARCHAR},
+        </if>
+        <if test="toNum != null" >
+          to_num = #{toNum,jdbcType=INTEGER},
+        </if>
+        <if test="addTime != null" >
+          add_time = #{addTime,jdbcType=TIMESTAMP},
+        </if>
+      </set>
+      where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.hz.world.core.dao.model.TaskDetailInfo" >
+      update task_detail_info
+      set parent_code = #{parentCode,jdbcType=VARCHAR},
+        code = #{code,jdbcType=VARCHAR},
+        name = #{name,jdbcType=VARCHAR},
+        diamond_count = #{diamondCount,jdbcType=INTEGER},
+        ext = #{ext,jdbcType=VARCHAR},
+        to_num = #{toNum,jdbcType=INTEGER},
+        add_time = #{addTime,jdbcType=TIMESTAMP}
+      where id = #{id,jdbcType=INTEGER}
+    </update>
+  </mapper>

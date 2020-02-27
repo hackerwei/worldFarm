@@ -1,5 +1,7 @@
 package com.hz.world.api.account.controller;
 
+import java.util.Date;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +22,7 @@ import com.hz.world.api.common.cache.ApiCacheUtil;
 import com.hz.world.api.core.domain.dto.GeneralResultMap;
 import com.hz.world.api.core.domain.dto.SysReturnCode;
 import com.hz.world.common.util.IpUtil;
+import com.hz.world.core.service.InviteService;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -42,7 +45,8 @@ public class AccountController {
     @Autowired
     private ApiCacheUtil apiCacheUtil;
 
-    
+    @Autowired
+    private InviteService inviteService;
  
 
    
@@ -79,7 +83,9 @@ public class AccountController {
 				UserLoginDTO userLoginDTO = new UserLoginDTO();
 				userLoginDTO.setUserId(userId);
 				
-		
+				if (result.getLoginType() == 1 && requestBody.getFromUserId() != null) {
+					inviteService.inviteUser(requestBody.getFromUserId(), userId);
+				}
 	            generalResultMap.setResult(SysReturnCode.SUCC, result);
             } else {
                 generalResultMap.setResult(SysReturnCode.FAIL, "登陆失败");

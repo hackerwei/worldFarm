@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+  <mapper namespace="com.hz.world.core.dao.mapper.UserTaskLogMapper" >
+    <resultMap id="UserTaskLogResult" type="com.hz.world.core.dao.model.UserTaskLog" >
+      <id column="id" property="id" jdbcType="BIGINT" />
+      <result column="user_id" property="userId" jdbcType="BIGINT" />
+      <result column="parent_code" property="parentCode" jdbcType="VARCHAR" />
+      <result column="task_id" property="taskId" jdbcType="INTEGER" />
+      <result column="date" property="date" jdbcType="DATE" />
+      <result column="status" property="status" jdbcType="INTEGER" />
+      <result column="add_time" property="addTime" jdbcType="TIMESTAMP" />
+      <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+      <result column="is_deleted" property="isDeleted" jdbcType="CHAR" />
+    </resultMap>
+    <sql id="Example_Where_Clause" >
+      <where >
+        <foreach collection="oredCriteria" item="criteria" separator="or" >
+          <if test="criteria.valid" >
+            <trim prefix="(" suffix=")" prefixOverrides="and" >
+              <foreach collection="criteria.criteria" item="criterion" >
+                <choose >
+                  <when test="criterion.noValue" >
+                    and ${criterion.condition}
+                  </when>
+                  <when test="criterion.singleValue" >
+                    and ${criterion.condition} #{criterion.value}
+                  </when>
+                  <when test="criterion.betweenValue" >
+                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                  </when>
+                  <when test="criterion.listValue" >
+                    and ${criterion.condition}
+                    <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                      #{listItem}
+                    </foreach>
+                  </when>
+                </choose>
+              </foreach>
+            </trim>
+          </if>
+        </foreach>
+      </where>
+    </sql>
+    <sql id="Update_By_Example_Where_Clause" >
+      <where >
+        <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+          <if test="criteria.valid" >
+            <trim prefix="(" suffix=")" prefixOverrides="and" >
+              <foreach collection="criteria.criteria" item="criterion" >
+                <choose >
+                  <when test="criterion.noValue" >
+                    and ${criterion.condition}
+                  </when>
+                  <when test="criterion.singleValue" >
+                    and ${criterion.condition} #{criterion.value}
+                  </when>
+                  <when test="criterion.betweenValue" >
+                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                  </when>
+                  <when test="criterion.listValue" >
+                    and ${criterion.condition}
+                    <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                      #{listItem}
+                    </foreach>
+                  </when>
+                </choose>
+              </foreach>
+            </trim>
+          </if>
+        </foreach>
+      </where>
+    </sql>
+    <sql id="UserTaskLogColumns" >
+      id, user_id, parent_code, task_id, date, status, add_time, update_time, is_deleted
+    </sql>
+    <select id="selectByExample" resultMap="UserTaskLogResult" parameterType="com.hz.world.core.dao.model.UserTaskLogExample" >
+      select
+      <if test="distinct" >
+        distinct
+      </if>
+      <include refid="UserTaskLogColumns" />
+      from user_task_log
+      <if test="_parameter != null" >
+        <include refid="Example_Where_Clause" />
+      </if>
+      <if test="orderByClause != null" >
+        order by ${orderByClause}
+      </if>
+      <if test="mysqlOffset != null" >
+        <if test="mysqlLength != null" >
+           limit #{mysqlOffset} , #{mysqlLength} 
+        </if>
+      </if>
+    </select>
+    <select id="selectByPrimaryKey" resultMap="UserTaskLogResult" parameterType="java.lang.Long" >
+      select 
+      <include refid="UserTaskLogColumns" />
+      from user_task_log
+      where id = #{id,jdbcType=BIGINT}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+      delete from user_task_log
+      where id = #{id,jdbcType=BIGINT}
+    </delete>
+    <delete id="deleteByExample" parameterType="com.hz.world.core.dao.model.UserTaskLogExample" >
+      delete from user_task_log
+      <if test="_parameter != null" >
+        <include refid="Example_Where_Clause" />
+      </if>
+    </delete>
+    <insert id="insert" parameterType="com.hz.world.core.dao.model.UserTaskLog" >
+      insert into user_task_log (id, user_id, parent_code, 
+        task_id, date, status, 
+        add_time, update_time, is_deleted
+        )
+      values (#{id,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT}, #{parentCode,jdbcType=VARCHAR}, 
+        #{taskId,jdbcType=INTEGER}, #{date,jdbcType=DATE}, #{status,jdbcType=INTEGER}, 
+        #{addTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{isDeleted,jdbcType=CHAR}
+        )
+    </insert>
+    <insert id="insertSelective" parameterType="com.hz.world.core.dao.model.UserTaskLog" >
+      insert into user_task_log
+      <trim prefix="(" suffix=")" suffixOverrides="," >
+        <if test="id != null" >
+          id,
+        </if>
+        <if test="userId != null" >
+          user_id,
+        </if>
+        <if test="parentCode != null" >
+          parent_code,
+        </if>
+        <if test="taskId != null" >
+          task_id,
+        </if>
+        <if test="date != null" >
+          date,
+        </if>
+        <if test="status != null" >
+          status,
+        </if>
+        <if test="addTime != null" >
+          add_time,
+        </if>
+        <if test="updateTime != null" >
+          update_time,
+        </if>
+        <if test="isDeleted != null" >
+          is_deleted,
+        </if>
+      </trim>
+      <trim prefix="values (" suffix=")" suffixOverrides="," >
+        <if test="id != null" >
+          #{id,jdbcType=BIGINT},
+        </if>
+        <if test="userId != null" >
+          #{userId,jdbcType=BIGINT},
+        </if>
+        <if test="parentCode != null" >
+          #{parentCode,jdbcType=VARCHAR},
+        </if>
+        <if test="taskId != null" >
+          #{taskId,jdbcType=INTEGER},
+        </if>
+        <if test="date != null" >
+          #{date,jdbcType=DATE},
+        </if>
+        <if test="status != null" >
+          #{status,jdbcType=INTEGER},
+        </if>
+        <if test="addTime != null" >
+          #{addTime,jdbcType=TIMESTAMP},
+        </if>
+        <if test="updateTime != null" >
+          #{updateTime,jdbcType=TIMESTAMP},
+        </if>
+        <if test="isDeleted != null" >
+          #{isDeleted,jdbcType=CHAR},
+        </if>
+      </trim>
+    </insert>
+    <select id="countByExample" parameterType="com.hz.world.core.dao.model.UserTaskLogExample" resultType="java.lang.Integer" >
+      select count(*) from user_task_log
+      <if test="_parameter != null" >
+        <include refid="Example_Where_Clause" />
+      </if>
+    </select>
+    <update id="updateByExampleSelective" parameterType="map" >
+      update user_task_log
+      <set >
+        <if test="record.id != null" >
+          id = #{record.id,jdbcType=BIGINT},
+        </if>
+        <if test="record.userId != null" >
+          user_id = #{record.userId,jdbcType=BIGINT},
+        </if>
+        <if test="record.parentCode != null" >
+          parent_code = #{record.parentCode,jdbcType=VARCHAR},
+        </if>
+        <if test="record.taskId != null" >
+          task_id = #{record.taskId,jdbcType=INTEGER},
+        </if>
+        <if test="record.date != null" >
+          date = #{record.date,jdbcType=DATE},
+        </if>
+        <if test="record.status != null" >
+          status = #{record.status,jdbcType=INTEGER},
+        </if>
+        <if test="record.addTime != null" >
+          add_time = #{record.addTime,jdbcType=TIMESTAMP},
+        </if>
+        <if test="record.updateTime != null" >
+          update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+        </if>
+        <if test="record.isDeleted != null" >
+          is_deleted = #{record.isDeleted,jdbcType=CHAR},
+        </if>
+      </set>
+      <if test="_parameter != null" >
+        <include refid="Update_By_Example_Where_Clause" />
+      </if>
+    </update>
+    <update id="updateByExample" parameterType="map" >
+      update user_task_log
+      set id = #{record.id,jdbcType=BIGINT},
+        user_id = #{record.userId,jdbcType=BIGINT},
+        parent_code = #{record.parentCode,jdbcType=VARCHAR},
+        task_id = #{record.taskId,jdbcType=INTEGER},
+        date = #{record.date,jdbcType=DATE},
+        status = #{record.status,jdbcType=INTEGER},
+        add_time = #{record.addTime,jdbcType=TIMESTAMP},
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+        is_deleted = #{record.isDeleted,jdbcType=CHAR}
+      <if test="_parameter != null" >
+        <include refid="Update_By_Example_Where_Clause" />
+      </if>
+    </update>
+    <update id="updateByPrimaryKeySelective" parameterType="com.hz.world.core.dao.model.UserTaskLog" >
+      update user_task_log
+      <set >
+        <if test="userId != null" >
+          user_id = #{userId,jdbcType=BIGINT},
+        </if>
+        <if test="parentCode != null" >
+          parent_code = #{parentCode,jdbcType=VARCHAR},
+        </if>
+        <if test="taskId != null" >
+          task_id = #{taskId,jdbcType=INTEGER},
+        </if>
+        <if test="date != null" >
+          date = #{date,jdbcType=DATE},
+        </if>
+        <if test="status != null" >
+          status = #{status,jdbcType=INTEGER},
+        </if>
+        <if test="addTime != null" >
+          add_time = #{addTime,jdbcType=TIMESTAMP},
+        </if>
+        <if test="updateTime != null" >
+          update_time = #{updateTime,jdbcType=TIMESTAMP},
+        </if>
+        <if test="isDeleted != null" >
+          is_deleted = #{isDeleted,jdbcType=CHAR},
+        </if>
+      </set>
+      where id = #{id,jdbcType=BIGINT}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.hz.world.core.dao.model.UserTaskLog" >
+      update user_task_log
+      set user_id = #{userId,jdbcType=BIGINT},
+        parent_code = #{parentCode,jdbcType=VARCHAR},
+        task_id = #{taskId,jdbcType=INTEGER},
+        date = #{date,jdbcType=DATE},
+        status = #{status,jdbcType=INTEGER},
+        add_time = #{addTime,jdbcType=TIMESTAMP},
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+        is_deleted = #{isDeleted,jdbcType=CHAR}
+      where id = #{id,jdbcType=BIGINT}
+    </update>
+  </mapper>

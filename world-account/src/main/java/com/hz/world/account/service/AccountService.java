@@ -24,7 +24,7 @@ public interface AccountService {
 	 * @param userId
 	 * @return
 	 */
-	public UserLoginResultDTO createUser(String nickname, Integer gender, Long userId);
+	public UserLoginResultDTO createUser(String nickname, Integer gender, Long userId, Long fromUserId);
 	
 
 	

@@ -49,20 +49,20 @@ public class AccountServiceImpl implements AccountService {
 		log.info("dance-account,thirdLogin,start,userLoginDTO:{}", userLoginDTO);
 		UserLoginResultDTO result = null;
 		if (AccountSource.AUTO.getCode() == userLoginDTO.getType()) {// 万能钥匙登录
-			result = this.autoLogin(userLoginDTO.getUserId());
+			result = this.autoLogin(userLoginDTO.getUserId(),userLoginDTO.getFromUserId());
 		}
 		return result;
 	}
-	public UserLoginResultDTO autoLogin(Long userId) {
+	public UserLoginResultDTO autoLogin(Long userId,Long fromUserId) {
 		UserLoginResultDTO loginResult = new UserLoginResultDTO();
 		UserBaseInfoDTO user = accountCacheUtil.getUserBaseInfo(userId);
 		if (user == null) {
-			return createUser("测试",1,userId);
+			return createUser("测试",1,userId,fromUserId);
 		}else {
 			String loginToken = accountCacheUtil.getLoginToken(userId); 
 			loginResult.setAccessToken(loginToken);
 			loginResult.setUserId(userId + "");
-			loginResult.setLoginType(2);
+			loginResult.setLoginType(0);
 		}
 		return loginResult;
 	}
@@ -74,12 +74,12 @@ public class AccountServiceImpl implements AccountService {
 	}
 
 	@Override
-	public UserLoginResultDTO createUser(String nickname, Integer gender, Long uid) {
+	public UserLoginResultDTO createUser(String nickname, Integer gender, Long uid, Long fromUserId) {
 		UserLoginResultDTO loginResult = new UserLoginResultDTO();
 
 		boolean result = false;
 		String headImg = "http://thirdqq.qlogo.cn/g?b=oidb&k=VRc66zPfnDqBZp5CVr2Yhg&s=140&t=1561518998";
-		result = register(uid, nickname, gender,headImg);
+		result = register(uid, nickname, gender,headImg,fromUserId);
 		if (result) {
 			
 			String loginToken = AccessToken.encrtyToken("", uid + "", System.currentTimeMillis());
@@ -99,7 +99,7 @@ public class AccountServiceImpl implements AccountService {
 
 	}
 
-	public boolean register(Long userId, String nickname, Integer gender, String headImg) {
+	public boolean register(Long userId, String nickname, Integer gender, String headImg,Long fromUserId) {
 		boolean result = false;
 		try {
 
@@ -111,6 +111,7 @@ public class AccountServiceImpl implements AccountService {
 			userBaseInfo.setNickname(nickname); // nickName
 			userBaseInfo.setHeadImg(headImg); // headImg
 			userBaseInfo.setGender(gender);
+			userBaseInfo.setFromUserId(fromUserId);
 			Long userNo = accountCacheUtil.getUserNo();
 			userBaseInfo.setInviteCode(userNo+"");
 			result = userBaseInfoDao.insert(userBaseInfo);
