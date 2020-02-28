@@ -41,4 +41,6 @@ public final class RedisConstants {
 	public static final String RICHER_USER_TOTAL_ADD = "richer:user:total_add:%s";
 	/** 用户当日福利是否领取*/
 	public static final String USER_FORTUNE_TODAY = "richer:user:fortune_today:%s";
+	/** 外卖次数*/
+	public static final String USER_TAKE_OUT = "richer:user:take_out:%s";
 }

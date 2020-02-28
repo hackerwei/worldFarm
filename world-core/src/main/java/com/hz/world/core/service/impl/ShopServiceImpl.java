@@ -100,7 +100,9 @@ public class ShopServiceImpl implements ShopService {
 					BigDecimal rate = new BigDecimal(coin.getIcomeRate()) ;
 					String income = rate.multiply(BigDecimal.valueOf(3600*config.getParam())).toString();
 					userCoinService.changeUserCoin(userId, income, CoinChangeType.SHOP_REWARD.getCode(), 0);
+					UserCoinDTO coinDTO = userCoinService.getUserCoin(userId);
 					shopResult.setCoinReward(income);
+					shopResult.setCoin(coinDTO.getCoin());
 				}
 			}
 			//获得永久收益加成

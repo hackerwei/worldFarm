@@ -330,5 +330,30 @@ public class CoreCacheUtil {
 		redisService.set(key, "1");
 		redisService.expire(key, DateUtil.getSecondToTomorrow());
 	}
+	public int getTakeOutTimes(Long userId) {
+		String key = String.format(RedisConstants.USER_TAKE_OUT, userId);
+		if (!redisService.exists(key)) {
+			return 0;
+		}
+		return Integer.parseInt(redisService.get(key));
+	}
+	public void addTackout(Long userId) {
+		String key = String.format(RedisConstants.USER_TAKE_OUT, userId);
+		if (!redisService.exists(key)) {
+			redisService.incr(key);
+			//过期时间
+			int diffSeconds =  DateUtil.getSecondToTomorrow();
+			if (diffSeconds > 12*3600) {
+				diffSeconds = diffSeconds - 12*3600;
+			}
+			redisService.expire(key,diffSeconds);
+		}
+		else {
+			redisService.incr(key);
+		}
+		
+		
+		
+	}
 	
 }

@@ -31,6 +31,7 @@ import com.hz.world.common.enums.ElementAdd;
 import com.hz.world.core.domain.dto.UserCoinDTO;
 import com.hz.world.core.domain.dto.UserElementDTO;
 import com.hz.world.core.domain.dto.UserTmpIncomeDTO;
+import com.hz.world.core.service.FortuneService;
 import com.hz.world.core.service.UserCoinService;
 import com.hz.world.core.service.UserElementService;
 
@@ -51,6 +52,8 @@ public class IndexController {
 	private UserCoinService userCoinService;
 	@Autowired
 	private UserElementService userElementService;
+	@Autowired
+	private FortuneService fortuneService;
 	@Autowired
 	private ApiCacheUtil apiCacheUtil;
 
@@ -78,6 +81,7 @@ public class IndexController {
 			data.put("user", user);
 			data.put("coin", out);
 			data.put("elementList", elementList);
+			data.put("fortune", fortuneService.canDraw(userId));
 			data.put("shopAdd", userElementService.getUserTotalAddByField(userId, ElementAdd.SHOP.getCode()));
 			
 			outputMap.setResult(SysReturnCode.SUCC, data);
