@@ -351,9 +351,19 @@ public class CoreCacheUtil {
 		else {
 			redisService.incr(key);
 		}
-		
-		
-		
+
+	}
+	public long getExpressTime(Long userId) {
+		String key = String.format(RedisConstants.USER_EXPRESS, userId);
+		long ttl =  redisService.ttl(key);
+		if (ttl<=0) {
+			ttl = 0;
+		}
+		return ttl;
+	}
+	public void addExpress(Long userId) {
+		String key = String.format(RedisConstants.USER_EXPRESS, userId);
+		redisService.setex(key, 3*3600, "1");
 	}
 	
 }

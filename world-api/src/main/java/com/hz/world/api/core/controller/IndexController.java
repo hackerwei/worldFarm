@@ -31,7 +31,9 @@ import com.hz.world.common.enums.ElementAdd;
 import com.hz.world.core.domain.dto.UserCoinDTO;
 import com.hz.world.core.domain.dto.UserElementDTO;
 import com.hz.world.core.domain.dto.UserTmpIncomeDTO;
+import com.hz.world.core.service.ExpressService;
 import com.hz.world.core.service.FortuneService;
+import com.hz.world.core.service.TakeOutService;
 import com.hz.world.core.service.UserCoinService;
 import com.hz.world.core.service.UserElementService;
 
@@ -55,6 +57,10 @@ public class IndexController {
 	@Autowired
 	private FortuneService fortuneService;
 	@Autowired
+	private ExpressService expressService;
+	@Autowired
+	private TakeOutService takeOutService;
+	@Autowired
 	private ApiCacheUtil apiCacheUtil;
 
 	@RequestMapping(value = "/index", method = { RequestMethod.POST })
@@ -77,7 +83,7 @@ public class IndexController {
 			
 			
 			Map<String, Object> data = new HashMap<String, Object>();
-			
+			data.put("takeOutChance", takeOutService.getChance(userId));
 			data.put("user", user);
 			data.put("coin", out);
 			data.put("elementList", elementList);
@@ -175,7 +181,7 @@ public class IndexController {
 					data.put("offlineReward", reward);
 				}
 			}
-			
+			data.put("expressCountDown", expressService.getCountDown(userId).getCountDown());
 			data.put("countDown", countDown);
 			data.put("coin", coin.getCoin());
 			data.put("output", coin.getIcomeRate());
