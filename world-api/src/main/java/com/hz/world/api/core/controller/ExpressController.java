@@ -60,6 +60,32 @@ public class ExpressController {
 		return outputMap;
 		
 	}
+	@RequestMapping(value = "/clearCountDown", method = { RequestMethod.POST })
+	public GeneralResultMap clearCountDown(@RequestHeader("uid") Long userId) {
+		GeneralResultMap outputMap = new GeneralResultMap();
+		try {
+			
+			UserBaseInfoDTO user = userBaseInfoService.getByUserId(userId);
+			if (user == null) {
+				outputMap.setResult(SysReturnCode.UNKNOW_USER, "用户不存在");
+				return outputMap;
+			}
+			ResultDTO<String> resultDTO = expressService.clearCountDown(userId);
+			if (resultDTO.isSuccess()) {
+				outputMap.setResult(SysReturnCode.SUCC, "ok");
+			}else {
+				outputMap.setResult(SysReturnCode.FAIL, resultDTO.getErrDesc());
+			}
+			
+			
+		} catch (Exception e) {
+			log.error("用户{}清除倒计时失败", userId, e);
+			outputMap.setResult(SysReturnCode.FAIL, "清除倒计时失败");
+		}
+
+		return outputMap;
+		
+	}
 	
 	@RequestMapping(value = "/index", method = { RequestMethod.POST })
 	public GeneralResultMap index(@RequestHeader("uid") Long userId) {

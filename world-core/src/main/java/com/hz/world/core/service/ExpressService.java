@@ -21,4 +21,10 @@ public interface ExpressService {
 	 * @return
 	 */
 	public ExpressInfoDTO getCountDown(Long userId);
+	
+	/**
+	 * 清除倒计时
+	 * @param userId
+	 */
+	public ResultDTO<String> clearCountDown(Long userId);
 }

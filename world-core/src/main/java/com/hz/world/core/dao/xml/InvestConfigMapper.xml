@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+  <mapper namespace="com.hz.world.core.dao.mapper.InvestConfigMapper" >
+    <resultMap id="InvestConfigResult" type="com.hz.world.core.dao.model.InvestConfig" >
+      <id column="id" property="id" jdbcType="INTEGER" />
+      <result column="element" property="element" jdbcType="INTEGER" />
+      <result column="type" property="type" jdbcType="INTEGER" />
+      <result column="param" property="param" jdbcType="INTEGER" />
+      <result column="initial_cost" property="initialCost" jdbcType="VARCHAR" />
+    </resultMap>
+    <sql id="Example_Where_Clause" >
+      <where >
+        <foreach collection="oredCriteria" item="criteria" separator="or" >
+          <if test="criteria.valid" >
+            <trim prefix="(" suffix=")" prefixOverrides="and" >
+              <foreach collection="criteria.criteria" item="criterion" >
+                <choose >
+                  <when test="criterion.noValue" >
+                    and ${criterion.condition}
+                  </when>
+                  <when test="criterion.singleValue" >
+                    and ${criterion.condition} #{criterion.value}
+                  </when>
+                  <when test="criterion.betweenValue" >
+                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                  </when>
+                  <when test="criterion.listValue" >
+                    and ${criterion.condition}
+                    <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                      #{listItem}
+                    </foreach>
+                  </when>
+                </choose>
+              </foreach>
+            </trim>
+          </if>
+        </foreach>
+      </where>
+    </sql>
+    <sql id="Update_By_Example_Where_Clause" >
+      <where >
+        <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+          <if test="criteria.valid" >
+            <trim prefix="(" suffix=")" prefixOverrides="and" >
+              <foreach collection="criteria.criteria" item="criterion" >
+                <choose >
+                  <when test="criterion.noValue" >
+                    and ${criterion.condition}
+                  </when>
+                  <when test="criterion.singleValue" >
+                    and ${criterion.condition} #{criterion.value}
+                  </when>
+                  <when test="criterion.betweenValue" >
+                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                  </when>
+                  <when test="criterion.listValue" >
+                    and ${criterion.condition}
+                    <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                      #{listItem}
+                    </foreach>
+                  </when>
+                </choose>
+              </foreach>
+            </trim>
+          </if>
+        </foreach>
+      </where>
+    </sql>
+    <sql id="InvestConfigColumns" >
+      id, element, type, param, initial_cost
+    </sql>
+    <select id="selectByExample" resultMap="InvestConfigResult" parameterType="com.hz.world.core.dao.model.InvestConfigExample" >
+      select
+      <if test="distinct" >
+        distinct
+      </if>
+      <include refid="InvestConfigColumns" />
+      from invest_config
+      <if test="_parameter != null" >
+        <include refid="Example_Where_Clause" />
+      </if>
+      <if test="orderByClause != null" >
+        order by ${orderByClause}
+      </if>
+      <if test="mysqlOffset != null" >
+        <if test="mysqlLength != null" >
+           limit #{mysqlOffset} , #{mysqlLength} 
+        </if>
+      </if>
+    </select>
+    <select id="selectByPrimaryKey" resultMap="InvestConfigResult" parameterType="java.lang.Integer" >
+      select 
+      <include refid="InvestConfigColumns" />
+      from invest_config
+      where id = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+      delete from invest_config
+      where id = #{id,jdbcType=INTEGER}
+    </delete>
+    <delete id="deleteByExample" parameterType="com.hz.world.core.dao.model.InvestConfigExample" >
+      delete from invest_config
+      <if test="_parameter != null" >
+        <include refid="Example_Where_Clause" />
+      </if>
+    </delete>
+    <insert id="insert" parameterType="com.hz.world.core.dao.model.InvestConfig" >
+      insert into invest_config (id, element, type, 
+        param, initial_cost)
+      values (#{id,jdbcType=INTEGER}, #{element,jdbcType=INTEGER}, #{type,jdbcType=INTEGER}, 
+        #{param,jdbcType=INTEGER}, #{initialCost,jdbcType=VARCHAR})
+    </insert>
+    <insert id="insertSelective" parameterType="com.hz.world.core.dao.model.InvestConfig" >
+      insert into invest_config
+      <trim prefix="(" suffix=")" suffixOverrides="," >
+        <if test="id != null" >
+          id,
+        </if>
+        <if test="element != null" >
+          element,
+        </if>
+        <if test="type != null" >
+          type,
+        </if>
+        <if test="param != null" >
+          param,
+        </if>
+        <if test="initialCost != null" >
+          initial_cost,
+        </if>
+      </trim>
+      <trim prefix="values (" suffix=")" suffixOverrides="," >
+        <if test="id != null" >
+          #{id,jdbcType=INTEGER},
+        </if>
+        <if test="element != null" >
+          #{element,jdbcType=INTEGER},
+        </if>
+        <if test="type != null" >
+          #{type,jdbcType=INTEGER},
+        </if>
+        <if test="param != null" >
+          #{param,jdbcType=INTEGER},
+        </if>
+        <if test="initialCost != null" >
+          #{initialCost,jdbcType=VARCHAR},
+        </if>
+      </trim>
+    </insert>
+    <select id="countByExample" parameterType="com.hz.world.core.dao.model.InvestConfigExample" resultType="java.lang.Integer" >
+      select count(*) from invest_config
+      <if test="_parameter != null" >
+        <include refid="Example_Where_Clause" />
+      </if>
+    </select>
+    <update id="updateByExampleSelective" parameterType="map" >
+      update invest_config
+      <set >
+        <if test="record.id != null" >
+          id = #{record.id,jdbcType=INTEGER},
+        </if>
+        <if test="record.element != null" >
+          element = #{record.element,jdbcType=INTEGER},
+        </if>
+        <if test="record.type != null" >
+          type = #{record.type,jdbcType=INTEGER},
+        </if>
+        <if test="record.param != null" >
+          param = #{record.param,jdbcType=INTEGER},
+        </if>
+        <if test="record.initialCost != null" >
+          initial_cost = #{record.initialCost,jdbcType=VARCHAR},
+        </if>
+      </set>
+      <if test="_parameter != null" >
+        <include refid="Update_By_Example_Where_Clause" />
+      </if>
+    </update>
+    <update id="updateByExample" parameterType="map" >
+      update invest_config
+      set id = #{record.id,jdbcType=INTEGER},
+        element = #{record.element,jdbcType=INTEGER},
+        type = #{record.type,jdbcType=INTEGER},
+        param = #{record.param,jdbcType=INTEGER},
+        initial_cost = #{record.initialCost,jdbcType=VARCHAR}
+      <if test="_parameter != null" >
+        <include refid="Update_By_Example_Where_Clause" />
+      </if>
+    </update>
+    <update id="updateByPrimaryKeySelective" parameterType="com.hz.world.core.dao.model.InvestConfig" >
+      update invest_config
+      <set >
+        <if test="element != null" >
+          element = #{element,jdbcType=INTEGER},
+        </if>
+        <if test="type != null" >
+          type = #{type,jdbcType=INTEGER},
+        </if>
+        <if test="param != null" >
+          param = #{param,jdbcType=INTEGER},
+        </if>
+        <if test="initialCost != null" >
+          initial_cost = #{initialCost,jdbcType=VARCHAR},
+        </if>
+      </set>
+      where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.hz.world.core.dao.model.InvestConfig" >
+      update invest_config
+      set element = #{element,jdbcType=INTEGER},
+        type = #{type,jdbcType=INTEGER},
+        param = #{param,jdbcType=INTEGER},
+        initial_cost = #{initialCost,jdbcType=VARCHAR}
+      where id = #{id,jdbcType=INTEGER}
+    </update>
+  </mapper>

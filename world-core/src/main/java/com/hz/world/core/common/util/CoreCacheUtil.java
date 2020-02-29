@@ -365,5 +365,16 @@ public class CoreCacheUtil {
 		String key = String.format(RedisConstants.USER_EXPRESS, userId);
 		redisService.setex(key, 3*3600, "1");
 	}
-	
+	public void clearExpress(Long userId) {
+		String key = String.format(RedisConstants.USER_EXPRESS, userId);
+		redisService.del(key);
+	}
+	public void setLastInvestId(Long userId, Integer id) {
+		String key = String.format(RedisConstants.LAST_INVEST_ID, userId);
+		redisService.set(key, id+"");
+	}
+	public String getLastInvestId(Long userId) {
+		String key = String.format(RedisConstants.LAST_INVEST_ID, userId);
+		return redisService.get(key);
+	}
 }

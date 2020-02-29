@@ -23,10 +23,7 @@ import com.hz.world.core.service.UserDiamondService;
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * Title: 
- * Description: 
- * author linyanchun
- * date Feb 22, 2020 
+ * Title: Description: author linyanchun date Feb 22, 2020
  */
 @Slf4j
 @Service
@@ -42,52 +39,65 @@ public class ExpressServiceImpl implements ExpressService {
 	@Autowired
 	private UserDiamondService userDiamondService;
 
-	
-	
 	@Override
-	public ResultDTO<ExpressResultDTO> getReward(Long userId){
+	public ResultDTO<ExpressResultDTO> getReward(Long userId) {
 		ResultDTO<ExpressResultDTO> resultDTO = new ResultDTO<ExpressResultDTO>();
 		ExpressResultDTO result = new ExpressResultDTO();
 		long countDown = coreCacheUtil.getExpressTime(userId);
-		int costDiamond = 0;
-		if (countDown >0) {
-			costDiamond = (int)Math.ceil(countDown*60/10800);
-		}
-		if (costDiamond > 0 ) {
-			//扣除钻石
-			if (!userBaseInfoService.updateUserDiamond(userId, -costDiamond)) {
-				resultDTO.set(ResultCodeEnum.ERROR_HANDLE, "钻石不足");
-			}
-			UserBaseInfoDTO user  = userBaseInfoService.getByUserId(userId);
-			userDiamondService.createDiamondChangeLog(userId, -costDiamond, user.getDiamond(), DiamondChangeType.EXPRESS.getCode());
+		if (countDown > 0) {
+			resultDTO.set(ResultCodeEnum.ERROR_HANDLE, "时间未到，无法领取");
+			return resultDTO;
 		}
 		UserCoinDTO coin = userCoinService.getUserCoin(userId);
 		if (coin != null) {
-			//45分钟收益
-			BigDecimal rate = new BigDecimal(coin.getIcomeRate()) ;
-			String income = rate.multiply(BigDecimal.valueOf(45*60)).toString();
+			// 45分钟收益
+			BigDecimal rate = new BigDecimal(coin.getIcomeRate());
+			String income = rate.multiply(BigDecimal.valueOf(45 * 60)).toString();
 			userCoinService.changeUserCoin(userId, income, CoinChangeType.SHOP_REWARD.getCode(), 0);
 			UserCoinDTO coinDTO = userCoinService.getUserCoin(userId);
 			result.setCoinReward(income);
 			result.setCoin(coinDTO.getCoin());
 		}
-		coreCacheUtil.addTackout(userId);
+
 		coreCacheUtil.addExpress(userId);
 		result.setCountDown(coreCacheUtil.getExpressTime(userId));
-		resultDTO.set(ResultCodeEnum.SUCCESS, "ok",result);
+		resultDTO.set(ResultCodeEnum.SUCCESS, "ok", result);
 		return resultDTO;
 	}
-	
+
 	@Override
 	public ExpressInfoDTO getCountDown(Long userId) {
 		ExpressInfoDTO result = new ExpressInfoDTO();
 		long countDown = coreCacheUtil.getExpressTime(userId);
 		int diamondCost = 0;
-		if (countDown >0) {
-			diamondCost = (int)Math.ceil(countDown*60/10800);
+		if (countDown > 0) {
+			diamondCost = (int) Math.ceil(countDown * 60 / 10800);
 		}
 		result.setCountDown(countDown);
 		result.setDiamondCost(diamondCost);
 		return result;
+	}
+
+	@Override
+	public ResultDTO<String> clearCountDown(Long userId) {
+		ResultDTO<String> resultDTO = new ResultDTO<String>();
+		long countDown = coreCacheUtil.getExpressTime(userId);
+		int costDiamond = 0;
+		if (countDown > 0) {
+			costDiamond = (int) Math.ceil(countDown * 60 / 10800);
+		}
+		if (costDiamond > 0) {
+			// 扣除钻石
+			if (!userBaseInfoService.updateUserDiamond(userId, -costDiamond)) {
+				resultDTO.set(ResultCodeEnum.ERROR_HANDLE, "钻石不足");
+				return resultDTO;
+			}
+			UserBaseInfoDTO user = userBaseInfoService.getByUserId(userId);
+			userDiamondService.createDiamondChangeLog(userId, -costDiamond, user.getDiamond(),
+					DiamondChangeType.EXPRESS.getCode());
+		}
+		coreCacheUtil.clearExpress(userId);
+		resultDTO.set(ResultCodeEnum.SUCCESS, "ok");
+		return resultDTO;
 	}
 }
