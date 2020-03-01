@@ -6,10 +6,7 @@
  */
 package com.hz.world.core.service;
 
-import java.util.List;
-
 import com.hz.world.common.dto.ResultDTO;
-import com.hz.world.core.domain.dto.UserInviteDTO;
 
 
 /**
@@ -30,10 +27,8 @@ public interface ChallengeService {
      * @param totalWeight    总的体重
      * @return
      */
-    ResultDTO<String> challange(Long userId, Integer element,Integer elementWeight, Integer totalWeight);
-    
-    
-    
+    ResultDTO<String> challenge(Long userId, Integer element,Integer elementWeight, Integer totalWeight);
+
  
   
 }

@@ -1,10 +1,12 @@
 package com.hz.world.core.dao.impl;
 
+import com.hz.world.core.dao.mapper.UserChallengeLogMapper;
+import com.hz.world.core.dao.model.UserChallengeLog;
+import com.hz.world.core.dao.model.UserChallengeLogExample;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.hz.world.core.dao.mapper.UserChallengeLogMapper;
-import com.hz.world.core.dao.model.UserChallengeLog;
+import java.util.List;
 
 
 /**
@@ -23,7 +25,14 @@ public class UserChallengeLogDaoImpl {
 		return userChallengeLogMapper.insertSelective(record) > 0;
     }
 
-    
+    public List<UserChallengeLog> getUserFinishedChallenges(Long userID, Integer element)
+    {
+        UserChallengeLogExample example = new UserChallengeLogExample();
+        UserChallengeLogExample.Criteria criteria = example.createCriteria();
+        criteria.andUserIdEqualTo(userID);
+        criteria.andElementEqualTo(element);
+        return userChallengeLogMapper.selectByExample(example);
+    }
 
 
 }

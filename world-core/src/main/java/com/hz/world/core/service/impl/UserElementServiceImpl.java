@@ -1,14 +1,5 @@
 package com.hz.world.core.service.impl;
 
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
-import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com.hz.world.common.dto.ResultCodeEnum;
 import com.hz.world.common.dto.ResultDTO;
 import com.hz.world.common.enums.CoinChangeType;
@@ -27,8 +18,15 @@ import com.hz.world.core.service.ChallengeService;
 import com.hz.world.core.service.CollectService;
 import com.hz.world.core.service.UserCoinService;
 import com.hz.world.core.service.UserElementService;
-
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Title: Description: author linyanchun date Feb 22, 2020
@@ -103,7 +101,7 @@ public class UserElementServiceImpl implements UserElementService {
 			userCoinService.updateOutput(userId, totalOutput);
 			int totalWeight = userElementDao.getTotalWeight(userId);
 			//挑战
-			challengeService.challange(userId, element, newLevel, totalWeight);
+			challengeService.challenge(userId, element, newLevel, totalWeight);
 			//是否解锁了所有元素，完成收集
 			if (originLevel == 0) {
 				if (userElementDao.isAllUnlock(userId)) {
