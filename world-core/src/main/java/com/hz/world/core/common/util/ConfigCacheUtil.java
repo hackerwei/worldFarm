@@ -1,5 +1,6 @@
 package com.hz.world.core.common.util;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,6 +12,7 @@ import com.hz.world.common.cache.redis.RedisService;
 import com.hz.world.common.constant.RedisConstants;
 import com.hz.world.core.dao.impl.CatchConfigDaoImpl;
 import com.hz.world.core.dao.impl.ChallengeConfigDaoImpl;
+import com.hz.world.core.dao.impl.CollectConfigDaoImpl;
 import com.hz.world.core.dao.impl.ElementConfigDaoImpl;
 import com.hz.world.core.dao.impl.InvestConfigDaoImpl;
 import com.hz.world.core.dao.impl.RechargeConfigDaoImpl;
@@ -19,6 +21,7 @@ import com.hz.world.core.dao.impl.TitleConfigDaoImpl;
 import com.hz.world.core.dao.impl.YearConfigDaoImpl;
 import com.hz.world.core.dao.model.CatchConfig;
 import com.hz.world.core.dao.model.ChallengeConfig;
+import com.hz.world.core.dao.model.CollectConfig;
 import com.hz.world.core.dao.model.ElementConfig;
 import com.hz.world.core.dao.model.InvestConfig;
 import com.hz.world.core.dao.model.RechargeConfig;
@@ -50,6 +53,8 @@ public class ConfigCacheUtil {
 	InvestConfigDaoImpl investConfigDao;
 	@Autowired
 	ChallengeConfigDaoImpl challengeConfigDao;
+	@Autowired
+	CollectConfigDaoImpl collectConfigDao;
 	
 	public ElementConfig getElement(Integer id) {
 		
@@ -219,5 +224,44 @@ public class ConfigCacheUtil {
 			}
 		}
 		return null;
+	}
+	public List<CollectConfig> getCollectList(){
+		String key = RedisConstants.RICHER_CONFIG_YEAR;
+		List<CollectConfig> list = new ArrayList<CollectConfig>();
+		if (!redisService.exists(key)) {
+			list = collectConfigDao.findAll();
+			redisService.set(key, JSON.toJSONString(list));
+		}else {
+			String json = redisService.get(key);
+			list = JSON.parseArray(json, CollectConfig.class);
+
+		}
+		return list;
+	}
+	public CollectConfig getCollectConfig(Integer id) {
+		List<CollectConfig> list = getCollectList();
+		if (list != null && list.size() > 0) {
+			for (CollectConfig catchConfig : list) {
+				if (catchConfig.getId().equals(id)) {
+					return catchConfig;
+				}
+			}
+		}
+		return null;
+	}
+	public List<CollectConfig> findByType(Integer type, String param ){
+		List<CollectConfig> result = new ArrayList<CollectConfig>();
+		List<CollectConfig> list = getCollectList();
+		if (list != null && list.size() > 0) {
+			for (CollectConfig catchConfig : list) {
+				BigDecimal b1 = new BigDecimal(param) ;
+				BigDecimal b2 = new BigDecimal(catchConfig.getParam()) ;
+				if (catchConfig.getType().equals(type) && b1.compareTo(b2) >= 0) {
+					result.add(catchConfig);
+				}
+			}
+		}
+
+		return result;
 	}
 } 

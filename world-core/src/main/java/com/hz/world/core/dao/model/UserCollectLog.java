@@ -3,23 +3,23 @@ package com.hz.world.core.dao.model;
 import java.io.Serializable;
 import java.util.Date;
 
-public class UserChallengeLog implements Serializable {
+public class UserCollectLog implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    private Integer challengeId;
+    private Integer collectId;
 
     private Long userId;
 
-    private Integer element;
+    private Integer type;
 
     private Date addTime;
 
-    public Integer getChallengeId() {
-        return challengeId;
+    public Integer getCollectId() {
+        return collectId;
     }
 
-    public void setChallengeId(Integer challengeId) {
-        this.challengeId = challengeId;
+    public void setCollectId(Integer collectId) {
+        this.collectId = collectId;
     }
 
     public Long getUserId() {
@@ -30,12 +30,12 @@ public class UserChallengeLog implements Serializable {
         this.userId = userId;
     }
 
-    public Integer getElement() {
-        return element;
+    public Integer getType() {
+        return type;
     }
 
-    public void setElement(Integer element) {
-        this.element = element;
+    public void setType(Integer type) {
+        this.type = type;
     }
 
     public Date getAddTime() {

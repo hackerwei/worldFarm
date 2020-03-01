@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-  <mapper namespace="com.hz.world.core.dao.mapper.UserChallengeLogMapper" >
-    <resultMap id="UserChallengeLogResult" type="com.hz.world.core.dao.model.UserChallengeLog" >
-      <id column="challenge_id" property="challengeId" jdbcType="INTEGER" />
+  <mapper namespace="com.hz.world.core.dao.mapper.UserCollectLogMapper" >
+    <resultMap id="UserCollectLogResult" type="com.hz.world.core.dao.model.UserCollectLog" >
+      <id column="collect_id" property="collectId" jdbcType="INTEGER" />
       <id column="user_id" property="userId" jdbcType="BIGINT" />
-      <result column="element" property="element" jdbcType="INTEGER" />
+      <result column="type" property="type" jdbcType="INTEGER" />
       <result column="add_time" property="addTime" jdbcType="TIMESTAMP" />
     </resultMap>
     <sql id="Example_Where_Clause" >
@@ -65,16 +65,16 @@
         </foreach>
       </where>
     </sql>
-    <sql id="UserChallengeLogColumns" >
-      challenge_id, user_id, element, add_time
+    <sql id="UserCollectLogColumns" >
+      collect_id, user_id, type, add_time
     </sql>
-    <select id="selectByExample" resultMap="UserChallengeLogResult" parameterType="com.hz.world.core.dao.model.UserChallengeLogExample" >
+    <select id="selectByExample" resultMap="UserCollectLogResult" parameterType="com.hz.world.core.dao.model.UserCollectLogExample" >
       select
       <if test="distinct" >
         distinct
       </if>
-      <include refid="UserChallengeLogColumns" />
-      from user_challenge_log
+      <include refid="UserCollectLogColumns" />
+      from user_collect_log
       <if test="_parameter != null" >
         <include refid="Example_Where_Clause" />
       </if>
@@ -87,78 +87,78 @@
         </if>
       </if>
     </select>
-    <select id="selectByPrimaryKey" resultMap="UserChallengeLogResult" parameterType="map" >
+    <select id="selectByPrimaryKey" resultMap="UserCollectLogResult" parameterType="map" >
       select 
-      <include refid="UserChallengeLogColumns" />
-      from user_challenge_log
-      where challenge_id = #{challengeId,jdbcType=INTEGER}
+      <include refid="UserCollectLogColumns" />
+      from user_collect_log
+      where collect_id = #{collectId,jdbcType=INTEGER}
         and user_id = #{userId,jdbcType=BIGINT}
     </select>
     <delete id="deleteByPrimaryKey" parameterType="map" >
-      delete from user_challenge_log
-      where challenge_id = #{challengeId,jdbcType=INTEGER}
+      delete from user_collect_log
+      where collect_id = #{collectId,jdbcType=INTEGER}
         and user_id = #{userId,jdbcType=BIGINT}
     </delete>
-    <delete id="deleteByExample" parameterType="com.hz.world.core.dao.model.UserChallengeLogExample" >
-      delete from user_challenge_log
+    <delete id="deleteByExample" parameterType="com.hz.world.core.dao.model.UserCollectLogExample" >
+      delete from user_collect_log
       <if test="_parameter != null" >
         <include refid="Example_Where_Clause" />
       </if>
     </delete>
-    <insert id="insert" parameterType="com.hz.world.core.dao.model.UserChallengeLog" >
-      insert into user_challenge_log (challenge_id, user_id, element, 
+    <insert id="insert" parameterType="com.hz.world.core.dao.model.UserCollectLog" >
+      insert into user_collect_log (collect_id, user_id, type, 
         add_time)
-      values (#{challengeId,jdbcType=INTEGER}, #{userId,jdbcType=BIGINT}, #{element,jdbcType=INTEGER}, 
+      values (#{collectId,jdbcType=INTEGER}, #{userId,jdbcType=BIGINT}, #{type,jdbcType=INTEGER}, 
         #{addTime,jdbcType=TIMESTAMP})
     </insert>
-    <insert id="insertSelective" parameterType="com.hz.world.core.dao.model.UserChallengeLog" >
-      insert into user_challenge_log
+    <insert id="insertSelective" parameterType="com.hz.world.core.dao.model.UserCollectLog" >
+      insert into user_collect_log
       <trim prefix="(" suffix=")" suffixOverrides="," >
-        <if test="challengeId != null" >
-          challenge_id,
+        <if test="collectId != null" >
+          collect_id,
         </if>
         <if test="userId != null" >
           user_id,
         </if>
-        <if test="element != null" >
-          element,
+        <if test="type != null" >
+          type,
         </if>
         <if test="addTime != null" >
           add_time,
         </if>
       </trim>
       <trim prefix="values (" suffix=")" suffixOverrides="," >
-        <if test="challengeId != null" >
-          #{challengeId,jdbcType=INTEGER},
+        <if test="collectId != null" >
+          #{collectId,jdbcType=INTEGER},
         </if>
         <if test="userId != null" >
           #{userId,jdbcType=BIGINT},
         </if>
-        <if test="element != null" >
-          #{element,jdbcType=INTEGER},
+        <if test="type != null" >
+          #{type,jdbcType=INTEGER},
         </if>
         <if test="addTime != null" >
           #{addTime,jdbcType=TIMESTAMP},
         </if>
       </trim>
     </insert>
-    <select id="countByExample" parameterType="com.hz.world.core.dao.model.UserChallengeLogExample" resultType="java.lang.Integer" >
-      select count(*) from user_challenge_log
+    <select id="countByExample" parameterType="com.hz.world.core.dao.model.UserCollectLogExample" resultType="java.lang.Integer" >
+      select count(*) from user_collect_log
       <if test="_parameter != null" >
         <include refid="Example_Where_Clause" />
       </if>
     </select>
     <update id="updateByExampleSelective" parameterType="map" >
-      update user_challenge_log
+      update user_collect_log
       <set >
-        <if test="record.challengeId != null" >
-          challenge_id = #{record.challengeId,jdbcType=INTEGER},
+        <if test="record.collectId != null" >
+          collect_id = #{record.collectId,jdbcType=INTEGER},
         </if>
         <if test="record.userId != null" >
           user_id = #{record.userId,jdbcType=BIGINT},
         </if>
-        <if test="record.element != null" >
-          element = #{record.element,jdbcType=INTEGER},
+        <if test="record.type != null" >
+          type = #{record.type,jdbcType=INTEGER},
         </if>
         <if test="record.addTime != null" >
           add_time = #{record.addTime,jdbcType=TIMESTAMP},
@@ -169,33 +169,33 @@
       </if>
     </update>
     <update id="updateByExample" parameterType="map" >
-      update user_challenge_log
-      set challenge_id = #{record.challengeId,jdbcType=INTEGER},
+      update user_collect_log
+      set collect_id = #{record.collectId,jdbcType=INTEGER},
         user_id = #{record.userId,jdbcType=BIGINT},
-        element = #{record.element,jdbcType=INTEGER},
+        type = #{record.type,jdbcType=INTEGER},
         add_time = #{record.addTime,jdbcType=TIMESTAMP}
       <if test="_parameter != null" >
         <include refid="Update_By_Example_Where_Clause" />
       </if>
     </update>
-    <update id="updateByPrimaryKeySelective" parameterType="com.hz.world.core.dao.model.UserChallengeLog" >
-      update user_challenge_log
+    <update id="updateByPrimaryKeySelective" parameterType="com.hz.world.core.dao.model.UserCollectLog" >
+      update user_collect_log
       <set >
-        <if test="element != null" >
-          element = #{element,jdbcType=INTEGER},
+        <if test="type != null" >
+          type = #{type,jdbcType=INTEGER},
         </if>
         <if test="addTime != null" >
           add_time = #{addTime,jdbcType=TIMESTAMP},
         </if>
       </set>
-      where challenge_id = #{challengeId,jdbcType=INTEGER}
+      where collect_id = #{collectId,jdbcType=INTEGER}
         and user_id = #{userId,jdbcType=BIGINT}
     </update>
-    <update id="updateByPrimaryKey" parameterType="com.hz.world.core.dao.model.UserChallengeLog" >
-      update user_challenge_log
-      set element = #{element,jdbcType=INTEGER},
+    <update id="updateByPrimaryKey" parameterType="com.hz.world.core.dao.model.UserCollectLog" >
+      update user_collect_log
+      set type = #{type,jdbcType=INTEGER},
         add_time = #{addTime,jdbcType=TIMESTAMP}
-      where challenge_id = #{challengeId,jdbcType=INTEGER}
+      where collect_id = #{collectId,jdbcType=INTEGER}
         and user_id = #{userId,jdbcType=BIGINT}
     </update>
   </mapper>

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class UserChallengeLogExample {
+public class UserCollectLogExample {
     protected String orderByClause;
 
     protected boolean distinct;
@@ -15,7 +15,7 @@ public class UserChallengeLogExample {
 
     private Integer mysqlLength;
 
-    public UserChallengeLogExample() {
+    public UserCollectLogExample() {
         oredCriteria = new ArrayList<Criteria>();
     }
 
@@ -127,63 +127,63 @@ public class UserChallengeLogExample {
             criteria.add(new Criterion(condition, value1, value2));
         }
 
-        public Criteria andChallengeIdIsNull() {
-            addCriterion("challenge_id is null");
+        public Criteria andCollectIdIsNull() {
+            addCriterion("collect_id is null");
             return (Criteria) this;
         }
 
-        public Criteria andChallengeIdIsNotNull() {
-            addCriterion("challenge_id is not null");
+        public Criteria andCollectIdIsNotNull() {
+            addCriterion("collect_id is not null");
             return (Criteria) this;
         }
 
-        public Criteria andChallengeIdEqualTo(Integer value) {
-            addCriterion("challenge_id =", value, "challengeId");
+        public Criteria andCollectIdEqualTo(Integer value) {
+            addCriterion("collect_id =", value, "collectId");
             return (Criteria) this;
         }
 
-        public Criteria andChallengeIdNotEqualTo(Integer value) {
-            addCriterion("challenge_id <>", value, "challengeId");
+        public Criteria andCollectIdNotEqualTo(Integer value) {
+            addCriterion("collect_id <>", value, "collectId");
             return (Criteria) this;
         }
 
-        public Criteria andChallengeIdGreaterThan(Integer value) {
-            addCriterion("challenge_id >", value, "challengeId");
+        public Criteria andCollectIdGreaterThan(Integer value) {
+            addCriterion("collect_id >", value, "collectId");
             return (Criteria) this;
         }
 
-        public Criteria andChallengeIdGreaterThanOrEqualTo(Integer value) {
-            addCriterion("challenge_id >=", value, "challengeId");
+        public Criteria andCollectIdGreaterThanOrEqualTo(Integer value) {
+            addCriterion("collect_id >=", value, "collectId");
             return (Criteria) this;
         }
 
-        public Criteria andChallengeIdLessThan(Integer value) {
-            addCriterion("challenge_id <", value, "challengeId");
+        public Criteria andCollectIdLessThan(Integer value) {
+            addCriterion("collect_id <", value, "collectId");
             return (Criteria) this;
         }
 
-        public Criteria andChallengeIdLessThanOrEqualTo(Integer value) {
-            addCriterion("challenge_id <=", value, "challengeId");
+        public Criteria andCollectIdLessThanOrEqualTo(Integer value) {
+            addCriterion("collect_id <=", value, "collectId");
             return (Criteria) this;
         }
 
-        public Criteria andChallengeIdIn(List<Integer> values) {
-            addCriterion("challenge_id in", values, "challengeId");
+        public Criteria andCollectIdIn(List<Integer> values) {
+            addCriterion("collect_id in", values, "collectId");
             return (Criteria) this;
         }
 
-        public Criteria andChallengeIdNotIn(List<Integer> values) {
-            addCriterion("challenge_id not in", values, "challengeId");
+        public Criteria andCollectIdNotIn(List<Integer> values) {
+            addCriterion("collect_id not in", values, "collectId");
             return (Criteria) this;
         }
 
-        public Criteria andChallengeIdBetween(Integer value1, Integer value2) {
-            addCriterion("challenge_id between", value1, value2, "challengeId");
+        public Criteria andCollectIdBetween(Integer value1, Integer value2) {
+            addCriterion("collect_id between", value1, value2, "collectId");
             return (Criteria) this;
         }
 
-        public Criteria andChallengeIdNotBetween(Integer value1, Integer value2) {
-            addCriterion("challenge_id not between", value1, value2, "challengeId");
+        public Criteria andCollectIdNotBetween(Integer value1, Integer value2) {
+            addCriterion("collect_id not between", value1, value2, "collectId");
             return (Criteria) this;
         }
 
@@ -247,63 +247,63 @@ public class UserChallengeLogExample {
             return (Criteria) this;
         }
 
-        public Criteria andElementIsNull() {
-            addCriterion("element is null");
+        public Criteria andTypeIsNull() {
+            addCriterion("type is null");
             return (Criteria) this;
         }
 
-        public Criteria andElementIsNotNull() {
-            addCriterion("element is not null");
+        public Criteria andTypeIsNotNull() {
+            addCriterion("type is not null");
             return (Criteria) this;
         }
 
-        public Criteria andElementEqualTo(Integer value) {
-            addCriterion("element =", value, "element");
+        public Criteria andTypeEqualTo(Integer value) {
+            addCriterion("type =", value, "type");
             return (Criteria) this;
         }
 
-        public Criteria andElementNotEqualTo(Integer value) {
-            addCriterion("element <>", value, "element");
+        public Criteria andTypeNotEqualTo(Integer value) {
+            addCriterion("type <>", value, "type");
             return (Criteria) this;
         }
 
-        public Criteria andElementGreaterThan(Integer value) {
-            addCriterion("element >", value, "element");
+        public Criteria andTypeGreaterThan(Integer value) {
+            addCriterion("type >", value, "type");
             return (Criteria) this;
         }
 
-        public Criteria andElementGreaterThanOrEqualTo(Integer value) {
-            addCriterion("element >=", value, "element");
+        public Criteria andTypeGreaterThanOrEqualTo(Integer value) {
+            addCriterion("type >=", value, "type");
             return (Criteria) this;
         }
 
-        public Criteria andElementLessThan(Integer value) {
-            addCriterion("element <", value, "element");
+        public Criteria andTypeLessThan(Integer value) {
+            addCriterion("type <", value, "type");
             return (Criteria) this;
         }
 
-        public Criteria andElementLessThanOrEqualTo(Integer value) {
-            addCriterion("element <=", value, "element");
+        public Criteria andTypeLessThanOrEqualTo(Integer value) {
+            addCriterion("type <=", value, "type");
             return (Criteria) this;
         }
 
-        public Criteria andElementIn(List<Integer> values) {
-            addCriterion("element in", values, "element");
+        public Criteria andTypeIn(List<Integer> values) {
+            addCriterion("type in", values, "type");
             return (Criteria) this;
         }
 
-        public Criteria andElementNotIn(List<Integer> values) {
-            addCriterion("element not in", values, "element");
+        public Criteria andTypeNotIn(List<Integer> values) {
+            addCriterion("type not in", values, "type");
             return (Criteria) this;
         }
 
-        public Criteria andElementBetween(Integer value1, Integer value2) {
-            addCriterion("element between", value1, value2, "element");
+        public Criteria andTypeBetween(Integer value1, Integer value2) {
+            addCriterion("type between", value1, value2, "type");
             return (Criteria) this;
         }
 
-        public Criteria andElementNotBetween(Integer value1, Integer value2) {
-            addCriterion("element not between", value1, value2, "element");
+        public Criteria andTypeNotBetween(Integer value1, Integer value2) {
+            addCriterion("type not between", value1, value2, "type");
             return (Criteria) this;
         }
 
