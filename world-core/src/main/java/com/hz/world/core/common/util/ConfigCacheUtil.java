@@ -10,6 +10,7 @@ import com.alibaba.fastjson.JSON;
 import com.hz.world.common.cache.redis.RedisService;
 import com.hz.world.common.constant.RedisConstants;
 import com.hz.world.core.dao.impl.CatchConfigDaoImpl;
+import com.hz.world.core.dao.impl.ChallengeConfigDaoImpl;
 import com.hz.world.core.dao.impl.ElementConfigDaoImpl;
 import com.hz.world.core.dao.impl.InvestConfigDaoImpl;
 import com.hz.world.core.dao.impl.RechargeConfigDaoImpl;
@@ -17,6 +18,7 @@ import com.hz.world.core.dao.impl.ShopConfigDaoImpl;
 import com.hz.world.core.dao.impl.TitleConfigDaoImpl;
 import com.hz.world.core.dao.impl.YearConfigDaoImpl;
 import com.hz.world.core.dao.model.CatchConfig;
+import com.hz.world.core.dao.model.ChallengeConfig;
 import com.hz.world.core.dao.model.ElementConfig;
 import com.hz.world.core.dao.model.InvestConfig;
 import com.hz.world.core.dao.model.RechargeConfig;
@@ -46,6 +48,8 @@ public class ConfigCacheUtil {
 	ShopConfigDaoImpl shopConfigDao;
 	@Autowired
 	InvestConfigDaoImpl investConfigDao;
+	@Autowired
+	ChallengeConfigDaoImpl challengeConfigDao;
 	
 	public ElementConfig getElement(Integer id) {
 		
@@ -185,6 +189,30 @@ public class ConfigCacheUtil {
 		List<InvestConfig> list = getInvestList();
 		if (list != null && list.size() > 0) {
 			for (InvestConfig catchConfig : list) {
+				if (catchConfig.getId().equals(id)) {
+					return catchConfig;
+				}
+			}
+		}
+		return null;
+	}
+	public List<ChallengeConfig> getChallengeList(){
+		String key = RedisConstants.RICHER_CONFIG_YEAR;
+		List<ChallengeConfig> list = new ArrayList<ChallengeConfig>();
+		if (!redisService.exists(key)) {
+			list = challengeConfigDao.findAll();
+			redisService.set(key, JSON.toJSONString(list));
+		}else {
+			String json = redisService.get(key);
+			list = JSON.parseArray(json, ChallengeConfig.class);
+
+		}
+		return list;
+	}
+	public ChallengeConfig getChallengeConfig(Integer id) {
+		List<ChallengeConfig> list = getChallengeList();
+		if (list != null && list.size() > 0) {
+			for (ChallengeConfig catchConfig : list) {
 				if (catchConfig.getId().equals(id)) {
 					return catchConfig;
 				}

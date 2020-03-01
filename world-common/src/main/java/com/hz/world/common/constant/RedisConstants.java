@@ -22,6 +22,7 @@ public final class RedisConstants {
 	public static final String RICHER_CONFIG_RECHARGE = "richer:config:recharge";
 	public static final String RICHER_CONFIG_YEAR = "richer:config:year";
 	public static final String RICHER_CONFIG_SHOP = "richer:config:shop";
+	public static final String RICHER_CONFIG_CHALLENGE = "richer:config:challenge";
 	
 	/** =========业务相关==================*/
 	public static final String RICHER_USER_ELEMENT = "richer:user:element:%s:%s";
