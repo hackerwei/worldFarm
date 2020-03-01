@@ -95,29 +95,43 @@ public class ChallengeServiceImpl implements ChallengeService {
 		List<ChallengeDTO> resultList = new ArrayList<ChallengeDTO>();
 		List<ChallengeConfig> configList = configCacheUtil.getChallengeList();
 		List<UserChallengeLog> userChallengeList = userChallengeLogDao.getUserFinishedChallenges(userId, element);
+		// 当前element已完成的最高的挑战
+		Integer curId = userAchivedChallenge(userChallengeList);
 		for (ChallengeConfig config : configList) {
 			ChallengeDTO challengeDTO = new ChallengeDTO();
 			challengeDTO.setId(config.getId());
 			challengeDTO.setFinish(false);
-			if (isInList(config.getId(), userChallengeList)) {
+			// 只有当前完成的挑战才会存
+			if (config.getId().equals(curId) && isInList(config.getId(), userChallengeList)) {
 				challengeDTO.setFinish(true);
 			}
 			resultList.add(challengeDTO);
 		}
 		return resultList;
 	}
-	// 已经达成挑战数据
-	// Returns: [achivedCnt, totalCnt]
-	public List<Integer> userAchivedChallenge(Long userId)
-	{
-		List<Integer> resultList = new ArrayList<Integer>();
-		List<ChallengeConfig> configList = configCacheUtil.getChallengeList();
-		int userAchivedChallengesCnt = userChallengeLogDao.getTotalCnt(userId);
-		Integer totalCnt = configList.size();
-		Integer achivedCnt = Math.max(0, userAchivedChallengesCnt);
-		resultList.add(achivedCnt);
-		resultList.add(totalCnt);
-		return resultList;
 
+
+	// 已经达成挑战数据
+	public Integer userAchivedChallenges(Long userId)
+	{
+		int userAchivedChallengesCnt = userChallengeLogDao.getTotalCnt(userId);
+		Integer achivedCnt = Math.max(0, userAchivedChallengesCnt);
+		return achivedCnt;
+	}
+	//总的挑战数目
+	public Integer userTotalChallenges()
+	{
+		List<ChallengeConfig> configList = configCacheUtil.getChallengeList();
+		Integer totalCnt = configList.size();
+		return totalCnt;
+	}
+	// 找出当前element完成的最大成就
+	private Integer userAchivedChallenge(List<UserChallengeLog> userChallengeLogList)
+	{
+		Integer maxId=0;
+		for(UserChallengeLog userChallengeLog: userChallengeLogList){
+			maxId = Math.max(userChallengeLog.getChallengeId(), maxId);
+		}
+		return maxId;
 	}
 }

@@ -32,7 +32,7 @@ public class UserChallengeLogDaoImpl {
         criteria.andUserIdEqualTo(userID);
         return userChallengeLogMapper.countByExample(example);
     }
-
+    // 返回某个element的达成挑战情况
     public List<UserChallengeLog> getUserFinishedChallenges(Long userID, Integer element)
     {
         UserChallengeLogExample example = new UserChallengeLogExample();
@@ -41,6 +41,15 @@ public class UserChallengeLogDaoImpl {
         criteria.andElementEqualTo(element);
         return userChallengeLogMapper.selectByExample(example);
     }
+    // 返回所有达成挑战的情况
+    public List<UserChallengeLog> getUserFinishedChallenges(Long userID)
+    {
+        UserChallengeLogExample example = new UserChallengeLogExample();
+        UserChallengeLogExample.Criteria criteria = example.createCriteria();
+        criteria.andUserIdEqualTo(userID);
+        return userChallengeLogMapper.selectByExample(example);
+    }
+    // 返回当前最大达成成就的最大值
 
 
 }

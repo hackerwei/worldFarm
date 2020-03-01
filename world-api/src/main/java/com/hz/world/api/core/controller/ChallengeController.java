@@ -5,10 +5,17 @@ import com.hz.world.account.service.UserBaseInfoService;
 import com.hz.world.api.core.domain.dto.GeneralResultMap;
 import com.hz.world.api.core.domain.dto.SysReturnCode;
 import com.hz.world.api.core.domain.request.CatchRequest;
+import com.hz.world.core.common.util.ConfigCacheUtil;
+import com.hz.world.core.dao.model.ElementConfig;
+import com.hz.world.core.domain.dto.ChallengeDTO;
 import com.hz.world.core.service.ChallengeService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/challenge")
@@ -22,6 +29,10 @@ public class ChallengeController {
 	private ChallengeService challengeService;
 	@Autowired
 	private UserBaseInfoService userBaseInfoService;
+	@Autowired
+	private ConfigCacheUtil configCacheUtil;
+
+//	private ConfigCacheUtil configCacheUtil;
 
 	// 展示挑战初始页面, 默认element=0
 	@RequestMapping(value = "/list", method = { RequestMethod.POST })
@@ -34,8 +45,25 @@ public class ChallengeController {
 				outputMap.setResult(SysReturnCode.UNKNOW_USER, "用户不存在");
 				return outputMap;
 			}
-
-			outputMap.setResult(SysReturnCode.SUCC, challengeService.userChallengeElementList(userId,request.getElement()));
+			Map<String, Object> data = new HashMap<String, Object>();
+			// 遍历所有的element
+			List<ElementConfig> configList =  configCacheUtil.getElementList();
+			if (configList != null && configList.size() > 0) {
+				for (ElementConfig elementConfig : configList) {
+					List<ChallengeDTO> elementChallenge= challengeService.userChallengeElementList(userId,elementConfig.getId());
+					//存储element挑战列表
+					Map<String, Object> elementData = new HashMap<String, Object>();
+					elementData.put(elementConfig.getName(),elementChallenge);
+					// 存储下一个挑战的重量，等待延春！！！！
+					elementData.put("nextWeight", 0);
+					//保存("challengeList","nextWeight")
+					data.put(elementConfig.getName(),elementData);
+				}
+			}
+			// 记录底部已达成的挑战数据
+			data.put("AchivedChallenge",challengeService.userAchivedChallenges(userId));
+			data.put("TotalChallenge",challengeService.userTotalChallenges());
+			outputMap.setResult(SysReturnCode.SUCC, data);
 
 		} catch (Exception e) {
 			log.error("用户{}获取挑战列表{}失败", userId, request.getElement(), e);

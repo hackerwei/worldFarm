@@ -33,5 +33,8 @@ public interface ChallengeService {
     ResultDTO<String> challenge(Long userId, Integer element,Integer elementWeight, Integer totalWeight);
 
     public List<ChallengeDTO> userChallengeElementList(Long userId, Integer element);
-    public List<Integer> userAchivedChallenge(Long userId);
+    //总的挑战数目
+	public Integer userTotalChallenges();
+    // 已经达成挑战数据
+	public Integer userAchivedChallenges(Long userId);
 }

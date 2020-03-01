@@ -1,34 +1,17 @@
 package com.hz.world.core.common.util;
 
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-
 import com.alibaba.fastjson.JSON;
 import com.hz.world.common.cache.redis.RedisService;
 import com.hz.world.common.constant.RedisConstants;
-import com.hz.world.core.dao.impl.CatchConfigDaoImpl;
-import com.hz.world.core.dao.impl.ChallengeConfigDaoImpl;
-import com.hz.world.core.dao.impl.CollectConfigDaoImpl;
-import com.hz.world.core.dao.impl.ElementConfigDaoImpl;
-import com.hz.world.core.dao.impl.InvestConfigDaoImpl;
-import com.hz.world.core.dao.impl.RechargeConfigDaoImpl;
-import com.hz.world.core.dao.impl.ShopConfigDaoImpl;
-import com.hz.world.core.dao.impl.TitleConfigDaoImpl;
-import com.hz.world.core.dao.impl.YearConfigDaoImpl;
-import com.hz.world.core.dao.model.CatchConfig;
-import com.hz.world.core.dao.model.ChallengeConfig;
-import com.hz.world.core.dao.model.CollectConfig;
-import com.hz.world.core.dao.model.ElementConfig;
-import com.hz.world.core.dao.model.InvestConfig;
-import com.hz.world.core.dao.model.RechargeConfig;
-import com.hz.world.core.dao.model.ShopConfig;
-import com.hz.world.core.dao.model.YearConfig;
-
+import com.hz.world.core.dao.impl.*;
+import com.hz.world.core.dao.model.*;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 @Slf4j
 @Component
@@ -202,7 +185,7 @@ public class ConfigCacheUtil {
 		return null;
 	}
 	public List<ChallengeConfig> getChallengeList(){
-		String key = RedisConstants.RICHER_CONFIG_YEAR;
+		String key = RedisConstants.RICHER_CONFIG_CHALLENGE;
 		List<ChallengeConfig> list = new ArrayList<ChallengeConfig>();
 		if (!redisService.exists(key)) {
 			list = challengeConfigDao.findAll();
