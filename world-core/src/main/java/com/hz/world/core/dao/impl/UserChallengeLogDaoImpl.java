@@ -25,6 +25,14 @@ public class UserChallengeLogDaoImpl {
 		return userChallengeLogMapper.insertSelective(record) > 0;
     }
 
+    public int getTotalCnt(Long userID)
+    {
+        UserChallengeLogExample example = new UserChallengeLogExample();
+        UserChallengeLogExample.Criteria criteria = example.createCriteria();
+        criteria.andUserIdEqualTo(userID);
+        return userChallengeLogMapper.countByExample(example);
+    }
+
     public List<UserChallengeLog> getUserFinishedChallenges(Long userID, Integer element)
     {
         UserChallengeLogExample example = new UserChallengeLogExample();

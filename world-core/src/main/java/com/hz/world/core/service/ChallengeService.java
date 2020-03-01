@@ -7,6 +7,9 @@
 package com.hz.world.core.service;
 
 import com.hz.world.common.dto.ResultDTO;
+import com.hz.world.core.domain.dto.ChallengeDTO;
+
+import java.util.List;
 
 
 /**
@@ -29,6 +32,6 @@ public interface ChallengeService {
      */
     ResultDTO<String> challenge(Long userId, Integer element,Integer elementWeight, Integer totalWeight);
 
- 
-  
+    public List<ChallengeDTO> userChallengeElementList(Long userId, Integer element);
+    public List<Integer> userAchivedChallenge(Long userId);
 }
