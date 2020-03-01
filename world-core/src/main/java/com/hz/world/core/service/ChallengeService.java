@@ -37,4 +37,6 @@ public interface ChallengeService {
 	public Integer userTotalChallenges();
     // 已经达成挑战数据
 	public Integer userAchivedChallenges(Long userId);
+	// 找出当前元素的下一个挑战weight
+    public Integer nextWeight(Long userId, Integer element);
 }

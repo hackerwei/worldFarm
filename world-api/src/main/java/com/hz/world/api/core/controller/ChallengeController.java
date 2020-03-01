@@ -54,8 +54,8 @@ public class ChallengeController {
 					//存储element挑战列表
 					Map<String, Object> elementData = new HashMap<String, Object>();
 					elementData.put(elementConfig.getName(),elementChallenge);
-					// 存储下一个挑战的重量，等待延春！！！！
-					elementData.put("nextWeight", 0);
+					// 存储下一个挑战的重量，等待延春优化！！！！
+					elementData.put("nextWeight", challengeService.nextWeight(userId, elementConfig.getId()));
 					//保存("challengeList","nextWeight")
 					data.put(elementConfig.getName(),elementData);
 				}

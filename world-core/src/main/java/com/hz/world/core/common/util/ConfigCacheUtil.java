@@ -197,6 +197,22 @@ public class ConfigCacheUtil {
 		}
 		return list;
 	}
+	// # TODO 提供一个按照element查询的ChallengeList的接口，能优化Challenge的一些函数
+	// @linyanchun  怎么写?
+	public List<ChallengeConfig> getChallengeListByElement(Integer element){
+		String key = RedisConstants.RICHER_CONFIG_CHALLENGE;
+		List<ChallengeConfig> list = new ArrayList<ChallengeConfig>();
+		if (!redisService.exists(key)) {
+			list = challengeConfigDao.findAll();
+			redisService.set(key, JSON.toJSONString(list));
+		}else {
+			String json = redisService.get(key);
+			list = JSON.parseArray(json, ChallengeConfig.class);
+
+		}
+		return list;
+	}
+
 	public ChallengeConfig getChallengeConfig(Integer id) {
 		List<ChallengeConfig> list = getChallengeList();
 		if (list != null && list.size() > 0) {

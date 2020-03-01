@@ -96,7 +96,7 @@ public class ChallengeServiceImpl implements ChallengeService {
 		List<ChallengeConfig> configList = configCacheUtil.getChallengeList();
 		List<UserChallengeLog> userChallengeList = userChallengeLogDao.getUserFinishedChallenges(userId, element);
 		// 当前element已完成的最高的挑战
-		Integer curId = userAchivedChallenge(userChallengeList);
+		Integer curId = userAchivedChallenge(userChallengeList, element);
 		for (ChallengeConfig config : configList) {
 			ChallengeDTO challengeDTO = new ChallengeDTO();
 			challengeDTO.setId(config.getId());
@@ -126,12 +126,30 @@ public class ChallengeServiceImpl implements ChallengeService {
 		return totalCnt;
 	}
 	// 找出当前element完成的最大成就
-	private Integer userAchivedChallenge(List<UserChallengeLog> userChallengeLogList)
+	private Integer userAchivedChallenge(List<UserChallengeLog> userChallengeLogList,Integer element)
 	{
 		Integer maxId=0;
 		for(UserChallengeLog userChallengeLog: userChallengeLogList){
-			maxId = Math.max(userChallengeLog.getChallengeId(), maxId);
+			if(userChallengeLog.getElement().equals(element))
+				maxId = Math.max(userChallengeLog.getChallengeId(), maxId);
 		}
 		return maxId;
+	}
+	// 找出当前元素的下一个挑战weight
+	public Integer nextWeight(Long userId, Integer element){
+		List<ChallengeConfig> configList = configCacheUtil.getChallengeList();
+		List<UserChallengeLog> userChallengeList = userChallengeLogDao.getUserFinishedChallenges(userId, element);
+//		// 当前element已完成的最高的挑战
+		Integer curId = userAchivedChallenge(userChallengeList, element);
+		for (ChallengeConfig config : configList) {
+			if(config.getElement().equals(element)) {
+				if(config.getId().compareTo(curId) > 0) {
+					return config.getWeight();
+				}
+			}
+		}
+		// # TODO 该element的成就全部达成，下一个weight不存在，返回什么？？
+		// @linyanchun
+		return 0;
 	}
 }
