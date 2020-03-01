@@ -12,11 +12,11 @@ import org.springframework.stereotype.Service;
 import com.hz.world.common.dto.ResultCodeEnum;
 import com.hz.world.common.dto.ResultDTO;
 import com.hz.world.common.enums.CoinChangeType;
+import com.hz.world.common.enums.CollectType;
 import com.hz.world.common.enums.ElementAdd;
 import com.hz.world.common.ids.IDGenerator;
 import com.hz.world.core.common.util.ConfigCacheUtil;
 import com.hz.world.core.common.util.CoreCacheUtil;
-import com.hz.world.core.dao.impl.UserCoinDaoImpl;
 import com.hz.world.core.dao.impl.UserElementDaoImpl;
 import com.hz.world.core.dao.impl.UserElementLogDaoImpl;
 import com.hz.world.core.dao.model.ElementConfig;
@@ -24,6 +24,7 @@ import com.hz.world.core.dao.model.UserElement;
 import com.hz.world.core.dao.model.UserElementLog;
 import com.hz.world.core.domain.dto.UserElementDTO;
 import com.hz.world.core.service.ChallengeService;
+import com.hz.world.core.service.CollectService;
 import com.hz.world.core.service.UserCoinService;
 import com.hz.world.core.service.UserElementService;
 
@@ -41,8 +42,6 @@ public class UserElementServiceImpl implements UserElementService {
 	@Autowired
 	private ConfigCacheUtil configCacheUtil;
 	@Autowired
-	private UserCoinDaoImpl userCoinDao;
-	@Autowired
 	private UserElementDaoImpl userElementDao;
 	@Autowired
 	private UserElementLogDaoImpl userElementLogDao;
@@ -50,6 +49,8 @@ public class UserElementServiceImpl implements UserElementService {
 	private UserCoinService userCoinService;
 	@Autowired
 	private ChallengeService challengeService;
+	@Autowired
+	private CollectService collectService;
 	@Override
 	public ResultDTO<String> upgradeElement(Long userId, Integer element, Integer originLevel, Integer newLevel) {
 		ResultDTO<String> resultDTO = new ResultDTO<String>();
@@ -103,6 +104,12 @@ public class UserElementServiceImpl implements UserElementService {
 			int totalWeight = userElementDao.getTotalWeight(userId);
 			//挑战
 			challengeService.challange(userId, element, newLevel, totalWeight);
+			//是否解锁了所有元素，完成收集
+			if (originLevel == 0) {
+				if (userElementDao.isAllUnlock(userId)) {
+					collectService.collect(userId, CollectType.ELEMENT.getCode(), "1");
+				}
+			}
 			resultDTO.set(ResultCodeEnum.SUCCESS, "OK");
 		} catch (Exception e) {
 			e.printStackTrace();

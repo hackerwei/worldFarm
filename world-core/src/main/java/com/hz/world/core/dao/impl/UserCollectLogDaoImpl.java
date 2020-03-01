@@ -34,5 +34,10 @@ public class UserCollectLogDaoImpl {
     	return userCollectLogMapper.selectByExample(example);
     }
 
-
+    public List<UserCollectLog> getUserAllFinishList(Long userId){
+    	UserCollectLogExample example = new UserCollectLogExample();
+    	UserCollectLogExample.Criteria criteria = example.createCriteria();
+    	criteria.andUserIdEqualTo(userId);
+    	return userCollectLogMapper.selectByExample(example);
+    }
 }

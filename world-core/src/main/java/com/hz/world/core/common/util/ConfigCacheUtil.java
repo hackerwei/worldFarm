@@ -226,7 +226,7 @@ public class ConfigCacheUtil {
 		return null;
 	}
 	public List<CollectConfig> getCollectList(){
-		String key = RedisConstants.RICHER_CONFIG_YEAR;
+		String key = RedisConstants.RICHER_CONFIG_COLLECT;
 		List<CollectConfig> list = new ArrayList<CollectConfig>();
 		if (!redisService.exists(key)) {
 			list = collectConfigDao.findAll();

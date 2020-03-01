@@ -11,6 +11,7 @@ import com.hz.world.common.constant.CoinConstants;
 import com.hz.world.common.dto.ResultCodeEnum;
 import com.hz.world.common.dto.ResultDTO;
 import com.hz.world.common.enums.CoinChangeType;
+import com.hz.world.common.enums.CollectType;
 import com.hz.world.common.enums.ElementAdd;
 import com.hz.world.common.ids.IDGenerator;
 import com.hz.world.core.common.util.CoreCacheUtil;
@@ -22,6 +23,7 @@ import com.hz.world.core.dao.model.UserCoinChangeLog;
 import com.hz.world.core.dao.model.UserTotalIncome;
 import com.hz.world.core.domain.dto.UserCoinDTO;
 import com.hz.world.core.domain.dto.UserTmpIncomeDTO;
+import com.hz.world.core.service.CollectService;
 import com.hz.world.core.service.UserCoinService;
 import com.hz.world.core.service.UserLevelService;
 
@@ -47,7 +49,8 @@ public class UserCoinServiceImpl implements UserCoinService {
 	private UserCoinChangeLogDaoImpl userCoinChangeLog;
 	@Autowired
 	private UserLevelService userLevelService;
-
+	@Autowired
+	private CollectService collectService;
 	
 	@Override
 	public boolean createUserCoin(Long userId) {
@@ -118,6 +121,12 @@ public class UserCoinServiceImpl implements UserCoinService {
 		}else {
 			total.setIncome(income);
 			userTotalIncomeDao.update(total);
+			BigDecimal b1 = new BigDecimal(income) ;
+			BigDecimal b2 = new BigDecimal("10000000") ;
+			//总收益达到一定程度，完成收集
+			if (b1.compareTo(b2) >= 0) {
+				collectService.collect(userId, CollectType.COIN.getCode(), income);
+			}
 		}
 	}
 	@Override

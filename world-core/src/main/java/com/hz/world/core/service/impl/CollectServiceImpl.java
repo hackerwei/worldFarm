@@ -1,5 +1,6 @@
 package com.hz.world.core.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import com.hz.world.core.common.util.ConfigCacheUtil;
 import com.hz.world.core.dao.impl.UserCollectLogDaoImpl;
 import com.hz.world.core.dao.model.CollectConfig;
 import com.hz.world.core.dao.model.UserCollectLog;
+import com.hz.world.core.domain.dto.CollectDTO;
 import com.hz.world.core.service.CollectService;
 import com.hz.world.core.service.UserElementService;
 
@@ -63,6 +65,21 @@ public class CollectServiceImpl implements CollectService {
 		}
 		resultDTO.set(ResultCodeEnum.SUCCESS, "ok");
 		return resultDTO;
+	}
+	public List<CollectDTO> userCollectList(Long userId){
+		List<CollectDTO> resultList = new ArrayList<CollectDTO>();
+		List<CollectConfig> configList = configCacheUtil.getCollectList();
+		List<UserCollectLog> userCollectList = userCollectLogDao.getUserAllFinishList(userId);
+		for (CollectConfig collectConfig : configList) {
+			CollectDTO collectDTO = new CollectDTO();
+			collectDTO.setId(collectConfig.getId());
+			collectDTO.setFinish(false);
+			if (isInList(collectConfig.getId(), userCollectList)) {
+				collectDTO.setFinish(true);
+			}
+			resultList.add(collectDTO);
+		}
+		return resultList;
 	}
 	private boolean isInList(Integer configId,List<UserCollectLog> list) {
 		if (list != null && list.size() > 0) {

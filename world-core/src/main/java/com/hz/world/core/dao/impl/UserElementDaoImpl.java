@@ -45,4 +45,10 @@ public class UserElementDaoImpl {
     public int getTotalWeight(Long userId) {
     	return  userElementExtMapper.getTotalWeight(userId);
     }
+    public boolean isAllUnlock(Long userId) {
+    	UserElementExample example = new UserElementExample();
+    	UserElementExample.Criteria criteria = example.createCriteria();
+    	criteria.andUserIdEqualTo(userId);
+    	return userElementMapper.countByExample(example) >= 10;
+    }
 }

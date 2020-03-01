@@ -6,7 +6,10 @@
  */
 package com.hz.world.core.service;
 
+import java.util.List;
+
 import com.hz.world.common.dto.ResultDTO;
+import com.hz.world.core.domain.dto.CollectDTO;
 
 
 /**
@@ -25,9 +28,14 @@ public interface CollectService {
      * @param num
      * @return
      */
-    ResultDTO<String> collect(Long userId, Integer type,String num);
+    public ResultDTO<String> collect(Long userId, Integer type,String num);
     
-    
+    /**
+     * 用户收集列表
+     * @param userId
+     * @return
+     */
+    public List<CollectDTO> userCollectList(Long userId);
     
  
   
