@@ -8,7 +8,7 @@ public class ChallengeConfig implements Serializable {
     private Integer id;
 
     /**
-     * 种类
+     * 种类，11:全体
      */
     private Integer element;
 
@@ -18,9 +18,9 @@ public class ChallengeConfig implements Serializable {
     private Integer weight;
 
     /**
-     * 奖励的元素
+     * 奖励的元素，11:全体
      */
-    private Integer rewardWeight;
+    private Integer rewardElement;
 
     /**
      * 元素收益倍数
@@ -36,14 +36,14 @@ public class ChallengeConfig implements Serializable {
     }
 
     /**
-     * @return 种类
+     * @return 种类，11:全体
      */
     public Integer getElement() {
         return element;
     }
 
     /**
-     * @param element 种类
+     * @param element 种类，11:全体
      */
     public void setElement(Integer element) {
         this.element = element;
@@ -64,17 +64,17 @@ public class ChallengeConfig implements Serializable {
     }
 
     /**
-     * @return 奖励的元素
+     * @return 奖励的元素，11:全体
      */
-    public Integer getRewardWeight() {
-        return rewardWeight;
+    public Integer getRewardElement() {
+        return rewardElement;
     }
 
     /**
-     * @param rewardWeight 奖励的元素
+     * @param rewardElement 奖励的元素，11:全体
      */
-    public void setRewardWeight(Integer rewardWeight) {
-        this.rewardWeight = rewardWeight;
+    public void setRewardElement(Integer rewardElement) {
+        this.rewardElement = rewardElement;
     }
 
     /**

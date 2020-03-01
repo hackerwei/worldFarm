@@ -306,63 +306,63 @@ public class ChallengeConfigExample {
             return (Criteria) this;
         }
 
-        public Criteria andRewardWeightIsNull() {
-            addCriterion("reward_weight is null");
+        public Criteria andRewardElementIsNull() {
+            addCriterion("reward_element is null");
             return (Criteria) this;
         }
 
-        public Criteria andRewardWeightIsNotNull() {
-            addCriterion("reward_weight is not null");
+        public Criteria andRewardElementIsNotNull() {
+            addCriterion("reward_element is not null");
             return (Criteria) this;
         }
 
-        public Criteria andRewardWeightEqualTo(Integer value) {
-            addCriterion("reward_weight =", value, "rewardWeight");
+        public Criteria andRewardElementEqualTo(Integer value) {
+            addCriterion("reward_element =", value, "rewardElement");
             return (Criteria) this;
         }
 
-        public Criteria andRewardWeightNotEqualTo(Integer value) {
-            addCriterion("reward_weight <>", value, "rewardWeight");
+        public Criteria andRewardElementNotEqualTo(Integer value) {
+            addCriterion("reward_element <>", value, "rewardElement");
             return (Criteria) this;
         }
 
-        public Criteria andRewardWeightGreaterThan(Integer value) {
-            addCriterion("reward_weight >", value, "rewardWeight");
+        public Criteria andRewardElementGreaterThan(Integer value) {
+            addCriterion("reward_element >", value, "rewardElement");
             return (Criteria) this;
         }
 
-        public Criteria andRewardWeightGreaterThanOrEqualTo(Integer value) {
-            addCriterion("reward_weight >=", value, "rewardWeight");
+        public Criteria andRewardElementGreaterThanOrEqualTo(Integer value) {
+            addCriterion("reward_element >=", value, "rewardElement");
             return (Criteria) this;
         }
 
-        public Criteria andRewardWeightLessThan(Integer value) {
-            addCriterion("reward_weight <", value, "rewardWeight");
+        public Criteria andRewardElementLessThan(Integer value) {
+            addCriterion("reward_element <", value, "rewardElement");
             return (Criteria) this;
         }
 
-        public Criteria andRewardWeightLessThanOrEqualTo(Integer value) {
-            addCriterion("reward_weight <=", value, "rewardWeight");
+        public Criteria andRewardElementLessThanOrEqualTo(Integer value) {
+            addCriterion("reward_element <=", value, "rewardElement");
             return (Criteria) this;
         }
 
-        public Criteria andRewardWeightIn(List<Integer> values) {
-            addCriterion("reward_weight in", values, "rewardWeight");
+        public Criteria andRewardElementIn(List<Integer> values) {
+            addCriterion("reward_element in", values, "rewardElement");
             return (Criteria) this;
         }
 
-        public Criteria andRewardWeightNotIn(List<Integer> values) {
-            addCriterion("reward_weight not in", values, "rewardWeight");
+        public Criteria andRewardElementNotIn(List<Integer> values) {
+            addCriterion("reward_element not in", values, "rewardElement");
             return (Criteria) this;
         }
 
-        public Criteria andRewardWeightBetween(Integer value1, Integer value2) {
-            addCriterion("reward_weight between", value1, value2, "rewardWeight");
+        public Criteria andRewardElementBetween(Integer value1, Integer value2) {
+            addCriterion("reward_element between", value1, value2, "rewardElement");
             return (Criteria) this;
         }
 
-        public Criteria andRewardWeightNotBetween(Integer value1, Integer value2) {
-            addCriterion("reward_weight not between", value1, value2, "rewardWeight");
+        public Criteria andRewardElementNotBetween(Integer value1, Integer value2) {
+            addCriterion("reward_element not between", value1, value2, "rewardElement");
             return (Criteria) this;
         }
 

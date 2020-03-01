@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.hz.world.core.dao.mapper.UserElementExtMapper;
 import com.hz.world.core.dao.mapper.UserElementMapper;
 import com.hz.world.core.dao.model.UserElement;
 import com.hz.world.core.dao.model.UserElementExample;
@@ -20,7 +21,8 @@ import com.hz.world.core.dao.model.UserElementExample;
 public class UserElementDaoImpl {
     @Autowired
     private UserElementMapper userElementMapper;
-    
+    @Autowired
+    private UserElementExtMapper userElementExtMapper;
   
     public UserElement fingUserElement(Long userId,Integer element) {
         return userElementMapper.selectByPrimaryKey(element, userId);
@@ -39,5 +41,8 @@ public class UserElementDaoImpl {
     	criteria.andUserIdEqualTo(userId);
     	return  userElementMapper.selectByExample(example);
     }
-
+    //获取用户总的体重
+    public int getTotalWeight(Long userId) {
+    	return  userElementExtMapper.getTotalWeight(userId);
+    }
 }

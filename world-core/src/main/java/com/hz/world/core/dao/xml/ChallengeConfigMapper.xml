@@ -5,7 +5,7 @@
       <id column="id" property="id" jdbcType="INTEGER" />
       <result column="element" property="element" jdbcType="INTEGER" />
       <result column="weight" property="weight" jdbcType="INTEGER" />
-      <result column="reward_weight" property="rewardWeight" jdbcType="INTEGER" />
+      <result column="reward_element" property="rewardElement" jdbcType="INTEGER" />
       <result column="power" property="power" jdbcType="INTEGER" />
     </resultMap>
     <sql id="Example_Where_Clause" >
@@ -67,7 +67,7 @@
       </where>
     </sql>
     <sql id="ChallengeConfigColumns" >
-      id, element, weight, reward_weight, power
+      id, element, weight, reward_element, power
     </sql>
     <select id="selectByExample" resultMap="ChallengeConfigResult" parameterType="com.hz.world.core.dao.model.ChallengeConfigExample" >
       select
@@ -106,9 +106,9 @@
     </delete>
     <insert id="insert" parameterType="com.hz.world.core.dao.model.ChallengeConfig" >
       insert into challenge_config (id, element, weight, 
-        reward_weight, power)
+        reward_element, power)
       values (#{id,jdbcType=INTEGER}, #{element,jdbcType=INTEGER}, #{weight,jdbcType=INTEGER}, 
-        #{rewardWeight,jdbcType=INTEGER}, #{power,jdbcType=INTEGER})
+        #{rewardElement,jdbcType=INTEGER}, #{power,jdbcType=INTEGER})
     </insert>
     <insert id="insertSelective" parameterType="com.hz.world.core.dao.model.ChallengeConfig" >
       insert into challenge_config
@@ -122,8 +122,8 @@
         <if test="weight != null" >
           weight,
         </if>
-        <if test="rewardWeight != null" >
-          reward_weight,
+        <if test="rewardElement != null" >
+          reward_element,
         </if>
         <if test="power != null" >
           power,
@@ -139,8 +139,8 @@
         <if test="weight != null" >
           #{weight,jdbcType=INTEGER},
         </if>
-        <if test="rewardWeight != null" >
-          #{rewardWeight,jdbcType=INTEGER},
+        <if test="rewardElement != null" >
+          #{rewardElement,jdbcType=INTEGER},
         </if>
         <if test="power != null" >
           #{power,jdbcType=INTEGER},
@@ -165,8 +165,8 @@
         <if test="record.weight != null" >
           weight = #{record.weight,jdbcType=INTEGER},
         </if>
-        <if test="record.rewardWeight != null" >
-          reward_weight = #{record.rewardWeight,jdbcType=INTEGER},
+        <if test="record.rewardElement != null" >
+          reward_element = #{record.rewardElement,jdbcType=INTEGER},
         </if>
         <if test="record.power != null" >
           power = #{record.power,jdbcType=INTEGER},
@@ -181,7 +181,7 @@
       set id = #{record.id,jdbcType=INTEGER},
         element = #{record.element,jdbcType=INTEGER},
         weight = #{record.weight,jdbcType=INTEGER},
-        reward_weight = #{record.rewardWeight,jdbcType=INTEGER},
+        reward_element = #{record.rewardElement,jdbcType=INTEGER},
         power = #{record.power,jdbcType=INTEGER}
       <if test="_parameter != null" >
         <include refid="Update_By_Example_Where_Clause" />
@@ -196,8 +196,8 @@
         <if test="weight != null" >
           weight = #{weight,jdbcType=INTEGER},
         </if>
-        <if test="rewardWeight != null" >
-          reward_weight = #{rewardWeight,jdbcType=INTEGER},
+        <if test="rewardElement != null" >
+          reward_element = #{rewardElement,jdbcType=INTEGER},
         </if>
         <if test="power != null" >
           power = #{power,jdbcType=INTEGER},
@@ -209,7 +209,7 @@
       update challenge_config
       set element = #{element,jdbcType=INTEGER},
         weight = #{weight,jdbcType=INTEGER},
-        reward_weight = #{rewardWeight,jdbcType=INTEGER},
+        reward_element = #{rewardElement,jdbcType=INTEGER},
         power = #{power,jdbcType=INTEGER}
       where id = #{id,jdbcType=INTEGER}
     </update>

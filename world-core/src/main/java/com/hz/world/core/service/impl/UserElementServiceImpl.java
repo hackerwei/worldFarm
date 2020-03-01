@@ -23,6 +23,7 @@ import com.hz.world.core.dao.model.ElementConfig;
 import com.hz.world.core.dao.model.UserElement;
 import com.hz.world.core.dao.model.UserElementLog;
 import com.hz.world.core.domain.dto.UserElementDTO;
+import com.hz.world.core.service.ChallengeService;
 import com.hz.world.core.service.UserCoinService;
 import com.hz.world.core.service.UserElementService;
 
@@ -47,6 +48,8 @@ public class UserElementServiceImpl implements UserElementService {
 	private UserElementLogDaoImpl userElementLogDao;
 	@Autowired
 	private UserCoinService userCoinService;
+	@Autowired
+	private ChallengeService challengeService;
 	@Override
 	public ResultDTO<String> upgradeElement(Long userId, Integer element, Integer originLevel, Integer newLevel) {
 		ResultDTO<String> resultDTO = new ResultDTO<String>();
@@ -97,7 +100,9 @@ public class UserElementServiceImpl implements UserElementService {
 			//更新总的产出率
 			String totalOutput = getUserOutput(userId);
 			userCoinService.updateOutput(userId, totalOutput);
-			
+			int totalWeight = userElementDao.getTotalWeight(userId);
+			//挑战
+			challengeService.challange(userId, element, newLevel, totalWeight);
 			resultDTO.set(ResultCodeEnum.SUCCESS, "OK");
 		} catch (Exception e) {
 			e.printStackTrace();
