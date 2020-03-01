@@ -93,4 +93,34 @@ public class UserBaseInfoDaoImpl {
     public boolean updateUserDiamond(Long userId, Integer num) {
     	return userBaseInfoExtMapper.updateUserDiamond(userId, num) >0;
     }
+    public List<UserBaseInfo> getFriendFriendList(List<Long> userList, Integer offset, Integer limit) {
+        UserBaseInfoExample example = new UserBaseInfoExample();
+        UserBaseInfoExample.Criteria criteria = example.createCriteria();
+        criteria.andFromUserIdIn(userList);
+        criteria.andActiveEqualTo(1);
+        example.setOrderByClause("create_time desc");
+        example.setMysqlOffset(offset);
+        example.setMysqlLength(limit);
+        return userBaseInfoMapper.selectByExample(example);
+    }
+    public List<UserBaseInfo> getUserFriendList(Long userId, Integer offset, Integer limit) {
+        UserBaseInfoExample example = new UserBaseInfoExample();
+        UserBaseInfoExample.Criteria criteria = example.createCriteria();
+        criteria.andFromUserIdEqualTo(userId);
+        criteria.andActiveEqualTo(1);
+        example.setOrderByClause("create_time desc");
+        example.setMysqlOffset(offset);
+        example.setMysqlLength(limit);
+        return userBaseInfoMapper.selectByExample(example);
+    }
+    public List<UserBaseInfo> getUnActiveFriendList(Long userId, Integer offset, Integer limit) {
+        UserBaseInfoExample example = new UserBaseInfoExample();
+        UserBaseInfoExample.Criteria criteria = example.createCriteria();
+        criteria.andFromUserIdEqualTo(userId);
+        criteria.andActiveEqualTo(0);
+        example.setOrderByClause("create_time asc");
+        example.setMysqlOffset(offset);
+        example.setMysqlLength(limit);
+        return userBaseInfoMapper.selectByExample(example);
+    }
 }

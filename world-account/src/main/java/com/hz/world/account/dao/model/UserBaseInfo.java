@@ -45,6 +45,20 @@ public class UserBaseInfo implements Serializable {
      */
     private Integer auth;
 
+    /**
+     * 是否激活，0:未激活，1:已激活
+     */
+    private Integer active;
+
+    /**
+     * 用户评分
+     */
+    private Double score;
+
+    private String weixin;
+
+    private String qq;
+
     private Date createTime;
 
     private Date updateTime;
@@ -173,6 +187,50 @@ public class UserBaseInfo implements Serializable {
      */
     public void setAuth(Integer auth) {
         this.auth = auth;
+    }
+
+    /**
+     * @return 是否激活，0:未激活，1:已激活
+     */
+    public Integer getActive() {
+        return active;
+    }
+
+    /**
+     * @param active 是否激活，0:未激活，1:已激活
+     */
+    public void setActive(Integer active) {
+        this.active = active;
+    }
+
+    /**
+     * @return 用户评分
+     */
+    public Double getScore() {
+        return score;
+    }
+
+    /**
+     * @param score 用户评分
+     */
+    public void setScore(Double score) {
+        this.score = score;
+    }
+
+    public String getWeixin() {
+        return weixin;
+    }
+
+    public void setWeixin(String weixin) {
+        this.weixin = weixin == null ? null : weixin.trim();
+    }
+
+    public String getQq() {
+        return qq;
+    }
+
+    public void setQq(String qq) {
+        this.qq = qq == null ? null : qq.trim();
     }
 
     public Date getCreateTime() {

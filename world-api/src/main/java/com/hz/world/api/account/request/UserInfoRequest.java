@@ -13,6 +13,7 @@ import lombok.Data;
 public class UserInfoRequest {
     
 	private Long toId; //翻牌的用户id
-   
+	private String qq;
+	private String weixin;
    
 }

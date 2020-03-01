@@ -1,6 +1,7 @@
 package com.hz.world.account.domain.dto;
 
 import java.io.Serializable;
+import java.security.interfaces.RSAMultiPrimePrivateCrtKey;
 
 import lombok.Data;
 
@@ -43,5 +44,12 @@ public class UserBaseInfoDTO implements Serializable {
     
     private Double cash;
 
+    private Integer active;
+    
+    private Double score;
+    
+    private String qq;
+    
+    private String weixin;
     
 }

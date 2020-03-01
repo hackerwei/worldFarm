@@ -1,17 +1,15 @@
 package com.hz.world.account.domain.dto;
 
-import lombok.Data;
-
 import java.io.Serializable;
 
+import lombok.Data;
+
+
 /**
- * 用户基本信息DTO
- * <pre>
- * Class Name: UserInfoDTO.java
- * @author liuxiao
- * Modifications:
- * Modifier liuxiao; 2017年8月14日; Create new Class UserBaseInfoDTO.java.
- * </pre>
+ * Title: 
+ * Description: 
+ * author linyanchun
+ * date Mar 1, 2020 
  */
 @Data
 public class UserBaseDTO implements Serializable {
@@ -22,24 +20,17 @@ public class UserBaseDTO implements Serializable {
 
 	private String nickname; //用户昵称
 
-	private String realName; //用户真实姓名
+	
+	private String regTime; // 注册时间
 
-	private String mobile; //手机号码
 
-	private java.util.Date regTime; // 注册时间
-
-	private String regChannelId; // 注册渠道
-
-	private String gender; // 性别
 
 	private String headImg; // 头像完整地址
 
-	private java.util.Date birthday; // 出生日期
+	private Integer auth;
+    
 
-	private String signature; // 签名
-
-	private Integer locationProvinceId; // 所在地
-
-	private Integer professionCode; // 职业code
+    private Integer active;
 	
+    private Integer level;
 }

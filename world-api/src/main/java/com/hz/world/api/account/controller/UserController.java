@@ -1,8 +1,5 @@
 package com.hz.world.api.account.controller;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -13,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.hz.world.account.domain.dto.UserBaseInfoDTO;
 import com.hz.world.account.service.UserBaseInfoService;
 import com.hz.world.api.account.dto.UserOutDTO;
+import com.hz.world.api.account.dto.UserSocialDTO;
 import com.hz.world.api.account.request.UserInfoRequest;
 import com.hz.world.api.core.domain.dto.GeneralResultMap;
 import com.hz.world.api.core.domain.dto.SysReturnCode;
@@ -36,21 +34,15 @@ public class UserController {
 	public GeneralResultMap userInfo(@RequestHeader("uid") Long userId,@RequestBody UserInfoRequest request) {
 		GeneralResultMap outputMap = new GeneralResultMap();
 		try {
-			if (request == null || request.getToId() == null) {
-				outputMap.setResult(SysReturnCode.UNKNOW_USER, "用户不存在");
-				return outputMap;
-			}
-			UserBaseInfoDTO user = userBaseInfoService.getByUserId(request.getToId());
+			
+			UserBaseInfoDTO user = userBaseInfoService.getByUserId(userId);
 			if (user == null) {
 				outputMap.setResult(SysReturnCode.UNKNOW_USER, "用户不存在");
 				return outputMap;
 			}
 			UserOutDTO dto = BeanUtil.copyProperties(user, UserOutDTO.class);
-			dto.setUserId(user.getUserId()+"");
 			
-			Map<String, Object> data = new HashMap<String, Object>();
-			data.put("user", dto);
-			outputMap.setResult(SysReturnCode.SUCC, data);
+			outputMap.setResult(SysReturnCode.SUCC, dto);
 		} catch (Exception e) {
 			log.error("用户{}查询个人信息失败", userId, e);
 			outputMap.setResult(SysReturnCode.FAIL, "查询个人信息失败");
@@ -61,7 +53,58 @@ public class UserController {
 	}
 
 	
-	
+	@RequestMapping(value = "/socialInfo", method = { RequestMethod.POST })
+	public GeneralResultMap socialInfo(@RequestHeader("uid") Long userId,@RequestBody UserInfoRequest request) {
+		GeneralResultMap outputMap = new GeneralResultMap();
+		try {
+			if (request == null || request.getToId() == null) {
+				outputMap.setResult(SysReturnCode.UNKNOW_USER, "用户不存在");
+				return outputMap;
+			}
+			UserBaseInfoDTO user = userBaseInfoService.getByUserId(request.getToId());
+			if (user == null) {
+				outputMap.setResult(SysReturnCode.UNKNOW_USER, "用户不存在");
+				return outputMap;
+			}
+			UserSocialDTO dto = BeanUtil.copyProperties(user, UserSocialDTO.class);
+			
+			outputMap.setResult(SysReturnCode.SUCC, dto);
+		} catch (Exception e) {
+			log.error("用户{}查询个人信息失败", userId, e);
+			outputMap.setResult(SysReturnCode.FAIL, "查询个人信息失败");
+		}
+
+		return outputMap;
+		
+	}
+
+	@RequestMapping(value = "/updateSocialInfo", method = { RequestMethod.POST })
+	public GeneralResultMap updateSocialInfo(@RequestHeader("uid") Long userId,@RequestBody UserInfoRequest request) {
+		GeneralResultMap outputMap = new GeneralResultMap();
+		try {
+			if (request == null ) {
+				outputMap.setResult(SysReturnCode.UNKNOW_USER, "用户不存在");
+				return outputMap;
+			}
+			
+			UserBaseInfoDTO userBaseInfoDTO = userBaseInfoService.getByUserId(userId);
+			userBaseInfoDTO.setQq(request.getQq());
+			userBaseInfoDTO.setWeixin(request.getWeixin());
+			if (userBaseInfoService.update(userBaseInfoDTO)) {
+				outputMap.setResult(SysReturnCode.SUCC, "修改成功");
+				return outputMap;
+			}
+				
+			outputMap.setResult(SysReturnCode.FAIL, "修改失败");
+		} catch (Exception e) {
+			log.error("用户{}修改社交信息失败", userId, e);
+			outputMap.setResult(SysReturnCode.FAIL, "修改社交信息失败");
+		}
+
+		return outputMap;
+		
+	}
+
 	
 	
 }
