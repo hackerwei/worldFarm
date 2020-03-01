@@ -1,8 +1,8 @@
 package com.hz.world.api.core.domain.request;
 
-import java.io.Serializable;
-
 import lombok.Data;
+
+import java.io.Serializable;
 
 /**
  * Title: 
@@ -17,6 +17,7 @@ public class CatchRequest  implements Serializable{
 
     
     private Integer year;
+    private Integer element;
     
     
 }

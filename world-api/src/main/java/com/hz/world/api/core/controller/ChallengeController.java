@@ -25,7 +25,7 @@ public class ChallengeController {
 
 	// 展示挑战初始页面, 默认element=0
 	@RequestMapping(value = "/list", method = { RequestMethod.POST })
-	public GeneralResultMap list(@RequestHeader("uid") Long userId, @RequestHeader("element") Integer element, @RequestBody CatchRequest request) {
+	public GeneralResultMap list(@RequestHeader("uid") Long userId, @RequestBody CatchRequest request) {
 		GeneralResultMap outputMap = new GeneralResultMap();
 		try {
 
@@ -35,17 +35,17 @@ public class ChallengeController {
 				return outputMap;
 			}
 
-			outputMap.setResult(SysReturnCode.SUCC, challengeService.userChallengeElementList(userId,element));
+			outputMap.setResult(SysReturnCode.SUCC, challengeService.userChallengeElementList(userId,request.getElement()));
 
 		} catch (Exception e) {
-			log.error("用户{}获取挑战列表{}失败", userId, element, e);
+			log.error("用户{}获取挑战列表{}失败", userId, request.getElement(), e);
 			outputMap.setResult(SysReturnCode.FAIL, "用户获取挑战列表失败");
 		}
 		return outputMap;
 	}
 	// 已达成的挑战
 	@RequestMapping(value = "/achived", method = { RequestMethod.POST })
-	public GeneralResultMap list(@RequestHeader("uid") Long userId, @RequestBody CatchRequest request) {
+	public GeneralResultMap achivedChallenge(@RequestHeader("uid") Long userId, @RequestBody CatchRequest request) {
 		GeneralResultMap outputMap = new GeneralResultMap();
 		try {
 
