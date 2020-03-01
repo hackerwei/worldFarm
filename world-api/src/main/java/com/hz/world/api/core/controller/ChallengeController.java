@@ -71,25 +71,25 @@ public class ChallengeController {
 		}
 		return outputMap;
 	}
-	// 已达成的挑战
-	@RequestMapping(value = "/achived", method = { RequestMethod.POST })
-	public GeneralResultMap achivedChallenge(@RequestHeader("uid") Long userId, @RequestBody CatchRequest request) {
-		GeneralResultMap outputMap = new GeneralResultMap();
-		try {
-
-			UserBaseInfoDTO user = userBaseInfoService.getByUserId(userId);
-			if (user == null) {
-				outputMap.setResult(SysReturnCode.UNKNOW_USER, "用户不存在");
-				return outputMap;
-			}
-
-			outputMap.setResult(SysReturnCode.SUCC, challengeService.userAchivedChallenge(userId));
-
-		} catch (Exception e) {
-			log.error("用户{}获取挑战列表{}失败", userId, e);
-			outputMap.setResult(SysReturnCode.FAIL, "用户获取挑战列表失败");
-		}
-		return outputMap;
-	}
+//	// 已达成的挑战
+//	@RequestMapping(value = "/achived", method = { RequestMethod.POST })
+//	public GeneralResultMap achivedChallenge(@RequestHeader("uid") Long userId, @RequestBody CatchRequest request) {
+//		GeneralResultMap outputMap = new GeneralResultMap();
+//		try {
+//
+//			UserBaseInfoDTO user = userBaseInfoService.getByUserId(userId);
+//			if (user == null) {
+//				outputMap.setResult(SysReturnCode.UNKNOW_USER, "用户不存在");
+//				return outputMap;
+//			}
+//
+//			outputMap.setResult(SysReturnCode.SUCC, challengeService.userAchivedChallenge(userId));
+//
+//		} catch (Exception e) {
+//			log.error("用户{}获取挑战列表{}失败", userId, e);
+//			outputMap.setResult(SysReturnCode.FAIL, "用户获取挑战列表失败");
+//		}
+//		return outputMap;
+//	}
 
 }
