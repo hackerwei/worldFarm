@@ -50,6 +50,18 @@ public class UserChallengeLogDaoImpl {
         return userChallengeLogMapper.selectByExample(example);
     }
     // 返回当前最大达成成就的最大值
-
+    public UserChallengeLog getUserMaxFinishedChallenge(Long userId, Integer element) {
+    	UserChallengeLogExample example = new UserChallengeLogExample();
+        UserChallengeLogExample.Criteria criteria = example.createCriteria();
+        criteria.andUserIdEqualTo(userId);
+        criteria.andElementEqualTo(element);
+        example.setOrderByClause("challenge_id desc");
+        example.setMysqlLength(1);
+        List<UserChallengeLog> list = userChallengeLogMapper.selectByExample(example);
+        if (list != null && list.size() > 0) {
+			return list.get(0);
+		}
+        return null;
+    }
 
 }

@@ -31,5 +31,9 @@ public class UserOutDTO implements Serializable {
 
 	private Integer level;
 	
+	private String qq;
+	
+	private String weixin;
+	
 
 }

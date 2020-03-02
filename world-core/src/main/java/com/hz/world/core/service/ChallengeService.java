@@ -39,4 +39,12 @@ public interface ChallengeService {
 	public Integer userAchivedChallenges(Long userId);
 	// 找出当前元素的下一个挑战weight
     public Integer nextWeight(Long userId, Integer element);
+
+    /**
+     * 当前完成的元素最大的挑战
+     * @param userId
+     * @param element
+     * @return
+     */
+    public Integer maxFinishedChallenge(Long userId, Integer element);
 }

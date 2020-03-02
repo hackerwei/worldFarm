@@ -125,7 +125,7 @@ public class UserCoinServiceImpl implements UserCoinService {
 			BigDecimal b2 = new BigDecimal("10000000") ;
 			//总收益达到一定程度，完成收集
 			if (b1.compareTo(b2) >= 0) {
-				collectService.collect(userId, CollectType.COIN.getCode(), income);
+		//		collectService.collect(userId, CollectType.COIN.getCode(), income);
 			}
 		}
 	}
