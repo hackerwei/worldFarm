@@ -1,5 +1,7 @@
 package com.hz.world.api.account.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -15,6 +17,8 @@ import com.hz.world.api.account.request.UserInfoRequest;
 import com.hz.world.api.core.domain.dto.GeneralResultMap;
 import com.hz.world.api.core.domain.dto.SysReturnCode;
 import com.hz.world.common.util.BeanUtil;
+import com.hz.world.core.domain.dto.UserCashChangeLogDTO;
+import com.hz.world.core.service.UserCashService;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -28,6 +32,8 @@ public class UserController {
 
 	@Autowired
 	private UserBaseInfoService userBaseInfoService;
+	@Autowired
+	private UserCashService userCashService;
 	
 
 	@RequestMapping(value = "/info", method = { RequestMethod.POST })
@@ -82,7 +88,7 @@ public class UserController {
 	public GeneralResultMap updateSocialInfo(@RequestHeader("uid") Long userId,@RequestBody UserInfoRequest request) {
 		GeneralResultMap outputMap = new GeneralResultMap();
 		try {
-			if (request == null ) {
+			if (request == null  ) {
 				outputMap.setResult(SysReturnCode.UNKNOW_USER, "用户不存在");
 				return outputMap;
 			}
@@ -105,6 +111,30 @@ public class UserController {
 		
 	}
 
+	/**
+	 * 收入日志
+	 * @param userId
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value = "/cashLog", method = { RequestMethod.POST })
+	public GeneralResultMap cashLog(@RequestHeader("uid") Long userId,@RequestBody UserInfoRequest request) {
+		GeneralResultMap outputMap = new GeneralResultMap();
+		try {
+			
+			Integer offset = (request.getPageNo() - 1) * request.getPageSize();
+			Integer limit = request.getPageSize();
+			List<UserCashChangeLogDTO> list = userCashService.getChangeList(userId, offset, limit);
+			outputMap.setResult(SysReturnCode.SUCC, list);
+		
+		} catch (Exception e) {
+			log.error("用户{}收入日志失败", userId, e);
+			outputMap.setResult(SysReturnCode.FAIL, "收入日志失败");
+		}
+
+		return outputMap;
+		
+	}
 	
 	
 }

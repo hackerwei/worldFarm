@@ -81,5 +81,23 @@ public class FriendServiceImpl implements FriendService {
 		}
 		return result;
 	}
-
+	
+	@Override
+	public int getFriendCount(Long userId) {
+		return userBaseInfoDao.getFriendCount(userId);
+	}
+	@Override
+	public int getTodayFriendCount(Long userId) {
+		return userBaseInfoDao.getTodayFriendCount(userId);
+	}
+	
+	@Override
+	public int getFriendWeight(Long userId) {
+		return userBaseInfoDao.getFriendWeight(userId);
+	}
+	
+	@Override
+	public int getUnAuthFriendCount(Long userId) {
+		return userBaseInfoDao.getUnAuthFriendCount(userId);
+	}
 }

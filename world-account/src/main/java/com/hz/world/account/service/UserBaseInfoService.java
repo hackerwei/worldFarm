@@ -63,7 +63,7 @@ public interface UserBaseInfoService {
      * @param num
      * @return
      */
-    boolean updateUserCash(Long userId, Integer num);
+    boolean updateUserCash(Long userId, Double num);
     
     /**
      * 更新用户钻石
@@ -72,4 +72,12 @@ public interface UserBaseInfoService {
      * @return
      */
     boolean updateUserDiamond(Long userId, Integer num);
+    
+    /**
+     * 更新用户体重
+     * @param userId
+     * @param num
+     * @return
+     */
+    boolean updateUserWeight(Long userId, Integer num);
 }

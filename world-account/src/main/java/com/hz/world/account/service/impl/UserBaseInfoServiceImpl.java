@@ -104,7 +104,7 @@ public class UserBaseInfoServiceImpl implements UserBaseInfoService {
     		return userBaseInfoDao.getInviteCount(userId);
     }
     @Override
-    public boolean updateUserCash(Long userId, Integer num) {
+    public boolean updateUserCash(Long userId, Double num) {
     	boolean result =  userBaseInfoDao.updateUserCash(userId, num);
     	if (result) {
     		accountCacheUtil.deleteUserBaeInfo(userId);
@@ -121,4 +121,12 @@ public class UserBaseInfoServiceImpl implements UserBaseInfoService {
 		return result;
     }
     
+    @Override
+    public boolean updateUserWeight(Long userId, Integer num) {
+    	boolean result =  userBaseInfoDao.updateUserWeight(userId, num);
+    	if (result) {
+    		accountCacheUtil.deleteUserBaeInfo(userId);
+		}	
+		return result;
+    }
 }

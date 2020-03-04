@@ -41,6 +41,13 @@ public class UserChallengeLogDaoImpl {
         criteria.andElementEqualTo(element);
         return userChallengeLogMapper.selectByExample(example);
     }
+    public int getUserFinishedCount(Long userId, Integer element) {
+    	 UserChallengeLogExample example = new UserChallengeLogExample();
+         UserChallengeLogExample.Criteria criteria = example.createCriteria();
+         criteria.andUserIdEqualTo(userId);
+         criteria.andElementEqualTo(element);
+         return userChallengeLogMapper.countByExample(example);
+    }
     // 返回所有达成挑战的情况
     public List<UserChallengeLog> getUserFinishedChallenges(Long userID)
     {

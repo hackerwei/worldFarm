@@ -377,4 +377,33 @@ public class CoreCacheUtil {
 		String key = String.format(RedisConstants.LAST_INVEST_ID, userId);
 		return redisService.get(key);
 	}
+	
+	public void addUserAd(Long userId) {
+		String key = String.format(RedisConstants.USER_AD, userId);
+		redisService.incr(key);
+		String todayKey = String.format(RedisConstants.USER_TODAY_AD, userId);
+		if (redisService.exists(todayKey)) {
+			redisService.incr(todayKey);
+		}else {
+			redisService.incr(todayKey);
+			redisService.expire(todayKey, DateUtil.getSecondToTomorrow());
+		}
+	}
+	public int getUserAdCount(Long userId) {
+		String key = String.format(RedisConstants.USER_AD, userId);
+		String value = redisService.get(key);
+		if (value == null) {
+			return 0;
+		}
+		return Integer.parseInt(value);
+	}
+	
+	public int getUserTodayAdCount(Long userId) {
+		String key = String.format(RedisConstants.USER_TODAY_AD, userId);
+		String value = redisService.get(key);
+		if (value == null) {
+			return 0;
+		}
+		return Integer.parseInt(value);
+	}
 }

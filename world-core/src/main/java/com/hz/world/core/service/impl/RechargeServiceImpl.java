@@ -14,12 +14,11 @@ import com.hz.world.common.enums.CashChangeType;
 import com.hz.world.common.enums.DiamondChangeType;
 import com.hz.world.common.ids.IDGenerator;
 import com.hz.world.core.common.util.ConfigCacheUtil;
-import com.hz.world.core.dao.impl.UserCashChangeLogDaoImpl;
 import com.hz.world.core.dao.impl.UserDiamondChangeLogDaoImpl;
 import com.hz.world.core.dao.model.RechargeConfig;
-import com.hz.world.core.dao.model.UserCashChangeLog;
 import com.hz.world.core.dao.model.UserDiamondChangeLog;
 import com.hz.world.core.service.RechargeService;
+import com.hz.world.core.service.UserCashService;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -38,11 +37,11 @@ public class RechargeServiceImpl implements RechargeService {
 	private ConfigCacheUtil configCacheUtil;
 	@Autowired
 	private UserBaseInfoService userBaseInfoService;
-	@Autowired
-	private UserCashChangeLogDaoImpl userCashChangeLogDao;
+
 	@Autowired
 	private UserDiamondChangeLogDaoImpl userDiamondChangeLogDao;
-
+	@Autowired
+	private UserCashService userCashService;
 	@Override
 	public ResultDTO<String> recharge(Long userId, Integer rechargeId){
 		ResultDTO<String> resultDTO = new ResultDTO<String>();
@@ -62,17 +61,12 @@ public class RechargeServiceImpl implements RechargeService {
 				return resultDTO;
 			}
 			//扣除现金
-			if (!userBaseInfoService.updateUserCash(userId, -config.getPrice())) {
+			if (!userBaseInfoService.updateUserCash(userId, (double)-config.getPrice())) {
 				resultDTO.set(ResultCodeEnum.ERROR_HANDLE, "现金不足");
 				return resultDTO;
 			}
-			UserCashChangeLog record = new UserCashChangeLog();
-			record.setId(IDGenerator.getUniqueId());
-			record.setNum(user.getCash());
-			record.setAfterNum(user.getCash() - config.getPrice());
-			record.setUserId(userId);
-			record.setRelatedType(CashChangeType.RECHARGE.getCode());
-			userCashChangeLogDao.insert(record);
+			userCashService.createCashChangeLog(userId, (double)config.getPrice(), user.getCash() - config.getPrice(), 0, CashChangeType.RECHARGE.getCode(), CashChangeType.RECHARGE.getDesc());
+			
 			//增加钻石
 			int diamond = config.getNum() + config.getGift();
 			userBaseInfoService.updateUserDiamond(userId, diamond);

@@ -7,6 +7,8 @@
       <result column="num" property="num" jdbcType="VARCHAR" />
       <result column="after_num" property="afterNum" jdbcType="VARCHAR" />
       <result column="related_type" property="relatedType" jdbcType="INTEGER" />
+      <result column="content" property="content" jdbcType="VARCHAR" />
+      <result column="type" property="type" jdbcType="INTEGER" />
       <result column="add_time" property="addTime" jdbcType="TIMESTAMP" />
     </resultMap>
     <sql id="Example_Where_Clause" >
@@ -68,7 +70,7 @@
       </where>
     </sql>
     <sql id="UserCoinChangeLogColumns" >
-      id, user_id, num, after_num, related_type, add_time
+      id, user_id, num, after_num, related_type, content, type, add_time
     </sql>
     <select id="selectByExample" resultMap="UserCoinChangeLogResult" parameterType="com.hz.world.core.dao.model.UserCoinChangeLogExample" >
       select
@@ -107,11 +109,11 @@
     </delete>
     <insert id="insert" parameterType="com.hz.world.core.dao.model.UserCoinChangeLog" >
       insert into user_coin_change_log (id, user_id, num, 
-        after_num, related_type, add_time
-        )
+        after_num, related_type, content, 
+        type, add_time)
       values (#{id,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT}, #{num,jdbcType=VARCHAR}, 
-        #{afterNum,jdbcType=VARCHAR}, #{relatedType,jdbcType=INTEGER}, #{addTime,jdbcType=TIMESTAMP}
-        )
+        #{afterNum,jdbcType=VARCHAR}, #{relatedType,jdbcType=INTEGER}, #{content,jdbcType=VARCHAR}, 
+        #{type,jdbcType=INTEGER}, #{addTime,jdbcType=TIMESTAMP})
     </insert>
     <insert id="insertSelective" parameterType="com.hz.world.core.dao.model.UserCoinChangeLog" >
       insert into user_coin_change_log
@@ -130,6 +132,12 @@
         </if>
         <if test="relatedType != null" >
           related_type,
+        </if>
+        <if test="content != null" >
+          content,
+        </if>
+        <if test="type != null" >
+          type,
         </if>
         <if test="addTime != null" >
           add_time,
@@ -150,6 +158,12 @@
         </if>
         <if test="relatedType != null" >
           #{relatedType,jdbcType=INTEGER},
+        </if>
+        <if test="content != null" >
+          #{content,jdbcType=VARCHAR},
+        </if>
+        <if test="type != null" >
+          #{type,jdbcType=INTEGER},
         </if>
         <if test="addTime != null" >
           #{addTime,jdbcType=TIMESTAMP},
@@ -180,6 +194,12 @@
         <if test="record.relatedType != null" >
           related_type = #{record.relatedType,jdbcType=INTEGER},
         </if>
+        <if test="record.content != null" >
+          content = #{record.content,jdbcType=VARCHAR},
+        </if>
+        <if test="record.type != null" >
+          type = #{record.type,jdbcType=INTEGER},
+        </if>
         <if test="record.addTime != null" >
           add_time = #{record.addTime,jdbcType=TIMESTAMP},
         </if>
@@ -195,6 +215,8 @@
         num = #{record.num,jdbcType=VARCHAR},
         after_num = #{record.afterNum,jdbcType=VARCHAR},
         related_type = #{record.relatedType,jdbcType=INTEGER},
+        content = #{record.content,jdbcType=VARCHAR},
+        type = #{record.type,jdbcType=INTEGER},
         add_time = #{record.addTime,jdbcType=TIMESTAMP}
       <if test="_parameter != null" >
         <include refid="Update_By_Example_Where_Clause" />
@@ -215,6 +237,12 @@
         <if test="relatedType != null" >
           related_type = #{relatedType,jdbcType=INTEGER},
         </if>
+        <if test="content != null" >
+          content = #{content,jdbcType=VARCHAR},
+        </if>
+        <if test="type != null" >
+          type = #{type,jdbcType=INTEGER},
+        </if>
         <if test="addTime != null" >
           add_time = #{addTime,jdbcType=TIMESTAMP},
         </if>
@@ -227,6 +255,8 @@
         num = #{num,jdbcType=VARCHAR},
         after_num = #{afterNum,jdbcType=VARCHAR},
         related_type = #{relatedType,jdbcType=INTEGER},
+        content = #{content,jdbcType=VARCHAR},
+        type = #{type,jdbcType=INTEGER},
         add_time = #{addTime,jdbcType=TIMESTAMP}
       where id = #{id,jdbcType=BIGINT}
     </update>

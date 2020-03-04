@@ -1,17 +1,36 @@
 package com.hz.world.core.common.util;
 
-import com.alibaba.fastjson.JSON;
-import com.hz.world.common.cache.redis.RedisService;
-import com.hz.world.common.constant.RedisConstants;
-import com.hz.world.core.dao.impl.*;
-import com.hz.world.core.dao.model.*;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+import com.alibaba.fastjson.JSON;
+import com.hz.world.common.cache.redis.RedisService;
+import com.hz.world.common.constant.RedisConstants;
+import com.hz.world.core.dao.impl.CatchConfigDaoImpl;
+import com.hz.world.core.dao.impl.ChallengeConfigDaoImpl;
+import com.hz.world.core.dao.impl.CollectConfigDaoImpl;
+import com.hz.world.core.dao.impl.ElementConfigDaoImpl;
+import com.hz.world.core.dao.impl.InvestConfigDaoImpl;
+import com.hz.world.core.dao.impl.RechargeConfigDaoImpl;
+import com.hz.world.core.dao.impl.ShopConfigDaoImpl;
+import com.hz.world.core.dao.impl.TitleConfigDaoImpl;
+import com.hz.world.core.dao.impl.UnionConfigDaoImpl;
+import com.hz.world.core.dao.impl.YearConfigDaoImpl;
+import com.hz.world.core.dao.model.CatchConfig;
+import com.hz.world.core.dao.model.ChallengeConfig;
+import com.hz.world.core.dao.model.CollectConfig;
+import com.hz.world.core.dao.model.ElementConfig;
+import com.hz.world.core.dao.model.InvestConfig;
+import com.hz.world.core.dao.model.RechargeConfig;
+import com.hz.world.core.dao.model.ShopConfig;
+import com.hz.world.core.dao.model.UnionConfig;
+import com.hz.world.core.dao.model.YearConfig;
+
+import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Component
@@ -38,6 +57,8 @@ public class ConfigCacheUtil {
 	ChallengeConfigDaoImpl challengeConfigDao;
 	@Autowired
 	CollectConfigDaoImpl collectConfigDao;
+	@Autowired
+	UnionConfigDaoImpl unionConfigDao;
 	
 	public ElementConfig getElement(Integer id) {
 		
@@ -262,5 +283,29 @@ public class ConfigCacheUtil {
 		}
 
 		return result;
+	}
+	public List<UnionConfig> getUnionList(){
+		String key = RedisConstants.RICHER_CONFIG_UNION;
+		List<UnionConfig> list = new ArrayList<UnionConfig>();
+		if (!redisService.exists(key)) {
+			list = unionConfigDao.findAll();
+			redisService.set(key, JSON.toJSONString(list));
+		}else {
+			String json = redisService.get(key);
+			list = JSON.parseArray(json, UnionConfig.class);
+
+		}
+		return list;
+	}
+	public UnionConfig getUnionConfig(Integer id) {
+		List<UnionConfig> list = getUnionList();
+		if (list != null && list.size() > 0) {
+			for (UnionConfig catchConfig : list) {
+				if (catchConfig.getId().equals(id)) {
+					return catchConfig;
+				}
+			}
+		}
+		return null;
 	}
 } 

@@ -1,5 +1,6 @@
 package com.hz.world.core.service.impl;
 
+import com.hz.world.account.service.UserBaseInfoService;
 import com.hz.world.common.dto.ResultCodeEnum;
 import com.hz.world.common.dto.ResultDTO;
 import com.hz.world.common.enums.CoinChangeType;
@@ -49,6 +50,8 @@ public class UserElementServiceImpl implements UserElementService {
 	private ChallengeService challengeService;
 	@Autowired
 	private CollectService collectService;
+	@Autowired
+	private UserBaseInfoService userBaseInfoService;
 	@Override
 	public ResultDTO<String> upgradeElement(Long userId, Integer element, Integer originLevel, Integer newLevel) {
 		ResultDTO<String> resultDTO = new ResultDTO<String>();

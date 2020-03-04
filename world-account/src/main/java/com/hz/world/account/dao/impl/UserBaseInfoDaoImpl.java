@@ -85,7 +85,7 @@ public class UserBaseInfoDaoImpl {
         criteria.andFromUserIdEqualTo(userId);
         return userBaseInfoMapper.countByExample(example);
     }
-    public boolean updateUserCash(Long userId, Integer num) {
+    public boolean updateUserCash(Long userId, Double num) {
     	return userBaseInfoExtMapper.updateUserCash(userId, num) >0;
     }
     
@@ -93,6 +93,10 @@ public class UserBaseInfoDaoImpl {
     public boolean updateUserDiamond(Long userId, Integer num) {
     	return userBaseInfoExtMapper.updateUserDiamond(userId, num) >0;
     }
+    public boolean updateUserWeight(Long userId, Integer num) {
+    	return userBaseInfoExtMapper.updateUserWeight(userId, num) >0;
+    }
+    
     public List<UserBaseInfo> getFriendFriendList(List<Long> userList, Integer offset, Integer limit) {
         UserBaseInfoExample example = new UserBaseInfoExample();
         UserBaseInfoExample.Criteria criteria = example.createCriteria();
@@ -122,5 +126,26 @@ public class UserBaseInfoDaoImpl {
         example.setMysqlOffset(offset);
         example.setMysqlLength(limit);
         return userBaseInfoMapper.selectByExample(example);
+    }
+    public int getFriendCount(Long userId) {
+    	UserBaseInfoExample example = new UserBaseInfoExample();
+        UserBaseInfoExample.Criteria criteria = example.createCriteria();
+        criteria.andFromUserIdEqualTo(userId);
+        criteria.andActiveEqualTo(0);
+        return userBaseInfoMapper.countByExample(example);
+    }
+    public int getTodayFriendCount(Long userId) {
+    	return userBaseInfoExtMapper.getTodayFriendCount(userId);
+    }
+    public int getFriendWeight(Long userId) {
+    	return userBaseInfoExtMapper.getFriendWeight(userId);
+    }
+    public int getUnAuthFriendCount(Long userId) {
+    	UserBaseInfoExample example = new UserBaseInfoExample();
+        UserBaseInfoExample.Criteria criteria = example.createCriteria();
+        criteria.andFromUserIdEqualTo(userId);
+        criteria.andActiveEqualTo(0);
+        criteria.andAuthEqualTo(0);
+        return userBaseInfoMapper.countByExample(example);
     }
 }

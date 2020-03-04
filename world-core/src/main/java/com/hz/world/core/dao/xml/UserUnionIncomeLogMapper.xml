@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+  <mapper namespace="com.hz.world.core.dao.mapper.UserUnionIncomeLogMapper" >
+    <resultMap id="UserUnionIncomeLogResult" type="com.hz.world.core.dao.model.UserUnionIncomeLog" >
+      <id column="id" property="id" jdbcType="BIGINT" />
+      <result column="user_id" property="userId" jdbcType="BIGINT" />
+      <result column="date" property="date" jdbcType="DATE" />
+      <result column="income" property="income" jdbcType="DOUBLE" />
+    </resultMap>
+    <sql id="Example_Where_Clause" >
+      <where >
+        <foreach collection="oredCriteria" item="criteria" separator="or" >
+          <if test="criteria.valid" >
+            <trim prefix="(" suffix=")" prefixOverrides="and" >
+              <foreach collection="criteria.criteria" item="criterion" >
+                <choose >
+                  <when test="criterion.noValue" >
+                    and ${criterion.condition}
+                  </when>
+                  <when test="criterion.singleValue" >
+                    and ${criterion.condition} #{criterion.value}
+                  </when>
+                  <when test="criterion.betweenValue" >
+                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                  </when>
+                  <when test="criterion.listValue" >
+                    and ${criterion.condition}
+                    <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                      #{listItem}
+                    </foreach>
+                  </when>
+                </choose>
+              </foreach>
+            </trim>
+          </if>
+        </foreach>
+      </where>
+    </sql>
+    <sql id="Update_By_Example_Where_Clause" >
+      <where >
+        <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+          <if test="criteria.valid" >
+            <trim prefix="(" suffix=")" prefixOverrides="and" >
+              <foreach collection="criteria.criteria" item="criterion" >
+                <choose >
+                  <when test="criterion.noValue" >
+                    and ${criterion.condition}
+                  </when>
+                  <when test="criterion.singleValue" >
+                    and ${criterion.condition} #{criterion.value}
+                  </when>
+                  <when test="criterion.betweenValue" >
+                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                  </when>
+                  <when test="criterion.listValue" >
+                    and ${criterion.condition}
+                    <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                      #{listItem}
+                    </foreach>
+                  </when>
+                </choose>
+              </foreach>
+            </trim>
+          </if>
+        </foreach>
+      </where>
+    </sql>
+    <sql id="UserUnionIncomeLogColumns" >
+      id, user_id, date, income
+    </sql>
+    <select id="selectByExample" resultMap="UserUnionIncomeLogResult" parameterType="com.hz.world.core.dao.model.UserUnionIncomeLogExample" >
+      select
+      <if test="distinct" >
+        distinct
+      </if>
+      <include refid="UserUnionIncomeLogColumns" />
+      from user_union_income_log
+      <if test="_parameter != null" >
+        <include refid="Example_Where_Clause" />
+      </if>
+      <if test="orderByClause != null" >
+        order by ${orderByClause}
+      </if>
+      <if test="mysqlOffset != null" >
+        <if test="mysqlLength != null" >
+           limit #{mysqlOffset} , #{mysqlLength} 
+        </if>
+      </if>
+    </select>
+    <select id="selectByPrimaryKey" resultMap="UserUnionIncomeLogResult" parameterType="java.lang.Long" >
+      select 
+      <include refid="UserUnionIncomeLogColumns" />
+      from user_union_income_log
+      where id = #{id,jdbcType=BIGINT}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+      delete from user_union_income_log
+      where id = #{id,jdbcType=BIGINT}
+    </delete>
+    <delete id="deleteByExample" parameterType="com.hz.world.core.dao.model.UserUnionIncomeLogExample" >
+      delete from user_union_income_log
+      <if test="_parameter != null" >
+        <include refid="Example_Where_Clause" />
+      </if>
+    </delete>
+    <insert id="insert" parameterType="com.hz.world.core.dao.model.UserUnionIncomeLog" >
+      insert into user_union_income_log (id, user_id, date, 
+        income)
+      values (#{id,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT}, #{date,jdbcType=DATE}, 
+        #{income,jdbcType=DOUBLE})
+    </insert>
+    <insert id="insertSelective" parameterType="com.hz.world.core.dao.model.UserUnionIncomeLog" >
+      insert into user_union_income_log
+      <trim prefix="(" suffix=")" suffixOverrides="," >
+        <if test="id != null" >
+          id,
+        </if>
+        <if test="userId != null" >
+          user_id,
+        </if>
+        <if test="date != null" >
+          date,
+        </if>
+        <if test="income != null" >
+          income,
+        </if>
+      </trim>
+      <trim prefix="values (" suffix=")" suffixOverrides="," >
+        <if test="id != null" >
+          #{id,jdbcType=BIGINT},
+        </if>
+        <if test="userId != null" >
+          #{userId,jdbcType=BIGINT},
+        </if>
+        <if test="date != null" >
+          #{date,jdbcType=DATE},
+        </if>
+        <if test="income != null" >
+          #{income,jdbcType=DOUBLE},
+        </if>
+      </trim>
+    </insert>
+    <select id="countByExample" parameterType="com.hz.world.core.dao.model.UserUnionIncomeLogExample" resultType="java.lang.Integer" >
+      select count(*) from user_union_income_log
+      <if test="_parameter != null" >
+        <include refid="Example_Where_Clause" />
+      </if>
+    </select>
+    <update id="updateByExampleSelective" parameterType="map" >
+      update user_union_income_log
+      <set >
+        <if test="record.id != null" >
+          id = #{record.id,jdbcType=BIGINT},
+        </if>
+        <if test="record.userId != null" >
+          user_id = #{record.userId,jdbcType=BIGINT},
+        </if>
+        <if test="record.date != null" >
+          date = #{record.date,jdbcType=DATE},
+        </if>
+        <if test="record.income != null" >
+          income = #{record.income,jdbcType=DOUBLE},
+        </if>
+      </set>
+      <if test="_parameter != null" >
+        <include refid="Update_By_Example_Where_Clause" />
+      </if>
+    </update>
+    <update id="updateByExample" parameterType="map" >
+      update user_union_income_log
+      set id = #{record.id,jdbcType=BIGINT},
+        user_id = #{record.userId,jdbcType=BIGINT},
+        date = #{record.date,jdbcType=DATE},
+        income = #{record.income,jdbcType=DOUBLE}
+      <if test="_parameter != null" >
+        <include refid="Update_By_Example_Where_Clause" />
+      </if>
+    </update>
+    <update id="updateByPrimaryKeySelective" parameterType="com.hz.world.core.dao.model.UserUnionIncomeLog" >
+      update user_union_income_log
+      <set >
+        <if test="userId != null" >
+          user_id = #{userId,jdbcType=BIGINT},
+        </if>
+        <if test="date != null" >
+          date = #{date,jdbcType=DATE},
+        </if>
+        <if test="income != null" >
+          income = #{income,jdbcType=DOUBLE},
+        </if>
+      </set>
+      where id = #{id,jdbcType=BIGINT}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.hz.world.core.dao.model.UserUnionIncomeLog" >
+      update user_union_income_log
+      set user_id = #{userId,jdbcType=BIGINT},
+        date = #{date,jdbcType=DATE},
+        income = #{income,jdbcType=DOUBLE}
+      where id = #{id,jdbcType=BIGINT}
+    </update>
+  </mapper>

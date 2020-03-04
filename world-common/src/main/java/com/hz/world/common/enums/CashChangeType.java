@@ -9,6 +9,10 @@ package com.hz.world.common.enums;
 public enum CashChangeType {
     
     RECHARGE(0, "充值"),
+    LIMIT_SHARE(1, "限时分红小龙虾"),
+    FOREVER_SHARE(2, "永久分红小龙虾"),
+    UNION(3, "联盟收益"),
+    CASH(4, "提现"),
     
     ;
     private final int code;

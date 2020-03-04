@@ -153,10 +153,11 @@ public class ChallengeServiceImpl implements ChallengeService {
 	}
 
 	public Integer maxFinishedChallenge(Long userId, Integer element) {
-		UserChallengeLog data = userChallengeLogDao.getUserMaxFinishedChallenge(userId, element);
-		if (data == null) {
+		int count = userChallengeLogDao.getUserFinishedCount(userId, element);
+		if (count == 0) {
 			return null;
 		}
-		return data.getChallengeId();
+		return count -1;
+		
 	}
 }

@@ -12,7 +12,7 @@ import lombok.Data;
 public class UserOutDTO implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
-	
+	private Long fromUserId;
 	private Long userId; //用户ID
 	    
 	private String nickname; //用户昵称

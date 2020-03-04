@@ -24,6 +24,7 @@ public final class RedisConstants {
 	public static final String RICHER_CONFIG_SHOP = "richer:config:shop";
 	public static final String RICHER_CONFIG_CHALLENGE = "richer:config:challenge";
 	public static final String RICHER_CONFIG_COLLECT = "richer:config:collect";
+	public static final String RICHER_CONFIG_UNION = "richer:config:union";
 	/** =========业务相关==================*/
 	public static final String RICHER_USER_ELEMENT = "richer:user:element:%s:%s";
 	/** 用户3小时收益*/
@@ -48,4 +49,8 @@ public final class RedisConstants {
 	public static final String USER_EXPRESS = "richer:user:express:%s";
 	/** 上次拉取的最后一个id*/
 	public static final String LAST_INVEST_ID = "richer:user:last_invest_id:%s";
+	/** 用户广告数*/
+	public static final String USER_AD = "richer:user:ad:%s";
+	/** 用户当日广告数*/
+	public static final String USER_TODAY_AD = "richer:user:today_ad:%s";
 }
