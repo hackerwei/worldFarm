@@ -53,4 +53,8 @@ public final class RedisConstants {
 	public static final String USER_AD = "richer:user:ad:%s";
 	/** 用户当日广告数*/
 	public static final String USER_TODAY_AD = "richer:user:today_ad:%s";
+	/** 当日分红总数*/
+	public static final String TOTAL_SHARE = "richer:total_share";
+	/** 用户喂养小龙虾体重，每200斤获得限时分红小龙虾*/
+	public static final String USER_FEED_WEIGHT = "richer:element:feed_weight:%s";
 }

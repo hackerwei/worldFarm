@@ -1,9 +1,11 @@
 package com.hz.world.core.dao.model;
 
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
-public class YearConfigExample {
+public class DateShareExample {
     protected String orderByClause;
 
     protected boolean distinct;
@@ -14,7 +16,7 @@ public class YearConfigExample {
 
     private Integer mysqlLength;
 
-    public YearConfigExample() {
+    public DateShareExample() {
         oredCriteria = new ArrayList<Criteria>();
     }
 
@@ -126,183 +128,149 @@ public class YearConfigExample {
             criteria.add(new Criterion(condition, value1, value2));
         }
 
-        public Criteria andYearIsNull() {
-            addCriterion("year is null");
+        protected void addCriterionForJDBCDate(String condition, Date value, String property) {
+            if (value == null) {
+                throw new RuntimeException("Value for " + property + " cannot be null");
+            }
+            addCriterion(condition, new java.sql.Date(value.getTime()), property);
+        }
+
+        protected void addCriterionForJDBCDate(String condition, List<Date> values, String property) {
+            if (values == null || values.size() == 0) {
+                throw new RuntimeException("Value list for " + property + " cannot be null or empty");
+            }
+            List<java.sql.Date> dateList = new ArrayList<java.sql.Date>();
+            Iterator<Date> iter = values.iterator();
+            while (iter.hasNext()) {
+                dateList.add(new java.sql.Date(iter.next().getTime()));
+            }
+            addCriterion(condition, dateList, property);
+        }
+
+        protected void addCriterionForJDBCDate(String condition, Date value1, Date value2, String property) {
+            if (value1 == null || value2 == null) {
+                throw new RuntimeException("Between values for " + property + " cannot be null");
+            }
+            addCriterion(condition, new java.sql.Date(value1.getTime()), new java.sql.Date(value2.getTime()), property);
+        }
+
+        public Criteria andDateIsNull() {
+            addCriterion("date is null");
             return (Criteria) this;
         }
 
-        public Criteria andYearIsNotNull() {
-            addCriterion("year is not null");
+        public Criteria andDateIsNotNull() {
+            addCriterion("date is not null");
             return (Criteria) this;
         }
 
-        public Criteria andYearEqualTo(Integer value) {
-            addCriterion("year =", value, "year");
+        public Criteria andDateEqualTo(Date value) {
+            addCriterionForJDBCDate("date =", value, "date");
             return (Criteria) this;
         }
 
-        public Criteria andYearNotEqualTo(Integer value) {
-            addCriterion("year <>", value, "year");
+        public Criteria andDateNotEqualTo(Date value) {
+            addCriterionForJDBCDate("date <>", value, "date");
             return (Criteria) this;
         }
 
-        public Criteria andYearGreaterThan(Integer value) {
-            addCriterion("year >", value, "year");
+        public Criteria andDateGreaterThan(Date value) {
+            addCriterionForJDBCDate("date >", value, "date");
             return (Criteria) this;
         }
 
-        public Criteria andYearGreaterThanOrEqualTo(Integer value) {
-            addCriterion("year >=", value, "year");
+        public Criteria andDateGreaterThanOrEqualTo(Date value) {
+            addCriterionForJDBCDate("date >=", value, "date");
             return (Criteria) this;
         }
 
-        public Criteria andYearLessThan(Integer value) {
-            addCriterion("year <", value, "year");
+        public Criteria andDateLessThan(Date value) {
+            addCriterionForJDBCDate("date <", value, "date");
             return (Criteria) this;
         }
 
-        public Criteria andYearLessThanOrEqualTo(Integer value) {
-            addCriterion("year <=", value, "year");
+        public Criteria andDateLessThanOrEqualTo(Date value) {
+            addCriterionForJDBCDate("date <=", value, "date");
             return (Criteria) this;
         }
 
-        public Criteria andYearIn(List<Integer> values) {
-            addCriterion("year in", values, "year");
+        public Criteria andDateIn(List<Date> values) {
+            addCriterionForJDBCDate("date in", values, "date");
             return (Criteria) this;
         }
 
-        public Criteria andYearNotIn(List<Integer> values) {
-            addCriterion("year not in", values, "year");
+        public Criteria andDateNotIn(List<Date> values) {
+            addCriterionForJDBCDate("date not in", values, "date");
             return (Criteria) this;
         }
 
-        public Criteria andYearBetween(Integer value1, Integer value2) {
-            addCriterion("year between", value1, value2, "year");
+        public Criteria andDateBetween(Date value1, Date value2) {
+            addCriterionForJDBCDate("date between", value1, value2, "date");
             return (Criteria) this;
         }
 
-        public Criteria andYearNotBetween(Integer value1, Integer value2) {
-            addCriterion("year not between", value1, value2, "year");
+        public Criteria andDateNotBetween(Date value1, Date value2) {
+            addCriterionForJDBCDate("date not between", value1, value2, "date");
             return (Criteria) this;
         }
 
-        public Criteria andIncomeIsNull() {
-            addCriterion("income is null");
+        public Criteria andShareIsNull() {
+            addCriterion("share is null");
             return (Criteria) this;
         }
 
-        public Criteria andIncomeIsNotNull() {
-            addCriterion("income is not null");
+        public Criteria andShareIsNotNull() {
+            addCriterion("share is not null");
             return (Criteria) this;
         }
 
-        public Criteria andIncomeEqualTo(Integer value) {
-            addCriterion("income =", value, "income");
+        public Criteria andShareEqualTo(Double value) {
+            addCriterion("share =", value, "share");
             return (Criteria) this;
         }
 
-        public Criteria andIncomeNotEqualTo(Integer value) {
-            addCriterion("income <>", value, "income");
+        public Criteria andShareNotEqualTo(Double value) {
+            addCriterion("share <>", value, "share");
             return (Criteria) this;
         }
 
-        public Criteria andIncomeGreaterThan(Integer value) {
-            addCriterion("income >", value, "income");
+        public Criteria andShareGreaterThan(Double value) {
+            addCriterion("share >", value, "share");
             return (Criteria) this;
         }
 
-        public Criteria andIncomeGreaterThanOrEqualTo(Integer value) {
-            addCriterion("income >=", value, "income");
+        public Criteria andShareGreaterThanOrEqualTo(Double value) {
+            addCriterion("share >=", value, "share");
             return (Criteria) this;
         }
 
-        public Criteria andIncomeLessThan(Integer value) {
-            addCriterion("income <", value, "income");
+        public Criteria andShareLessThan(Double value) {
+            addCriterion("share <", value, "share");
             return (Criteria) this;
         }
 
-        public Criteria andIncomeLessThanOrEqualTo(Integer value) {
-            addCriterion("income <=", value, "income");
+        public Criteria andShareLessThanOrEqualTo(Double value) {
+            addCriterion("share <=", value, "share");
             return (Criteria) this;
         }
 
-        public Criteria andIncomeIn(List<Integer> values) {
-            addCriterion("income in", values, "income");
+        public Criteria andShareIn(List<Double> values) {
+            addCriterion("share in", values, "share");
             return (Criteria) this;
         }
 
-        public Criteria andIncomeNotIn(List<Integer> values) {
-            addCriterion("income not in", values, "income");
+        public Criteria andShareNotIn(List<Double> values) {
+            addCriterion("share not in", values, "share");
             return (Criteria) this;
         }
 
-        public Criteria andIncomeBetween(Integer value1, Integer value2) {
-            addCriterion("income between", value1, value2, "income");
+        public Criteria andShareBetween(Double value1, Double value2) {
+            addCriterion("share between", value1, value2, "share");
             return (Criteria) this;
         }
 
-        public Criteria andIncomeNotBetween(Integer value1, Integer value2) {
-            addCriterion("income not between", value1, value2, "income");
-            return (Criteria) this;
-        }
-
-        public Criteria andWeightIsNull() {
-            addCriterion("weight is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andWeightIsNotNull() {
-            addCriterion("weight is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andWeightEqualTo(Integer value) {
-            addCriterion("weight =", value, "weight");
-            return (Criteria) this;
-        }
-
-        public Criteria andWeightNotEqualTo(Integer value) {
-            addCriterion("weight <>", value, "weight");
-            return (Criteria) this;
-        }
-
-        public Criteria andWeightGreaterThan(Integer value) {
-            addCriterion("weight >", value, "weight");
-            return (Criteria) this;
-        }
-
-        public Criteria andWeightGreaterThanOrEqualTo(Integer value) {
-            addCriterion("weight >=", value, "weight");
-            return (Criteria) this;
-        }
-
-        public Criteria andWeightLessThan(Integer value) {
-            addCriterion("weight <", value, "weight");
-            return (Criteria) this;
-        }
-
-        public Criteria andWeightLessThanOrEqualTo(Integer value) {
-            addCriterion("weight <=", value, "weight");
-            return (Criteria) this;
-        }
-
-        public Criteria andWeightIn(List<Integer> values) {
-            addCriterion("weight in", values, "weight");
-            return (Criteria) this;
-        }
-
-        public Criteria andWeightNotIn(List<Integer> values) {
-            addCriterion("weight not in", values, "weight");
-            return (Criteria) this;
-        }
-
-        public Criteria andWeightBetween(Integer value1, Integer value2) {
-            addCriterion("weight between", value1, value2, "weight");
-            return (Criteria) this;
-        }
-
-        public Criteria andWeightNotBetween(Integer value1, Integer value2) {
-            addCriterion("weight not between", value1, value2, "weight");
+        public Criteria andShareNotBetween(Double value1, Double value2) {
+            addCriterion("share not between", value1, value2, "share");
             return (Criteria) this;
         }
     }

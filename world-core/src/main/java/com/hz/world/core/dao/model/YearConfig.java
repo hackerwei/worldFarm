@@ -9,6 +9,8 @@ public class YearConfig implements Serializable {
 
     private Integer income;
 
+    private Integer weight;
+
     public Integer getYear() {
         return year;
     }
@@ -23,5 +25,13 @@ public class YearConfig implements Serializable {
 
     public void setIncome(Integer income) {
         this.income = income;
+    }
+
+    public Integer getWeight() {
+        return weight;
+    }
+
+    public void setWeight(Integer weight) {
+        this.weight = weight;
     }
 }

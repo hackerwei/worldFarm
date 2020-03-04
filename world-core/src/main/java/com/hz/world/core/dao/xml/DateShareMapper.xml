@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-  <mapper namespace="com.hz.world.core.dao.mapper.YearConfigMapper" >
-    <resultMap id="YearConfigResult" type="com.hz.world.core.dao.model.YearConfig" >
-      <id column="year" property="year" jdbcType="INTEGER" />
-      <result column="income" property="income" jdbcType="INTEGER" />
-      <result column="weight" property="weight" jdbcType="INTEGER" />
+  <mapper namespace="com.hz.world.core.dao.mapper.DateShareMapper" >
+    <resultMap id="DateShareResult" type="com.hz.world.core.dao.model.DateShare" >
+      <id column="date" property="date" jdbcType="DATE" />
+      <result column="share" property="share" jdbcType="DOUBLE" />
     </resultMap>
     <sql id="Example_Where_Clause" >
       <where >
@@ -64,16 +63,16 @@
         </foreach>
       </where>
     </sql>
-    <sql id="YearConfigColumns" >
-      year, income, weight
+    <sql id="DateShareColumns" >
+      date, share
     </sql>
-    <select id="selectByExample" resultMap="YearConfigResult" parameterType="com.hz.world.core.dao.model.YearConfigExample" >
+    <select id="selectByExample" resultMap="DateShareResult" parameterType="com.hz.world.core.dao.model.DateShareExample" >
       select
       <if test="distinct" >
         distinct
       </if>
-      <include refid="YearConfigColumns" />
-      from year_config
+      <include refid="DateShareColumns" />
+      from date_share
       <if test="_parameter != null" >
         <include refid="Example_Where_Clause" />
       </if>
@@ -86,70 +85,59 @@
         </if>
       </if>
     </select>
-    <select id="selectByPrimaryKey" resultMap="YearConfigResult" parameterType="java.lang.Integer" >
+    <select id="selectByPrimaryKey" resultMap="DateShareResult" parameterType="java.util.Date" >
       select 
-      <include refid="YearConfigColumns" />
-      from year_config
-      where year = #{year,jdbcType=INTEGER}
+      <include refid="DateShareColumns" />
+      from date_share
+      where date = #{date,jdbcType=DATE}
     </select>
-    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-      delete from year_config
-      where year = #{year,jdbcType=INTEGER}
+    <delete id="deleteByPrimaryKey" parameterType="java.util.Date" >
+      delete from date_share
+      where date = #{date,jdbcType=DATE}
     </delete>
-    <delete id="deleteByExample" parameterType="com.hz.world.core.dao.model.YearConfigExample" >
-      delete from year_config
+    <delete id="deleteByExample" parameterType="com.hz.world.core.dao.model.DateShareExample" >
+      delete from date_share
       <if test="_parameter != null" >
         <include refid="Example_Where_Clause" />
       </if>
     </delete>
-    <insert id="insert" parameterType="com.hz.world.core.dao.model.YearConfig" >
-      insert into year_config (year, income, weight
-        )
-      values (#{year,jdbcType=INTEGER}, #{income,jdbcType=INTEGER}, #{weight,jdbcType=INTEGER}
-        )
+    <insert id="insert" parameterType="com.hz.world.core.dao.model.DateShare" >
+      insert into date_share (date, share)
+      values (#{date,jdbcType=DATE}, #{share,jdbcType=DOUBLE})
     </insert>
-    <insert id="insertSelective" parameterType="com.hz.world.core.dao.model.YearConfig" >
-      insert into year_config
+    <insert id="insertSelective" parameterType="com.hz.world.core.dao.model.DateShare" >
+      insert into date_share
       <trim prefix="(" suffix=")" suffixOverrides="," >
-        <if test="year != null" >
-          year,
+        <if test="date != null" >
+          date,
         </if>
-        <if test="income != null" >
-          income,
-        </if>
-        <if test="weight != null" >
-          weight,
+        <if test="share != null" >
+          share,
         </if>
       </trim>
       <trim prefix="values (" suffix=")" suffixOverrides="," >
-        <if test="year != null" >
-          #{year,jdbcType=INTEGER},
+        <if test="date != null" >
+          #{date,jdbcType=DATE},
         </if>
-        <if test="income != null" >
-          #{income,jdbcType=INTEGER},
-        </if>
-        <if test="weight != null" >
-          #{weight,jdbcType=INTEGER},
+        <if test="share != null" >
+          #{share,jdbcType=DOUBLE},
         </if>
       </trim>
     </insert>
-    <select id="countByExample" parameterType="com.hz.world.core.dao.model.YearConfigExample" resultType="java.lang.Integer" >
-      select count(*) from year_config
+    <select id="countByExample" parameterType="com.hz.world.core.dao.model.DateShareExample" resultType="java.lang.Integer" >
+      select count(*) from date_share
       <if test="_parameter != null" >
         <include refid="Example_Where_Clause" />
       </if>
     </select>
     <update id="updateByExampleSelective" parameterType="map" >
-      update year_config
+      update date_share
       <set >
-        <if test="record.year != null" >
-          year = #{record.year,jdbcType=INTEGER},
+        <if test="record.date != null" >
+          date = #{record.date,jdbcType=DATE},
         </if>
-        <if test="record.income != null" >
-          income = #{record.income,jdbcType=INTEGER},
-        </if>
-        <if test="record.weight != null" >
-          weight = #{record.weight,jdbcType=INTEGER},
+        <if test="record.share != null" >
+          share = #{record.share,jdbcType=DOUBLE},
         </if>
       </set>
       <if test="_parameter != null" >
@@ -157,30 +145,25 @@
       </if>
     </update>
     <update id="updateByExample" parameterType="map" >
-      update year_config
-      set year = #{record.year,jdbcType=INTEGER},
-        income = #{record.income,jdbcType=INTEGER},
-        weight = #{record.weight,jdbcType=INTEGER}
+      update date_share
+      set date = #{record.date,jdbcType=DATE},
+        share = #{record.share,jdbcType=DOUBLE}
       <if test="_parameter != null" >
         <include refid="Update_By_Example_Where_Clause" />
       </if>
     </update>
-    <update id="updateByPrimaryKeySelective" parameterType="com.hz.world.core.dao.model.YearConfig" >
-      update year_config
+    <update id="updateByPrimaryKeySelective" parameterType="com.hz.world.core.dao.model.DateShare" >
+      update date_share
       <set >
-        <if test="income != null" >
-          income = #{income,jdbcType=INTEGER},
-        </if>
-        <if test="weight != null" >
-          weight = #{weight,jdbcType=INTEGER},
+        <if test="share != null" >
+          share = #{share,jdbcType=DOUBLE},
         </if>
       </set>
-      where year = #{year,jdbcType=INTEGER}
+      where date = #{date,jdbcType=DATE}
     </update>
-    <update id="updateByPrimaryKey" parameterType="com.hz.world.core.dao.model.YearConfig" >
-      update year_config
-      set income = #{income,jdbcType=INTEGER},
-        weight = #{weight,jdbcType=INTEGER}
-      where year = #{year,jdbcType=INTEGER}
+    <update id="updateByPrimaryKey" parameterType="com.hz.world.core.dao.model.DateShare" >
+      update date_share
+      set share = #{share,jdbcType=DOUBLE}
+      where date = #{date,jdbcType=DATE}
     </update>
   </mapper>
