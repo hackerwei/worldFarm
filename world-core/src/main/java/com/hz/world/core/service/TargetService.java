@@ -63,4 +63,10 @@ public interface TargetService {
 	 * @return
 	 */
 	public List<ForeverShareElementDTO> getForeverElementList();
+	
+	/**
+	 * 发送限时分红小龙虾
+	 * @param userId
+	 */
+	public void addLimitShareElement(Long userId);
 }

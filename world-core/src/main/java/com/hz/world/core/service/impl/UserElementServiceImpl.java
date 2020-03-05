@@ -1,5 +1,6 @@
 package com.hz.world.core.service.impl;
 
+import com.hz.world.account.domain.dto.UserBaseInfoDTO;
 import com.hz.world.account.service.UserBaseInfoService;
 import com.hz.world.common.dto.ResultCodeEnum;
 import com.hz.world.common.dto.ResultDTO;
@@ -57,7 +58,7 @@ public class UserElementServiceImpl implements UserElementService {
 		ResultDTO<String> resultDTO = new ResultDTO<String>();
 		try {
 			userCoinService.updateUserCoin(userId);
-			UserElement userElement = userElementDao.fingUserElement(userId, element);
+			UserElement userElement = userElementDao.findUserElement(userId, element);
 			int initLevel = 0;
 			if (userElement != null ) {
 				initLevel = userElement.getLevel();
@@ -111,6 +112,23 @@ public class UserElementServiceImpl implements UserElementService {
 					collectService.collect(userId, CollectType.ELEMENT.getCode(), "1");
 				}
 			}
+			//更新用户总体重
+			UserBaseInfoDTO user = userBaseInfoService.getByUserId(userId);
+			user.setWeight(totalWeight);
+			//激活用户
+			if (originLevel == 0) {	
+				user.setActive(1);
+			}
+			userBaseInfoService.update(user);		
+			//喂养小龙虾到200斤，获取限时分红小龙虾
+			if (element == 1) {
+			
+				coreCacheUtil.addWeight(userId, newLevel - originLevel);
+				int weight = coreCacheUtil.getWeight(userId);
+				if (weight >= 200) {
+					
+				}
+			}
 			resultDTO.set(ResultCodeEnum.SUCCESS, "OK");
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -162,7 +180,7 @@ public class UserElementServiceImpl implements UserElementService {
 	}
 	
 	private BigDecimal getOutputCoin(Long userId, Integer element) {
-		UserElement userElement = userElementDao.fingUserElement(userId, element);
+		UserElement userElement = userElementDao.findUserElement(userId, element);
 		ElementConfig config = configCacheUtil.getElement(element);
 		if (userElement == null || config == null) {
 			return BigDecimal.valueOf(0);

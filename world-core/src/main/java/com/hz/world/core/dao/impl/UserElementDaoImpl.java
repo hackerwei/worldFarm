@@ -24,7 +24,7 @@ public class UserElementDaoImpl {
     @Autowired
     private UserElementExtMapper userElementExtMapper;
   
-    public UserElement fingUserElement(Long userId,Integer element) {
+    public UserElement findUserElement(Long userId,Integer element) {
         return userElementMapper.selectByPrimaryKey(element, userId);
     }
    

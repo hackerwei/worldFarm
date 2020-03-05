@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.hz.world.account.domain.dto.UserBaseInfoDTO;
 import com.hz.world.account.service.UserBaseInfoService;
+import com.hz.world.common.ids.IDGenerator;
 import com.hz.world.common.util.DateUtil;
 import com.hz.world.core.common.util.ConfigCacheUtil;
 import com.hz.world.core.dao.impl.DateShareDaoImpl;
@@ -136,6 +137,33 @@ public class TargetServiceImpl implements TargetService {
 			}
 		}
 		return result;
+	}
+	@Override
+	public void addLimitShareElement(Long userId) {
+		int count = getUserLimitShareCount(userId);
+		double totalIncome = getTodayTotalShare();
+		long time = 0;
+		//第一次9分钟，第二次6分钟，后面的3分钟
+		if (count == 0) {
+			time = 9;
+		}
+		else if (count == 1) {
+			time = 6 ;
+		}
+		else {
+			time = 3;
+		}
+		Date create = new Date();
+		Date finish = DateUtil.addHourMin(create, 0, (int)time);
+		double income = totalIncome/10000/1440 * 3;
+		UserLimitShare share = new UserLimitShare();
+		share.setUserId(userId);
+		share.setId(IDGenerator.getUniqueId());
+		share.setStatus(0);
+		share.setIncome(income);
+		share.setAddTime(create);
+		share.setFinishTime(finish);
+		userLimitShareDao.insert(share);
 	}
 
 }

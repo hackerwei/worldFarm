@@ -382,12 +382,8 @@ public class CoreCacheUtil {
 		String key = String.format(RedisConstants.USER_AD, userId);
 		redisService.incr(key);
 		String todayKey = String.format(RedisConstants.USER_TODAY_AD, userId);
-		if (redisService.exists(todayKey)) {
-			redisService.incr(todayKey);
-		}else {
-			redisService.incr(todayKey);
-			redisService.expire(todayKey, DateUtil.getSecondToTomorrow());
-		}
+		redisService.incr(todayKey, DateUtil.getSecondToTomorrow());
+		
 	}
 	public int getUserAdCount(Long userId) {
 		String key = String.format(RedisConstants.USER_AD, userId);
@@ -405,5 +401,26 @@ public class CoreCacheUtil {
 			return 0;
 		}
 		return Integer.parseInt(value);
+	}
+
+	/**
+	 * 增加喂养小龙虾体重
+	 * @param userId
+	 */
+	public void addWeight(Long userId, long weight) {
+		String key = String.format(RedisConstants.USER_FEED_WEIGHT, userId);
+		redisService.incrBy(key, weight);
+	}
+	public int getWeight(Long userId) {
+		String key = String.format(RedisConstants.USER_FEED_WEIGHT, userId);
+		String value = redisService.get(key);
+		if (value == null) {
+			return 0;
+		}
+		return Integer.parseInt(value);
+	}
+	public void subWeight(Long userId, long weight) {
+		String key = String.format(RedisConstants.USER_FEED_WEIGHT, userId);
+		redisService.decrBy(key, weight);
 	}
 }
