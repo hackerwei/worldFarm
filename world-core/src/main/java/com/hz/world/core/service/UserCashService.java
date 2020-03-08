@@ -1,5 +1,6 @@
 package com.hz.world.core.service;
 
+import java.util.Date;
 import java.util.List;
 
 import com.hz.world.core.domain.dto.UserCashChangeLogDTO;
@@ -16,7 +17,7 @@ public interface UserCashService {
 	 * @param content
 	 * @return
 	 */
-	public void createCashChangeLog(Long userId, Double num, Double afterNum,Integer relateType, Integer type, String content);
+	public void createCashChangeLog(Long userId, Double num, Double afterNum,Integer relateType, Integer type, String content,Date addTime);
 	
 	/**
 	 * 资金变动记录

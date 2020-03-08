@@ -69,4 +69,10 @@ public interface TargetService {
 	 * @param userId
 	 */
 	public void addLimitShareElement(Long userId);
+	
+	/**
+	 * 限时分红小龙虾收益
+	 * @param userId
+	 */
+	public void limitFinishedCash(Long userId);
 }

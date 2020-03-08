@@ -1,5 +1,6 @@
 package com.hz.world.core.service.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,7 +66,7 @@ public class RechargeServiceImpl implements RechargeService {
 				resultDTO.set(ResultCodeEnum.ERROR_HANDLE, "现金不足");
 				return resultDTO;
 			}
-			userCashService.createCashChangeLog(userId, (double)config.getPrice(), user.getCash() - config.getPrice(), 0, CashChangeType.RECHARGE.getCode(), CashChangeType.RECHARGE.getDesc());
+			userCashService.createCashChangeLog(userId, (double)config.getPrice(), user.getCash() - config.getPrice(), 0, CashChangeType.RECHARGE.getCode(), CashChangeType.RECHARGE.getDesc(), new Date());
 			
 			//增加钻石
 			int diamond = config.getNum() + config.getGift();

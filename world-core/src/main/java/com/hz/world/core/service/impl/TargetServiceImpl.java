@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.hz.world.account.domain.dto.UserBaseInfoDTO;
 import com.hz.world.account.service.UserBaseInfoService;
+import com.hz.world.common.enums.CashChangeType;
 import com.hz.world.common.ids.IDGenerator;
 import com.hz.world.common.util.DateUtil;
 import com.hz.world.core.common.util.ConfigCacheUtil;
@@ -23,6 +24,7 @@ import com.hz.world.core.domain.dto.ForeverShareElementDTO;
 import com.hz.world.core.domain.dto.OtherElementDTO;
 import com.hz.world.core.domain.dto.limitShareElementDTO;
 import com.hz.world.core.service.TargetService;
+import com.hz.world.core.service.UserCashService;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -44,6 +46,8 @@ public class TargetServiceImpl implements TargetService {
 	private UserCatchDaoImpl userCatchDao;
 	@Autowired
 	private UserBaseInfoService userBaseInfoService;
+	@Autowired
+	private UserCashService userCashService;
 	@Override
 	public Double getTodayTotalShare() {
 		DateShare share = dateShareDao.findByDate(DateUtil.getTodayDate());
@@ -164,6 +168,23 @@ public class TargetServiceImpl implements TargetService {
 		share.setAddTime(create);
 		share.setFinishTime(finish);
 		userLimitShareDao.insert(share);
+	}
+	@Override
+	public void limitFinishedCash(Long userId) {
+		List<UserLimitShare> list = userLimitShareDao.getFinishedList(userId);
+		if (list != null && list.size() > 0) {
+			for (UserLimitShare userLimitShare : list) {
+				//增加现金收益
+				if (userBaseInfoService.updateUserCash(userId, userLimitShare.getIncome())) {
+					userCashService.createCashChangeLog(userId, userLimitShare.getIncome(), null, 1, CashChangeType.LIMIT_SHARE.getCode(), CashChangeType.LIMIT_SHARE.getDesc(), userLimitShare.getFinishTime());
+					userLimitShare.setStatus(1);
+					//更改记录状态
+					userLimitShareDao.update(userLimitShare);
+				}
+				
+				
+			}
+		}
 	}
 
 }

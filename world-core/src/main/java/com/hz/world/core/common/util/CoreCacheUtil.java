@@ -115,6 +115,10 @@ public class CoreCacheUtil {
 	}
 	public void addUserElementValue(Long userId, Integer element, String field, String value) {
 		String key = String.format(RedisConstants.RICHER_USER_ELEMENT, userId, element);
+		redisService.hincrByFloat(key, field, Double.parseDouble(value));
+	}
+	public void setUserElementValue(Long userId, Integer element, String field, String value) {
+		String key = String.format(RedisConstants.RICHER_USER_ELEMENT, userId, element);
 		redisService.hset(key, field, value);
 	}
 

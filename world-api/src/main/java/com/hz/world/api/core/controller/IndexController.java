@@ -1,6 +1,7 @@
 package com.hz.world.api.core.controller;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -14,26 +15,32 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.alibaba.fastjson.JSONObject;
 import com.hz.world.account.domain.dto.UserBaseInfoDTO;
 import com.hz.world.account.service.UserBaseInfoService;
 import com.hz.world.api.account.request.UserInfoRequest;
 import com.hz.world.api.common.cache.ApiCacheUtil;
 import com.hz.world.api.core.domain.dto.GeneralResultMap;
+import com.hz.world.api.core.domain.dto.MessageDTO;
 import com.hz.world.api.core.domain.dto.OfflineRewardDTO;
 import com.hz.world.api.core.domain.dto.SysReturnCode;
 import com.hz.world.api.core.domain.dto.UserCoinOutDTO;
 import com.hz.world.api.core.domain.request.IndexRequest;
 import com.hz.world.common.constant.CoinConstants;
-import com.hz.world.common.dto.ResultCodeEnum;
 import com.hz.world.common.dto.ResultDTO;
 import com.hz.world.common.enums.CoinChangeType;
 import com.hz.world.common.enums.ElementAdd;
+import com.hz.world.common.enums.MessageType;
+import com.hz.world.core.dao.model.UserRequireCoinLog;
+import com.hz.world.core.dao.model.UserSendCoinLog;
 import com.hz.world.core.domain.dto.UserCoinDTO;
 import com.hz.world.core.domain.dto.UserElementDTO;
 import com.hz.world.core.domain.dto.UserTmpIncomeDTO;
 import com.hz.world.core.service.ExpressService;
+import com.hz.world.core.service.FactoryService;
 import com.hz.world.core.service.FortuneService;
 import com.hz.world.core.service.TakeOutService;
+import com.hz.world.core.service.TargetService;
 import com.hz.world.core.service.UserCoinService;
 import com.hz.world.core.service.UserElementService;
 
@@ -60,6 +67,10 @@ public class IndexController {
 	private ExpressService expressService;
 	@Autowired
 	private TakeOutService takeOutService;
+	@Autowired
+	private TargetService targetService;
+	@Autowired
+	private FactoryService factoryService;
 	@Autowired
 	private ApiCacheUtil apiCacheUtil;
 
@@ -181,6 +192,33 @@ public class IndexController {
 					data.put("offlineReward", reward);
 				}
 			}
+			List<MessageDTO> messageList = new ArrayList<MessageDTO>();
+			
+			UserSendCoinLog  sendCoinLog = factoryService.getUnReadSendLog(userId) ;
+			if (sendCoinLog != null) {
+				UserBaseInfoDTO userInfo = userBaseInfoService.getByUserId(sendCoinLog.getUserId());
+				MessageDTO message = new MessageDTO();
+				message.setUserId(userInfo.getUserId());
+				message.setNickname(userInfo.getNickname());
+				message.setHeadImg(userInfo.getHeadImg());
+				message.setMessageType(MessageType.RECV_COIN.getCode());
+				JSONObject body = new JSONObject();
+				body.put("coin", sendCoinLog.getCoin());
+				message.setContent(body.toJSONString());
+				messageList.add(message);
+			}
+			UserRequireCoinLog requireCoinLog = factoryService.getUnReadRequireLog(userId);
+			if (requireCoinLog != null) {
+				UserBaseInfoDTO userInfo = userBaseInfoService.getByUserId(requireCoinLog.getUserId());
+				MessageDTO message = new MessageDTO();
+				message.setUserId(userInfo.getUserId());
+				message.setNickname(userInfo.getNickname());
+				message.setHeadImg(userInfo.getHeadImg());
+				message.setMessageType(MessageType.REQUIRE_COIN.getCode());
+				message.setContent("");
+				messageList.add(message);
+			}
+			
 			data.put("expressCountDown", expressService.getCountDown(userId).getCountDown());
 			data.put("countDown", countDown);
 			data.put("coin", coin.getCoin());
@@ -188,6 +226,8 @@ public class IndexController {
 			data.put("level", user.getLevel());
 			data.put("year", user.getYear());
 			data.put("diamond", user.getDiamond());
+			data.put("messageList", messageList);
+			targetService.limitFinishedCash(userId);
 			apiCacheUtil.setUserOnline(userId, new Date().getTime());
 			outputMap.setResult(SysReturnCode.SUCC, data);
 		} catch (Exception e) {

@@ -1,6 +1,7 @@
 package com.hz.world.core.service.impl;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +33,7 @@ public class UserCashServiceImpl implements UserCashService {
 	private UserCashChangeLogDaoImpl userCashChangeLogDao;
 	
 	@Override
-	public void createCashChangeLog(Long userId, Double num,Double afterNum, Integer relateType, Integer type, String content) {
+	public void createCashChangeLog(Long userId, Double num,Double afterNum, Integer relateType, Integer type, String content,Date addTime) {
 		UserCashChangeLog record = new UserCashChangeLog();
 		record.setId(IDGenerator.getUniqueId());
 		record.setNum(num);
@@ -41,6 +42,7 @@ public class UserCashServiceImpl implements UserCashService {
 		record.setRelatedType(relateType);
 		record.setType(type);
 		record.setContent(content);
+		record.setAddTime(addTime);
 		userCashChangeLogDao.insert(record);
 	}
 	@Override

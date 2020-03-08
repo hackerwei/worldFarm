@@ -1,5 +1,6 @@
 package com.hz.world.core.service.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -89,7 +90,7 @@ public class UnionServiceImpl implements UnionService {
 		UserUnionStep userStep = userUnionStepDao.findByUserId(userId);
 		userStep.setStep(step+1);
 		userUnionStepDao.update(userStep);
-		userCashService.createCashChangeLog(userId, config.getTarget(),null,1, CashChangeType.UNION.getCode(), CashChangeType.UNION.getDesc());
+		userCashService.createCashChangeLog(userId, config.getTarget(),null,1, CashChangeType.UNION.getCode(), CashChangeType.UNION.getDesc(), new Date());
 		return true;
 	}
 	@Override

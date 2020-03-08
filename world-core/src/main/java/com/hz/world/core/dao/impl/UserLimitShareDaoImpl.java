@@ -1,5 +1,6 @@
 package com.hz.world.core.dao.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,7 +41,17 @@ public class UserLimitShareDaoImpl {
     	UserLimitShareExample example = new UserLimitShareExample();
     	UserLimitShareExample.Criteria criteria = example.createCriteria();
     	criteria.andUserIdEqualTo(userId);
+    	criteria.andFinishTimeGreaterThan(new Date());
+    	example.setOrderByClause("add_time desc");
     	
+    	return userLimitShareMapper.selectByExample(example);
+    }
+    public List<UserLimitShare> getFinishedList(Long userId) {
+    	UserLimitShareExample example = new UserLimitShareExample();
+    	UserLimitShareExample.Criteria criteria = example.createCriteria();
+    	criteria.andUserIdEqualTo(userId);
+    	criteria.andStatusEqualTo(0);
+    	criteria.andFinishTimeLessThanOrEqualTo(new Date());
     	example.setOrderByClause("add_time desc");
     	
     	return userLimitShareMapper.selectByExample(example);

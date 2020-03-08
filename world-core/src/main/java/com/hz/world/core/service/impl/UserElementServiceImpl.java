@@ -142,10 +142,11 @@ public class UserElementServiceImpl implements UserElementService {
 		try {
 			userCoinService.updateUserCoin(userId);	
 			//更新元素收益
+			
 			coreCacheUtil.addUserElementValue(userId, element, field, value);
 			BigDecimal output = getOutputCoin(userId, element);
 			//更新单个元素产出
-			coreCacheUtil.addUserElementValue(userId, element, ElementAdd.OUTPUT.getCode(), output.toString());
+			coreCacheUtil.setUserElementValue(userId, element, ElementAdd.OUTPUT.getCode(), output.toString());
 			//更新总的产出率
 			String totalOutput = getUserOutput(userId);
 			userCoinService.updateOutput(userId, totalOutput);
@@ -186,13 +187,13 @@ public class UserElementServiceImpl implements UserElementService {
 			return BigDecimal.valueOf(0);
 		}
 		Map<String,String> addMaps = coreCacheUtil.getUserElementObject(userId,element);
-		int add = 0;
+		double add = 0;
 		if (addMaps != null) {
 			for(Map.Entry<String, String> entry : addMaps.entrySet()){
 			    String mapKey = entry.getKey();
 			    String mapValue = entry.getValue();
 			    if (!mapKey.equals(ElementAdd.OUTPUT.getCode()) && !mapKey.equals(ElementAdd.LEVEL.getCode()) ) {
-			    	add += Integer.parseInt(mapValue);
+			    	add += Double.parseDouble(mapValue);
 				}
 			}
 		}

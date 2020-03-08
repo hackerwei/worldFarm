@@ -18,6 +18,7 @@ import com.hz.world.api.core.domain.dto.GeneralResultMap;
 import com.hz.world.api.core.domain.dto.SysReturnCode;
 import com.hz.world.common.util.BeanUtil;
 import com.hz.world.core.domain.dto.UserCashChangeLogDTO;
+import com.hz.world.core.service.TargetService;
 import com.hz.world.core.service.UserCashService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -34,7 +35,8 @@ public class UserController {
 	private UserBaseInfoService userBaseInfoService;
 	@Autowired
 	private UserCashService userCashService;
-	
+	@Autowired
+	private TargetService targetService;
 
 	@RequestMapping(value = "/info", method = { RequestMethod.POST })
 	public GeneralResultMap userInfo(@RequestHeader("uid") Long userId,@RequestBody UserInfoRequest request) {
@@ -47,7 +49,7 @@ public class UserController {
 				return outputMap;
 			}
 			UserOutDTO dto = BeanUtil.copyProperties(user, UserOutDTO.class);
-			
+			targetService.limitFinishedCash(userId);
 			outputMap.setResult(SysReturnCode.SUCC, dto);
 		} catch (Exception e) {
 			log.error("用户{}查询个人信息失败", userId, e);

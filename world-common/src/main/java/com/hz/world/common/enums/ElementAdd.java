@@ -17,6 +17,7 @@ public enum ElementAdd {
 	OFFER("offer", "祭天"),
 	CATCH("catch", "捕捞"),
 	SHOP("shop", "商城"),
+	FACTORY("factory", "厂长"),
 	OUTPUT("output", "产出"),
 	;
     private final String code;

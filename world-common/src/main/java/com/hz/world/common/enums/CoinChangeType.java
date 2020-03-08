@@ -15,6 +15,7 @@ public enum CoinChangeType {
     OFFLINE_REWARD(3, "离线收益"),
     SHOP_REWARD(4, "商城收益"),
     INVEST(5, "投资"),
+    FACTORY(6, "厂长"),
     ;
     private final int code;
     private final String desc;
