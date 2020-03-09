@@ -94,24 +94,37 @@ public class CoreCacheUtil {
 		String key = String.format(RedisConstants.RICHER_USER_TOTAL_ADD, userId);
 		redisService.hincrBy(key, field, value);
 	}
-	public int getUserTotalAddByField(Long userId, String field) {
+	public void setUserTotalAdd(Long userId, String field, String value) {
+		String key = String.format(RedisConstants.RICHER_USER_TOTAL_ADD, userId);
+		redisService.hset(key, field, value);
+	}
+	public String getUserTotalAddByField(Long userId, String field) {
 		String key = String.format(RedisConstants.RICHER_USER_TOTAL_ADD, userId);
 		String value = redisService.hget(key, field);
 		if (value == null) {
-			return 1;
+			return "1";
 		}
-		return Integer.parseInt(value);
+		return value;
 	}
-	public int getUserTotalAdd(Long userId) {
+	public String getUserTotalAdd(Long userId) {
 		String key = String.format(RedisConstants.RICHER_USER_TOTAL_ADD, userId);
-		int total = 0;
+		BigDecimal total = new BigDecimal(0);
 		Map<String,String> map = redisService.hgetAll(key);
 		if (map != null && map.size() > 0) {
 			for (Map.Entry<String, String> entry : map.entrySet()) {
-				total += Integer.parseInt(entry.getValue());
+				total = total.add(new BigDecimal(entry.getValue()));
+		
 			}
 		}
-		return total;
+		return total.toString();
+	}
+	public String getUserOfferAdd(Long userId) {
+		String key = String.format(RedisConstants.RICHER_USER_OFFER_TOTAL_ADD, userId);
+		if (redisService.exists(key)) {
+			return redisService.get(key);
+		}
+		redisService.set(key, "2");
+		return redisService.get(key);
 	}
 	public void addUserElementValue(Long userId, Integer element, String field, String value) {
 		String key = String.format(RedisConstants.RICHER_USER_ELEMENT, userId, element);
@@ -426,5 +439,22 @@ public class CoreCacheUtil {
 	public void subWeight(Long userId, long weight) {
 		String key = String.format(RedisConstants.USER_FEED_WEIGHT, userId);
 		redisService.decrBy(key, weight);
+	}
+	
+	public long getWorshipTime(Long userId) {
+		String key = String.format(RedisConstants.USER_WORSHIP, userId);
+		long ttl =  redisService.ttl(key);
+		if (ttl<=0) {
+			ttl = 0;
+		}
+		return ttl;
+	}
+	public void addWorship(Long userId) {
+		String key = String.format(RedisConstants.USER_WORSHIP, userId);
+		redisService.setex(key, 3*3600, "1");
+	}
+	public void clearWorship(Long userId) {
+		String key = String.format(RedisConstants.USER_WORSHIP, userId);
+		redisService.del(key);
 	}
 }

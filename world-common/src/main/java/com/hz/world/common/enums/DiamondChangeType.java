@@ -15,6 +15,7 @@ public enum DiamondChangeType {
     FORTUNE(3, "福袋"),
     TASK(4, "任务"),
     EXPRESS(5, "外卖"),
+    WORSHIP(6, "祭神"),
     ;
     private final int code;
     private final String desc;

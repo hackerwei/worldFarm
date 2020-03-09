@@ -25,6 +25,7 @@ public final class RedisConstants {
 	public static final String RICHER_CONFIG_CHALLENGE = "richer:config:challenge";
 	public static final String RICHER_CONFIG_COLLECT = "richer:config:collect";
 	public static final String RICHER_CONFIG_UNION = "richer:config:union";
+	public static final String RICHER_CONFIG_WORSHIP = "richer:config:worship";
 	/** =========业务相关==================*/
 	public static final String RICHER_USER_ELEMENT = "richer:user:element:%s:%s";
 	/** 用户3小时收益*/
@@ -41,12 +42,16 @@ public final class RedisConstants {
 	public static final String RICHER_RANKING_LIST = "richer:ranking_list:%s";
 	/** 用户全局增益*/
 	public static final String RICHER_USER_TOTAL_ADD = "richer:user:total_add:%s";
+	/** 用户祭祀全局增益*/
+	public static final String RICHER_USER_OFFER_TOTAL_ADD = "richer:user:offer_total_add:%s";
 	/** 用户当日福利是否领取*/
 	public static final String USER_FORTUNE_TODAY = "richer:user:fortune_today:%s";
 	/** 外卖次数*/
 	public static final String USER_TAKE_OUT = "richer:user:take_out:%s";
 	/** 快递倒计时*/
 	public static final String USER_EXPRESS = "richer:user:express:%s";
+	/** 祭神倒计时*/
+	public static final String USER_WORSHIP = "richer:user:worship:%s";
 	/** 上次拉取的最后一个id*/
 	public static final String LAST_INVEST_ID = "richer:user:last_invest_id:%s";
 	/** 用户广告数*/

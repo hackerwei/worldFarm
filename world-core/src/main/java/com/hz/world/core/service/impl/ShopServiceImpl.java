@@ -108,7 +108,7 @@ public class ShopServiceImpl implements ShopService {
 					resultDTO.set(ResultCodeEnum.ERROR_HANDLE, "系统异常");
 					return resultDTO;
 				}
-				int add= userElementService.getUserTotalAddByField(userId, ElementAdd.SHOP.getCode());
+				int add= Integer.parseInt(userElementService.getUserTotalAddByField(userId, ElementAdd.SHOP.getCode()));
 				UserTotalAddLog logData = new UserTotalAddLog();
 				logData.setId(IDGenerator.getUniqueId());
 				logData.setType(ElementAdd.SHOP.getCode());

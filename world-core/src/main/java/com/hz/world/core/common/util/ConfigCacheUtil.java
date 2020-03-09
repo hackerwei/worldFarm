@@ -19,6 +19,7 @@ import com.hz.world.core.dao.impl.RechargeConfigDaoImpl;
 import com.hz.world.core.dao.impl.ShopConfigDaoImpl;
 import com.hz.world.core.dao.impl.TitleConfigDaoImpl;
 import com.hz.world.core.dao.impl.UnionConfigDaoImpl;
+import com.hz.world.core.dao.impl.WorshipDaoImpl;
 import com.hz.world.core.dao.impl.YearConfigDaoImpl;
 import com.hz.world.core.dao.model.CatchConfig;
 import com.hz.world.core.dao.model.ChallengeConfig;
@@ -28,6 +29,7 @@ import com.hz.world.core.dao.model.InvestConfig;
 import com.hz.world.core.dao.model.RechargeConfig;
 import com.hz.world.core.dao.model.ShopConfig;
 import com.hz.world.core.dao.model.UnionConfig;
+import com.hz.world.core.dao.model.Worship;
 import com.hz.world.core.dao.model.YearConfig;
 
 import lombok.extern.slf4j.Slf4j;
@@ -59,7 +61,8 @@ public class ConfigCacheUtil {
 	CollectConfigDaoImpl collectConfigDao;
 	@Autowired
 	UnionConfigDaoImpl unionConfigDao;
-	
+	@Autowired
+	WorshipDaoImpl worshipDao;
 	public ElementConfig getElement(Integer id) {
 		
 		List<ElementConfig> list = getElementList();
@@ -308,5 +311,28 @@ public class ConfigCacheUtil {
 		}
 		return null;
 	}
-	
+	public List<Worship> getWorshipList(){
+		String key = RedisConstants.RICHER_CONFIG_WORSHIP;
+		List<Worship> list = new ArrayList<Worship>();
+		if (!redisService.exists(key)) {
+			list = worshipDao.findAll();
+			redisService.set(key, JSON.toJSONString(list));
+		}else {
+			String json = redisService.get(key);
+			list = JSON.parseArray(json, Worship.class);
+
+		}
+		return list;
+	}
+	public Worship getWorshipConfig(Integer id) {
+		List<Worship> list = getWorshipList();
+		if (list != null && list.size() > 0) {
+			for (Worship data : list) {
+				if (data.getId().equals(id)) {
+					return data;
+				}
+			}
+		}
+		return null;
+	}
 } 

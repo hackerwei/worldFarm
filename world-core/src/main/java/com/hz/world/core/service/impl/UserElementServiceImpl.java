@@ -20,6 +20,8 @@ import com.hz.world.core.service.ChallengeService;
 import com.hz.world.core.service.CollectService;
 import com.hz.world.core.service.UserCoinService;
 import com.hz.world.core.service.UserElementService;
+import com.sun.mail.handlers.multipart_mixed;
+
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -219,7 +221,7 @@ public class UserElementServiceImpl implements UserElementService {
 			}
 		}
 		//全局收益
-		int totalAdd = coreCacheUtil.getUserTotalAdd(userId);
+		String totalAdd = coreCacheUtil.getUserTotalAdd(userId);
 		output = output.multiply(new BigDecimal(totalAdd));
 		return output.toString();
 	}
@@ -280,8 +282,12 @@ public class UserElementServiceImpl implements UserElementService {
 		return resultDTO;
 	}
 	@Override
-	public int getUserTotalAddByField(Long userId, String field) {
+	public String getUserTotalAddByField(Long userId, String field) {
 		return coreCacheUtil.getUserTotalAddByField(userId, field);
+	}
+	@Override
+	public void clearElement(Long userId) {
+		userElementDao.delete(userId);
 	}
 
 }

@@ -16,6 +16,7 @@ public enum CoinChangeType {
     SHOP_REWARD(4, "商城收益"),
     INVEST(5, "投资"),
     FACTORY(6, "厂长"),
+    OFFER(7, "祭神"),
     ;
     private final int code;
     private final String desc;

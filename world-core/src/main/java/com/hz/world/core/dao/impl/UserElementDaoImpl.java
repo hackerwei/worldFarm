@@ -31,6 +31,12 @@ public class UserElementDaoImpl {
     public boolean update(UserElement userElement) {
         return userElementMapper.updateByPrimaryKeySelective(userElement) > 0;
     }
+    public boolean delete(Long userId) {
+    	UserElementExample example = new UserElementExample();
+    	UserElementExample.Criteria criteria = example.createCriteria();
+    	criteria.andUserIdEqualTo(userId);
+    	return userElementMapper.deleteByExample(example) > 0;
+    }
 
     public boolean insert(UserElement userElement) {
         return userElementMapper.insertSelective(userElement) > 0;

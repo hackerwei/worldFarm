@@ -69,5 +69,11 @@ public interface UserElementService {
 	 * @param field
 	 * @return
 	 */
-	public int getUserTotalAddByField(Long userId, String field);
+	public String getUserTotalAddByField(Long userId, String field);
+	
+	/**
+	 * 清除所有体重
+	 * @param userId
+	 */
+	public void clearElement(Long userId);
 } 
