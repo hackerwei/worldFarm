@@ -68,7 +68,7 @@ public interface TargetService {
 	 * 发送限时分红小龙虾
 	 * @param userId
 	 */
-	public void addLimitShareElement(Long userId);
+	public int addLimitShareElement(Long userId);
 	
 	/**
 	 * 限时分红小龙虾收益

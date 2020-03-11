@@ -143,10 +143,10 @@ public class TargetServiceImpl implements TargetService {
 		return result;
 	}
 	@Override
-	public void addLimitShareElement(Long userId) {
+	public int addLimitShareElement(Long userId) {
 		int count = getUserLimitShareCount(userId);
 		double totalIncome = getTodayTotalShare();
-		long time = 0;
+		int time = 0;
 		//第一次9分钟，第二次6分钟，后面的3分钟
 		if (count == 0) {
 			time = 9;
@@ -159,15 +159,17 @@ public class TargetServiceImpl implements TargetService {
 		}
 		Date create = new Date();
 		Date finish = DateUtil.addHourMin(create, 0, (int)time);
-		double income = totalIncome/10000/1440 * 3;
+		double income = totalIncome/10000/1440 * time;
 		UserLimitShare share = new UserLimitShare();
 		share.setUserId(userId);
 		share.setId(IDGenerator.getUniqueId());
 		share.setStatus(0);
 		share.setIncome(income);
 		share.setAddTime(create);
+		share.setTime(time*60);
 		share.setFinishTime(finish);
 		userLimitShareDao.insert(share);
+		return time;
 	}
 	@Override
 	public void limitFinishedCash(Long userId) {

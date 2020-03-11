@@ -18,8 +18,8 @@ import com.hz.world.api.core.domain.dto.SysReturnCode;
 import com.hz.world.api.core.domain.dto.UserCoinOutDTO;
 import com.hz.world.api.core.domain.request.ElementRequest;
 import com.hz.world.common.dto.ResultDTO;
+import com.hz.world.core.domain.dto.FeedResultDTO;
 import com.hz.world.core.domain.dto.UserCoinDTO;
-import com.hz.world.core.domain.dto.UserElementDTO;
 import com.hz.world.core.service.UserCoinService;
 import com.hz.world.core.service.UserElementService;
 
@@ -60,7 +60,7 @@ public class elementController {
 				return outputMap;
 			}
 			userCoinService.updateUserCoin(userId);
-			ResultDTO<String> resultDTO = userElementService.upgradeElement(userId, request.getElementId() , request.getProLevel(), request.getNewLevel());
+			ResultDTO<List<FeedResultDTO>> resultDTO = userElementService.upgradeElement(userId, request.getElementId() , request.getProLevel(), request.getNewLevel());
 			if (resultDTO.isSuccess()) {
 				UserCoinDTO coin = userCoinService.getUserCoin(userId);
 				UserCoinOutDTO out = new UserCoinOutDTO();
@@ -69,11 +69,12 @@ public class elementController {
 				out.setOutput(coin.getIcomeRate());
 				Map<String, Object> data = new HashMap<String, Object>();
 				data.put("coin", out);
+				data.put("reward", resultDTO.getResult());
 				data.put("element", userElementService.getUserElement(userId, request.getElementId()));
 				outputMap.setResult(SysReturnCode.SUCC, data);
 				
 			}else {
-				outputMap.setResult(SysReturnCode.FAIL, "升级失败");
+				outputMap.setResult(SysReturnCode.FAIL, resultDTO.getErrDesc());
 			}
 			
 

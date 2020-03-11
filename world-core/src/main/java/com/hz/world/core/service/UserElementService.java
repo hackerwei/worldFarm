@@ -3,6 +3,7 @@ package com.hz.world.core.service;
 import java.util.List;
 
 import com.hz.world.common.dto.ResultDTO;
+import com.hz.world.core.domain.dto.FeedResultDTO;
 import com.hz.world.core.domain.dto.UserElementDTO;
 
 public interface UserElementService {
@@ -16,7 +17,7 @@ public interface UserElementService {
 	 * @param newLevel
 	 * @return
 	 */
-	public ResultDTO<String> upgradeElement(Long userId, Integer element, Integer originLevel, Integer newLevel);
+	public ResultDTO<List<FeedResultDTO>>  upgradeElement(Long userId, Integer element, Integer originLevel, Integer newLevel);
 	
 
 	/**
