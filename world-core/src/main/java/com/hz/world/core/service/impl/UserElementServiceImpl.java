@@ -200,7 +200,28 @@ public class UserElementServiceImpl implements UserElementService {
 		}
 		return resultDTO;
 	}
+	@Override
+	public ResultDTO<String> addElementAddWithoutUpdate(Long userId, Integer element, String field, String value) {
+		ResultDTO<String> resultDTO = new ResultDTO<String>();
+		try {
 
+			// 更新元素收益
+
+			coreCacheUtil.addUserElementValue(userId, element, field, value);
+			BigDecimal output = getOutputCoin(userId, element);
+			// 更新单个元素产出
+			coreCacheUtil.setUserElementValue(userId, element, ElementAdd.OUTPUT.getCode(), output.toString());
+			// 更新总的产出率
+			String totalOutput = getUserOutput(userId);
+			userCoinService.updateOutput(userId, totalOutput);
+			resultDTO.set(ResultCodeEnum.SUCCESS, "OK");
+		} catch (Exception e) {
+			e.printStackTrace();
+			resultDTO.set(ResultCodeEnum.ERROR_HANDLE, "异常");
+		}
+		return resultDTO;
+	}
+	
 	private BigDecimal getCostCoin(Integer element, Integer originLevel, Integer newLevel) {
 		ElementConfig config = configCacheUtil.getElement(element);
 		if (config == null) {
@@ -329,7 +350,21 @@ public class UserElementServiceImpl implements UserElementService {
 		}
 		return resultDTO;
 	}
-
+	@Override
+	public ResultDTO<String> addTotalAddWithoutUpdate(Long userId, String field, Integer value) {
+		ResultDTO<String> resultDTO = new ResultDTO<String>();
+		try {
+			// 更新元素收益
+			coreCacheUtil.addUserTotalAdd(userId, field, value);
+			String totalOutput = getUserOutput(userId);
+			userCoinService.updateOutput(userId, totalOutput);
+			resultDTO.set(ResultCodeEnum.SUCCESS, "OK");
+		} catch (Exception e) {
+			e.printStackTrace();
+			resultDTO.set(ResultCodeEnum.ERROR_HANDLE, "异常");
+		}
+		return resultDTO;
+	}
 	@Override
 	public String getUserTotalAddByField(Long userId, String field) {
 		return coreCacheUtil.getUserTotalAddByField(userId, field);

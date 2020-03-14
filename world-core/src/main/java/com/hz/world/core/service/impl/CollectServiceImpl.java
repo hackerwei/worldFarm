@@ -45,11 +45,12 @@ public class CollectServiceImpl implements CollectService {
 					if (!isInList(collectConfig.getId(), userCollectList)) {	
 						//全体收益
 						if (collectConfig.getRewardElement().equals(11)) {
-							userElementService.addTotalAdd(userId, ElementAdd.COLLECT.getCode(), collectConfig.getPower());
+							userElementService.addTotalAddWithoutUpdate(userId, ElementAdd.COLLECT.getCode(), collectConfig.getPower());
 						}
 						//单元素收益
 						else {
-							userElementService.addElementAdd(userId, collectConfig.getRewardElement(), ElementAdd.COLLECT.getCode(), collectConfig.getPower()+"");
+							userElementService.addElementAddWithoutUpdate(userId, collectConfig.getRewardElement(), ElementAdd.COLLECT.getCode(), collectConfig.getPower()+"");
+						
 						}
 						//增加记录
 						UserCollectLog record = new UserCollectLog();

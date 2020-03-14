@@ -53,8 +53,15 @@ public interface UserElementService {
 	 * @return
 	 */
 	public ResultDTO<String> addElementAdd(Long userId, Integer element, String field, String value);
-	
-
+	/**
+	 * 更新元素收益加成，无需同步金币
+	 * @param userId
+	 * @param element
+	 * @param field
+	 * @param value
+	 * @return
+	 */
+	public ResultDTO<String> addElementAddWithoutUpdate(Long userId, Integer element, String field, String value);
 	/**
 	 * 更新总收益系数
 	 * @param userId
@@ -63,6 +70,14 @@ public interface UserElementService {
 	 * @return
 	 */
 	public ResultDTO<String> addTotalAdd(Long userId, String field, Integer value);
+	/**
+	 * 更新总收益系数,无需同步金币
+	 * @param userId
+	 * @param field
+	 * @param value
+	 * @return
+	 */
+	public ResultDTO<String> addTotalAddWithoutUpdate(Long userId, String field, Integer value);
 	
 	/**
 	 * 获取单系统的的总收益加成
