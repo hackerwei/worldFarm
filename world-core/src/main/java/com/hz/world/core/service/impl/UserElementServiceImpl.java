@@ -373,6 +373,7 @@ public class UserElementServiceImpl implements UserElementService {
 	@Override
 	public void clearElement(Long userId) {
 		userElementDao.delete(userId);
+		userBaseInfoService.updateUserWeight(userId, 0);
 	}
 
 }

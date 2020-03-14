@@ -12,9 +12,9 @@ import com.hz.world.account.service.UserBaseInfoService;
 import com.hz.world.api.core.domain.dto.GeneralResultMap;
 import com.hz.world.api.core.domain.dto.SysReturnCode;
 import com.hz.world.api.core.domain.request.CatchRequest;
+import com.hz.world.api.core.domain.request.WorshipRequest;
 import com.hz.world.common.dto.ResultDTO;
 import com.hz.world.core.domain.dto.OfferResultDTO;
-import com.hz.world.core.service.CollectService;
 import com.hz.world.core.service.WorshipService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -49,11 +49,11 @@ public class WorshipController {
 
 	}
 	@RequestMapping(value = "/offer", method = { RequestMethod.POST })
-	public GeneralResultMap offer(@RequestHeader("uid") Long userId, @RequestBody CatchRequest request) {
+	public GeneralResultMap offer(@RequestHeader("uid") Long userId, @RequestBody WorshipRequest request) {
 		GeneralResultMap outputMap = new GeneralResultMap();
 		try {
 
-			ResultDTO<OfferResultDTO> resultDTO = worshipService.offer(userId);
+			ResultDTO<OfferResultDTO> resultDTO = worshipService.offer(userId,request.getType());
 			if (resultDTO.isSuccess()) {
 				outputMap.setResult(SysReturnCode.SUCC, resultDTO.getResult());
 			}else {

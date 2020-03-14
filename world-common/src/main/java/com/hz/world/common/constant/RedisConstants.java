@@ -26,6 +26,7 @@ public final class RedisConstants {
 	public static final String RICHER_CONFIG_COLLECT = "richer:config:collect";
 	public static final String RICHER_CONFIG_UNION = "richer:config:union";
 	public static final String RICHER_CONFIG_WORSHIP = "richer:config:worship";
+	public static final String RICHER_CONFIG_INVEST = "richer:config:invest";
 	/** =========业务相关==================*/
 	public static final String RICHER_USER_ELEMENT = "richer:user:element:%s:%s";
 	/** 用户3小时收益*/

@@ -185,7 +185,7 @@ public class ConfigCacheUtil {
 		return null;
 	}
 	public List<InvestConfig> getInvestList(){
-		String key = RedisConstants.RICHER_CONFIG_YEAR;
+		String key = RedisConstants.RICHER_CONFIG_INVEST;
 		List<InvestConfig> list = new ArrayList<InvestConfig>();
 		if (!redisService.exists(key)) {
 			list = investConfigDao.findAll();

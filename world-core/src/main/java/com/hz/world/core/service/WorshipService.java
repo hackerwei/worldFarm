@@ -34,5 +34,5 @@ public interface WorshipService {
 	 * @param userId
 	 * @return
 	 */
-	public ResultDTO<OfferResultDTO> offer(Long userId);
+	public ResultDTO<OfferResultDTO> offer(Long userId, Integer type);
 }

@@ -137,7 +137,7 @@ public class WorshipServiceImpl implements WorshipService {
 	}
 
 	@Override
-	public ResultDTO<OfferResultDTO> offer(Long userId) {
+	public ResultDTO<OfferResultDTO> offer(Long userId, Integer type) {
 		ResultDTO<OfferResultDTO> resultDTO = new ResultDTO<OfferResultDTO>();
 		WorshipDTO data = getWorship(userId);
 		if (data.getCountDown() != null && data.getCountDown().getCountDown() > 0) {
@@ -183,6 +183,10 @@ public class WorshipServiceImpl implements WorshipService {
 		result.setIncomeRate(rate.toString());
 		result.setCurrentOffer(rate.multiply(new BigDecimal(50)).toString());
 		coreCacheUtil.addWorship(userId);
+		//清空体重
+		if (type == 1) {
+			userElementService.clearElement(userId);
+		}
 		resultDTO.set(ResultCodeEnum.SUCCESS, "ok",result);
 		return resultDTO;
 	}
