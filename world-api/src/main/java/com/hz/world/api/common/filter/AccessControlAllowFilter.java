@@ -18,7 +18,10 @@ public class AccessControlAllowFilter implements Filter {
 		HttpServletResponse res = (HttpServletResponse) response;
 		res.addHeader("Access-Control-Allow-Origin", "*");
 		res.addHeader("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT, OPTIONS");
-		res.addHeader("Access-Control-Allow-Headers", "x-security,x-token,x-uuid,x-user-id,Authorization,Content-Type,Accept");
+		res.addHeader("Access-Control-Allow-Headers", "token,uid,Authorization,Content-Type,Accept");
+	
+
+	
 		chain.doFilter(request, response);
 	}
 
