@@ -1,6 +1,7 @@
 package com.hz.world.core.service.impl;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.Date;
 
 import org.apache.commons.lang3.StringUtils;
@@ -95,6 +96,8 @@ public class UserCoinServiceImpl implements UserCoinService {
 				BigDecimal b5 =new BigDecimal(income) ;
 				b1 = b1.add(b4);
 				b5 = b5.add(b4);
+				b1.setScale(2, RoundingMode.HALF_UP);
+				b5.setScale(2, RoundingMode.HALF_UP);
 				coin.setCoin(b1.toString()); 
 				coin.setUpdateTime(now);
 				coreCacheUtil.updateCoin(coin);
@@ -149,6 +152,8 @@ public class UserCoinServiceImpl implements UserCoinService {
 				}
 				b1 = b1.subtract(b2);		
 			}
+			b1.setScale(2, RoundingMode.HALF_UP);
+			b2.setScale(2, RoundingMode.HALF_UP);
 			coin.setCoin(b1.toString()); 
 			coreCacheUtil.updateCoin(coin);
 			UserCoinChangeLog record = new UserCoinChangeLog();
@@ -190,6 +195,8 @@ public class UserCoinServiceImpl implements UserCoinService {
 				BigDecimal b3 = new BigDecimal(timeDiff) ;
 				BigDecimal b4 = b2.multiply(b3);
 				b1 = b1.add(b4);
+				b1.setScale(2, RoundingMode.HALF_UP);
+		
 				coin.setCoin(b1.toString()); 
 				coin.setUpdateTime(now);
 				coin.setStartTime(coin.getStartTime());

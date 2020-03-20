@@ -44,7 +44,7 @@ public class FactoryController {
 			if (request == null || request.getToUserId() == null) {
 				outputMap.setResult(SysReturnCode.LACK_PARAMS, "参数不存在");
 			}
-			ResultDTO<String> resultDTO = factoryService.inviteUser(request.getToUserId(), request.getElementId(),
+			ResultDTO<String> resultDTO = factoryService.inviteUser(request.getToUserId(), request.getShareType(),
 					userId);
 			if (resultDTO.isSuccess()) {
 				outputMap.setResult(SysReturnCode.SUCC, "ok");

@@ -13,7 +13,7 @@ public enum CashChangeType {
     FOREVER_SHARE(2, "永久分红小龙虾"),
     UNION(3, "联盟收益"),
     CASH(4, "提现"),
-    
+    BACK(5, "退款"),
     ;
     private final int code;
     private final String desc;

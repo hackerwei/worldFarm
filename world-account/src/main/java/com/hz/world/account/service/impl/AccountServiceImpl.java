@@ -103,7 +103,7 @@ public class AccountServiceImpl implements AccountService {
 		boolean result = false;
 		try {
 
-			headImg = "http://thirdqq.qlogo.cn/g?b=oidb&k=VRc66zPfnDqBZp5CVr2Yhg&s=140&t=1561518998";
+			headImg = "https://puchi-sdk-page.d3games.com/online/defaultAvatar/richerGame/avatar.png";
 
 			
 			UserBaseInfo userBaseInfo = new UserBaseInfo();

@@ -19,4 +19,6 @@ public class FactoryRequest  implements Serializable{
     private Long toUserId;
     
     private Integer elementId;
+    
+    private Integer shareType;
 }

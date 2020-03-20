@@ -98,6 +98,15 @@ public class UserController {
 			UserBaseInfoDTO userBaseInfoDTO = userBaseInfoService.getByUserId(userId);
 			userBaseInfoDTO.setQq(request.getQq());
 			userBaseInfoDTO.setWeixin(request.getWeixin());
+			if (request.getAuth() != null) {
+				userBaseInfoDTO.setAuth(request.getAuth());
+			}
+			if (request.getHeadImg() != null) {
+				userBaseInfoDTO.setHeadImg(request.getHeadImg());
+			}
+			if (request.getNickname() != null) {
+				userBaseInfoDTO.setNickname(request.getNickname());
+			}
 			if (userBaseInfoService.update(userBaseInfoDTO)) {
 				outputMap.setResult(SysReturnCode.SUCC, "修改成功");
 				return outputMap;

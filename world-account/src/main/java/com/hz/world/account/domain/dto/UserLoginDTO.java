@@ -29,4 +29,5 @@ public class UserLoginDTO implements Serializable {
 	private String latitude;
 	private String loginDetail;
 	private String pushId; //android为dhid,ios为推送token
+	private Integer shareType;
 }

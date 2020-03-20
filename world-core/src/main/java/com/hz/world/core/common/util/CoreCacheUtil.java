@@ -66,7 +66,11 @@ public class CoreCacheUtil {
 				coin.setIncomeRate("0");
 				coin.setCoin("100");
 				coin.setUpdateTime(new Date().getTime() / 1000);
+				userCoinDao.insert(coin);
 				userCoinDTO.setIcomeRate("0");
+				userCoinDTO.setCoin("100");
+				userCoinDTO.setUserId(userId);
+				userCoinDTO.setUpdateTime(new Date().getTime() / 1000);
 			}
 			redisService.set(key, JSON.toJSONString(userCoinDTO));
 

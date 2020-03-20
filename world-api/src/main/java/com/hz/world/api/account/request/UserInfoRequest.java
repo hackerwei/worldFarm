@@ -17,5 +17,8 @@ public class UserInfoRequest  extends PageRequest{
 	private Long toId; //翻牌的用户id
 	private String qq;
 	private String weixin;
+	private String headImg;
+	private String nickname;
+	private Integer auth;
    
 }
